@@ -1,0 +1,6 @@
+{
+	"extends": [
+		"@skyra",
+		"plugin:prettier/recommended"
+	]
+}
