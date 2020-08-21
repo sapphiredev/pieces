@@ -1,6 +1,14 @@
 import type { Store } from './Store';
 
 /**
+ * Represents the data from [[PieceContext.extras]] and may be used for dependency injection.
+ * Libraries can provide strict typing by augmenting this module, check
+ * {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation module augmentation}
+ * for more information.
+ */
+export interface PieceContextExtras extends Record<PropertyKey, unknown> {}
+
+/**
  * The context for the piece, contains extra information from the store,
  * the piece's path, and the store that loaded it.
  */
@@ -8,7 +16,7 @@ export interface PieceContext {
 	/**
 	 * The extra information for the piece.
 	 */
-	extra: unknown;
+	readonly extras: PieceContextExtras;
 
 	/**
 	 * The path the piece was loaded from.
@@ -43,9 +51,9 @@ export interface PieceOptions {
  */
 export class Piece {
 	/**
-	 * The context given by the store.
+	 * The extra given by the store or by the user.
 	 */
-	public readonly context: unknown;
+	public readonly extras: PieceContextExtras;
 
 	/**
 	 * The store that contains the piece.
@@ -68,7 +76,7 @@ export class Piece {
 	public enabled: boolean;
 
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
-		this.context = context.extra;
+		this.extras = context.extras;
 		this.store = context.store;
 		this.path = context.path;
 		this.name = options.name ?? '';

@@ -3,10 +3,10 @@ import type { Dirent } from 'fs';
 import { opendir } from 'fs/promises';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
-import type { Piece, PieceOptions } from './Piece';
+import type { Piece, PieceContextExtras } from './Piece';
 import type { FilterResult } from './strategies/filters/IFilter';
 import { LoadJavaScript } from './strategies/filters/LoadJavaScript';
-import type { ILoaderResult } from './strategies/loaders/ILoader';
+import type { ILoaderResult, ILoaderResultEntry } from './strategies/loaders/ILoader';
 import { LoadSingle } from './strategies/loaders/LoadSingle';
 
 /** @private */
@@ -171,7 +171,6 @@ export interface StoreOptions<T extends Piece, C = unknown> {
 export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
 	public readonly paths: Set<string>;
-	public readonly context: unknown;
 	public readonly filterHook: StoreOptionsFilterHook;
 	public readonly preloadHook: StoreOptionsPreLoadHook<T>;
 	public readonly loadHook: StoreOptionsLoadHook<T>;
@@ -187,7 +186,6 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		super();
 		this.Constructor = constructor;
 		this.paths = new Set(options.paths ?? []);
-		this.context = options.context;
 		this.filterHook = options.filterHook ?? LoadJavaScript.getNameData.bind(LoadJavaScript);
 		this.preloadHook = options.preloadHook ?? ((path) => import(path));
 		this.loadHook = options.loadHook ?? LoadSingle.load.bind(LoadSingle);
@@ -220,9 +218,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		const data = this.filterHook(path);
 		if (data === null) return;
 
-		const options: PieceOptions = { name: data.name, enabled: true };
 		for await (const Ctor of this.loadHook(this, path)) {
-			yield this.insert(new Ctor({ extra: this.context, store: (this as unknown) as Store<Piece>, path }, options));
+			yield this.insert(this.construct(Ctor, path, data.name));
 		}
 	}
 
@@ -273,6 +270,13 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
+	 * The extras to be passed to the constructor of all pieces.
+	 */
+	protected get extras(): PieceContextExtras {
+		return {};
+	}
+
+	/**
 	 * Inserts a piece into the store.
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
@@ -283,6 +287,16 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.set(piece.name, piece);
 		this.onPostLoad(this, piece);
 		return piece;
+	}
+
+	/**
+	 * Constructs a [[Piece]] instance.
+	 * @param Ctor The [[Piece]]'s constructor used to build the instance.
+	 * @param path The path of the file.
+	 * @param name The name of the piece.
+	 */
+	protected construct(Ctor: ILoaderResultEntry<T>, path: string, name: string): T {
+		return new Ctor({ extras: this.extras, store: (this as unknown) as Store<Piece>, path }, { name, enabled: true });
 	}
 
 	/**
@@ -297,7 +311,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			if (data === null) continue;
 			try {
 				for await (const Ctor of this.loadHook(this, path)) {
-					yield new Ctor({ extra: this.context, store: (this as unknown) as Store<Piece>, path }, { name: data.name, enabled: true });
+					yield this.construct(Ctor, path, data.name);
 				}
 			} catch (error) {
 				this.onError(error, path);
