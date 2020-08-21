@@ -1,4 +1,4 @@
-import { LoaderError } from '../../errors/LoaderError';
+import { LoaderError, LoaderErrorType } from '../../errors/LoaderError';
 import type { ILoader } from './ILoader';
 import { classExtends, isClass } from '../Shared';
 
@@ -27,7 +27,7 @@ export const LoadMultiple: ILoader = {
 		}
 
 		if (!yielded) {
-			throw new LoaderError('EMPTY_MODULE', 'A compatible class export was not found.');
+			throw new LoaderError(LoaderErrorType.EmptyModule, 'A compatible class export was not found.');
 		}
 	}
 };

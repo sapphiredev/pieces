@@ -18,6 +18,9 @@ export interface ModuleData {
  */
 export type FilterResult = ModuleData | null;
 
+/**
+ * An abstracted filter interface.
+ */
 export interface IFilter {
 	/**
 	 * Retrieves the name and the extension of the specified file path.

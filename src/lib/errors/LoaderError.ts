@@ -1,7 +1,19 @@
-export class LoaderError extends Error {
-	public readonly type: string;
+export const enum LoaderErrorType {
+	EmptyModule = 'EMPTY_MODULE',
+	UnloadedPiece = 'UNLOADED_PIECE',
+	IncorrectType = 'INCORRECT_TYPE'
+}
 
-	public constructor(type: string, message: string) {
+/**
+ * Describes a loader error with a type for easy indentification.
+ */
+export class LoaderError extends Error {
+	/**
+	 * The type of the error that was thrown.
+	 */
+	public readonly type: LoaderErrorType;
+
+	public constructor(type: LoaderErrorType, message: string) {
 		super(message);
 		this.type = type;
 	}

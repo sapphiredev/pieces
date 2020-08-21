@@ -8,7 +8,7 @@ import type { Ctor } from '../Shared';
 export type ILoaderResult<T extends Piece> = AsyncIterableIterator<Ctor<ConstructorParameters<typeof Piece>, T>>;
 
 /**
- * An abstracted
+ * An abstracted loader interface.
  */
 export interface ILoader {
 	/**

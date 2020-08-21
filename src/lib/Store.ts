@@ -2,7 +2,7 @@ import Collection from '@discordjs/collection';
 import type { Dirent } from 'fs';
 import { opendir } from 'fs/promises';
 import { join } from 'path';
-import { LoaderError } from './errors/LoaderError';
+import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceOptions } from './Piece';
 import type { FilterResult } from './strategies/filters/IFilter';
 import { LoadJavaScript } from './strategies/filters/LoadJavaScript';
@@ -170,7 +170,7 @@ export interface StoreOptions<T extends Piece, C = unknown> {
  */
 export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
-	public readonly paths: readonly string[];
+	public readonly paths: Set<string>;
 	public readonly context: unknown;
 	public readonly filterHook: StoreOptionsFilterHook;
 	public readonly preloadHook: StoreOptionsPreLoadHook<T>;
@@ -186,7 +186,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public constructor(constructor: Constructor<T>, options: StoreOptions<T> = {}) {
 		super();
 		this.Constructor = constructor;
-		this.paths = options.paths ?? [];
+		this.paths = new Set(options.paths ?? []);
 		this.context = options.context;
 		this.filterHook = options.filterHook ?? LoadJavaScript.getNameData.bind(LoadJavaScript);
 		this.preloadHook = options.preloadHook ?? ((path) => import(path));
@@ -194,6 +194,21 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.onPostLoad = options.onPostLoad ?? (() => void 0);
 		this.onUnload = options.onUnload ?? (() => void 0);
 		this.onError = options.onError ?? ((error) => console.error(error));
+	}
+
+	/**
+	 * Registers a directory into the store.
+	 * @param path The path to be added.
+	 * @example
+	 * ```typescript
+	 * store
+	 *   .registerPath(resolve('commands'))
+	 *   .registerPath(resolve('third-party', 'commands'));
+	 * ```
+	 */
+	public registerPath(path: string): this {
+		this.paths.add(path);
+		return this;
 	}
 
 	/**
@@ -207,7 +222,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 
 		const options: PieceOptions = { name: data.name, enabled: true };
 		for await (const Ctor of this.loadHook(this, path)) {
-			yield this.insert(new Ctor({ context: this.context, store: (this as unknown) as Store<Piece>, path }, options));
+			yield this.insert(new Ctor({ extra: this.context, store: (this as unknown) as Store<Piece>, path }, options));
 		}
 	}
 
@@ -249,12 +264,12 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public resolve(name: string | T): T {
 		if (typeof name === 'string') {
 			const result = this.get(name);
-			if (typeof result === 'undefined') throw new LoaderError('UNLOADED_PIECE', `The piece '${name}' does not exist.`);
+			if (typeof result === 'undefined') throw new LoaderError(LoaderErrorType.UnloadedPiece, `The piece '${name}' does not exist.`);
 			return result;
 		}
 
 		if (name instanceof this.Constructor) return name;
-		throw new LoaderError('INCORRECT_TYPE', `The piece '${name.name}' is not an instance of '${this.Constructor.name}'.`);
+		throw new LoaderError(LoaderErrorType.IncorrectType, `The piece '${name.name}' is not an instance of '${this.Constructor.name}'.`);
 	}
 
 	/**
@@ -282,7 +297,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			if (data === null) continue;
 			try {
 				for await (const Ctor of this.loadHook(this, path)) {
-					yield new Ctor({ context: this.context, store: (this as unknown) as Store<Piece>, path }, { name: data.name, enabled: true });
+					yield new Ctor({ extra: this.context, store: (this as unknown) as Store<Piece>, path }, { name: data.name, enabled: true });
 				}
 			} catch (error) {
 				this.onError(error, path);

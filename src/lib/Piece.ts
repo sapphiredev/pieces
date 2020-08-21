@@ -8,7 +8,7 @@ export interface PieceContext {
 	/**
 	 * The extra information for the piece.
 	 */
-	context: unknown;
+	extra: unknown;
 
 	/**
 	 * The path the piece was loaded from.
@@ -68,7 +68,7 @@ export class Piece {
 	public enabled: boolean;
 
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
-		this.context = context.context;
+		this.context = context.extra;
 		this.store = context.store;
 		this.path = context.path;
 		this.name = options.name ?? '';
