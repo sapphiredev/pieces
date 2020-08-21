@@ -2,8 +2,28 @@ import Collection from '@discordjs/collection';
 import type { AliasPiece } from './AliasPiece';
 import { Store } from './Store';
 
+/**
+ * The store class which contains [[AliasPiece]]s.
+ */
 export class AliasStore<T extends AliasPiece> extends Store<T> {
+	/**
+	 * The aliases referencing to pieces.
+	 */
 	public readonly aliases = new Collection<string, T>();
+
+	/**
+	 * Looks up the name by the store, falling back to an alias lookup.
+	 * @param key The key to look for.
+	 */
+	public get(key: string): T | undefined {
+		return super.get(key) ?? this.aliases.get(key);
+	}
+
+	/**
+	 * Unloads a piece given its instance or its name, and removes all the aliases.
+	 * @param name The name of the file to load.
+	 * @return Returns the piece that was unloaded.
+	 */
 	public unload(name: string | T): T {
 		const piece = this.resolve(name);
 
@@ -17,8 +37,13 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 		return super.unload(piece);
 	}
 
+	/**
+	 * Inserts a piece into the store, and adds all the aliases.
+	 * @param piece The piece to be inserted into the store.
+	 * @return The inserted piece.
+	 */
 	protected insert(piece: T) {
-		const previous = this.get(piece.name);
+		const previous = super.get(piece.name);
 		if (previous) this.unload(previous);
 
 		for (const key of piece.aliases) {

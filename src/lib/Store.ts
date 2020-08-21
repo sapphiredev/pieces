@@ -4,15 +4,24 @@ import { opendir } from 'fs/promises';
 import { join } from 'path';
 import { LoaderError } from './errors/LoaderError';
 import type { Piece, PieceOptions } from './Piece';
-import type { IPiece } from './strategies/ILoader';
-import { LoadSingle } from './strategies/LoadSingle';
-import { getName } from './Util';
+import type { FilterResult } from './strategies/filters/IFilter';
+import { LoadJavaScript } from './strategies/filters/LoadJavaScript';
+import type { ILoaderResult } from './strategies/loaders/ILoader';
+import { LoadSingle } from './strategies/loaders/LoadSingle';
 
+/** @private */
 type Constructor<T> = new (...args: any[]) => T;
+/** @private */
 type Awaited<T> = PromiseLike<T> | T;
 
 /**
  * The error handler.
+ * @example
+ * ```typescript
+ * // Log errors to console
+ * new Store(MyPiece, {
+ *   onError: (error) => console.error(error)
+ * });
  */
 export interface StoreOptionsErrorHandler {
 	/**
@@ -23,16 +32,42 @@ export interface StoreOptionsErrorHandler {
 }
 
 /**
+ * The filter hook, use this to override the default behavior.
+ * @example
+ * ```typescript
+ * // ts-node support
+ * new Store(MyPiece, {
+ *   filterHook: (path) => {
+ *     const extension = extname(path);
+ *     if (!['.js', '.ts'].includes(extension)) return null;
+ *     const name = basename(path, extension);
+ *     return { extension, name };
+ *   }
+ * });
+ */
+export interface StoreOptionsFilterHook {
+	/**
+	 * @param path The path of the file to get the name and extension from,
+	 * allowing null to stop the store from loading it, e.g. on unsupported extensions.
+	 */
+	(path: string): FilterResult;
+}
+
+/**
  * The pre-load hook, use this to override the loader.
  * @example
  * ```typescript
  * // CommonJS support:
- * ((path) => require(path))
+ * new Store(MyPiece, {
+ *   preloadHook: (path) => require(path)
+ * });
  * ```
  * @example
  * ```typescript
  * // ESM support:
- * ((path) => import(path))
+ * new Store(MyPiece, {
+ *   preloadHook: (path) => import(path)
+ * });
  * ```
  */
 export interface StoreOptionsPreLoadHook<T extends Piece> {
@@ -50,11 +85,11 @@ export interface StoreOptionsPreLoadHook<T extends Piece> {
  * import { LoadMultiple } from '@sapphire/cache';
  *
  * new Store(MyPiece, {
- *   onLoad: LoadMultiple.onLoad.bind(LoadMultiple)
+ *   loadHook: LoadMultiple.load.bind(LoadMultiple)
  * });
  */
 export interface StoreOptionsLoadHook<T extends Piece> {
-	(store: Store<T>, path: string): AsyncIterableIterator<IPiece<T>>;
+	(store: Store<T>, path: string): ILoaderResult<T>;
 }
 
 /**
@@ -94,16 +129,22 @@ export interface StoreOptions<T extends Piece, C = unknown> {
 	readonly context?: C;
 
 	/**
+	 * The filter hook. Setting this will modify the behaviour of the store.
+	 * @default LoadJavaScript.getNameData.bind(LoadJavaScript)
+	 */
+	readonly filterHook?: StoreOptionsFilterHook;
+
+	/**
 	 * The preload hook. Setting this will modify the behaviour of the store.
 	 * @default ((path) => Promise.resolve().then(() => require(path))
 	 */
-	readonly onPreload?: StoreOptionsPreLoadHook<T>;
+	readonly preloadHook?: StoreOptionsPreLoadHook<T>;
 
 	/**
 	 * The load hook. Setting this will modify the behaviour of the store.
 	 * @default LoadSingle.onLoad.bind(LoadSingle)
 	 */
-	readonly onLoad?: StoreOptionsLoadHook<T>;
+	readonly loadHook?: StoreOptionsLoadHook<T>;
 
 	/**
 	 * The post-load handler.
@@ -124,35 +165,57 @@ export interface StoreOptions<T extends Piece, C = unknown> {
 	readonly onError?: StoreOptionsErrorHandler;
 }
 
+/**
+ * The store class which contains [[Piece]]s.
+ */
 export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
 	public readonly paths: readonly string[];
 	public readonly context: unknown;
-	public readonly onPreload: StoreOptionsPreLoadHook<T>;
-	public readonly onLoad: StoreOptionsLoadHook<T>;
+	public readonly filterHook: StoreOptionsFilterHook;
+	public readonly preloadHook: StoreOptionsPreLoadHook<T>;
+	public readonly loadHook: StoreOptionsLoadHook<T>;
 	public readonly onPostLoad: StoreOptionsPostLoadHandler<T>;
 	public readonly onUnload: StoreOptionsUnLoadHandler<T>;
 	public readonly onError: StoreOptionsErrorHandler;
 
+	/**
+	 * @param constructor The piece constructor this store loads.
+	 * @param options The options for the store.
+	 */
 	public constructor(constructor: Constructor<T>, options: StoreOptions<T> = {}) {
 		super();
 		this.Constructor = constructor;
 		this.paths = options.paths ?? [];
 		this.context = options.context;
-		this.onPreload = options.onPreload ?? ((path) => import(path));
-		this.onLoad = options.onLoad ?? LoadSingle.onLoad.bind(LoadSingle);
+		this.filterHook = options.filterHook ?? LoadJavaScript.getNameData.bind(LoadJavaScript);
+		this.preloadHook = options.preloadHook ?? ((path) => import(path));
+		this.loadHook = options.loadHook ?? LoadSingle.load.bind(LoadSingle);
 		this.onPostLoad = options.onPostLoad ?? (() => void 0);
 		this.onUnload = options.onUnload ?? (() => void 0);
 		this.onError = options.onError ?? ((error) => console.error(error));
 	}
 
+	/**
+	 * Loads a piece or more from a path.
+	 * @param path The path of the file to load.
+	 * @return An async iterator that yields each one of the loaded pieces.
+	 */
 	public async *load(path: string): AsyncIterableIterator<T> {
-		const options: PieceOptions = { name: getName(path), enabled: true };
-		for await (const Ctor of this.onLoad(this, path)) {
-			yield this.insert(new Ctor({ context: this.context, path }, options));
+		const data = this.filterHook(path);
+		if (data === null) return;
+
+		const options: PieceOptions = { name: data.name, enabled: true };
+		for await (const Ctor of this.loadHook(this, path)) {
+			yield this.insert(new Ctor({ context: this.context, store: (this as unknown) as Store<Piece>, path }, options));
 		}
 	}
 
+	/**
+	 * Unloads a piece given its instance or its name.
+	 * @param name The name of the file to load.
+	 * @return Returns the piece that was unloaded.
+	 */
 	public unload(name: string | T): T {
 		const piece = this.resolve(name);
 		this.delete(piece.name);
@@ -160,6 +223,9 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		return piece;
 	}
 
+	/**
+	 * Loads all pieces from all directories specified by [[paths]].
+	 */
 	public async loadAll(): Promise<void> {
 		const pieces: T[] = [];
 
@@ -175,29 +241,48 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		}
 	}
 
+	/**
+	 * Resolves a piece by its name or its instance.
+	 * @param name The name of the piece or the instance itself.
+	 * @return The resolved piece.
+	 */
 	public resolve(name: string | T): T {
 		if (typeof name === 'string') {
 			const result = this.get(name);
-			if (typeof result === 'undefined') throw new LoaderError('UNLOADED_PIECE', `The piece ${name} does not exist.`);
+			if (typeof result === 'undefined') throw new LoaderError('UNLOADED_PIECE', `The piece '${name}' does not exist.`);
 			return result;
 		}
 
-		return name;
+		if (name instanceof this.Constructor) return name;
+		throw new LoaderError('INCORRECT_TYPE', `The piece '${name.name}' is not an instance of '${this.Constructor.name}'.`);
 	}
 
+	/**
+	 * Inserts a piece into the store.
+	 * @param piece The piece to be inserted into the store.
+	 * @return The inserted piece.
+	 */
 	protected insert(piece: T): T {
+		if (!piece.enabled) return piece;
+
 		this.set(piece.name, piece);
 		this.onPostLoad(this, piece);
 		return piece;
 	}
 
+	/**
+	 * Loads a directory into the store.
+	 * @param directory The directory to load the pieces from.
+	 * @return An async iterator that yields the pieces to be loaded into the store.
+	 */
 	private async *loadPath(directory: string): AsyncIterableIterator<T> {
 		for await (const child of this.walk(directory)) {
 			const path = join(directory, child.name);
-			const name = getName(path);
+			const data = this.filterHook(path);
+			if (data === null) continue;
 			try {
-				for await (const Ctor of this.onLoad(this, path)) {
-					yield new Ctor({ context: this.context, path }, { name });
+				for await (const Ctor of this.loadHook(this, path)) {
+					yield new Ctor({ context: this.context, store: (this as unknown) as Store<Piece>, path }, { name: data.name, enabled: true });
 				}
 			} catch (error) {
 				this.onError(error, path);
@@ -205,6 +290,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		}
 	}
 
+	/**
+	 * Retrieves all possible pieces.
+	 * @param path The directory to load the pieces from.
+	 * @return An async iterator that yields the modules to be processed and loaded into the store.
+	 */
 	private async *walk(path: string): AsyncIterableIterator<Dirent> {
 		const dir = await opendir(path);
 		for await (const item of dir) {
