@@ -227,9 +227,9 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
-		await piece.onUnload();
 		this.delete(piece.name);
 		this.onUnload(this, piece);
+		await piece.onUnload();
 		return piece;
 	}
 
@@ -282,9 +282,9 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	protected async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
-		await piece.onLoad();
 		this.set(piece.name, piece);
 		this.onPostLoad(this, piece);
+		await piece.onLoad();
 		return piece;
 	}
 

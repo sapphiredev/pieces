@@ -24,7 +24,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public unload(name: string | T): T {
+	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload all aliases for the given piece:
@@ -42,9 +42,9 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
-	protected insert(piece: T) {
+	protected async insert(piece: T) {
 		const previous = super.get(piece.name);
-		if (previous) this.unload(previous);
+		if (previous) await this.unload(previous);
 
 		for (const key of piece.aliases) {
 			this.aliases.set(key, piece);
