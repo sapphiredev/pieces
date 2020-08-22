@@ -1,4 +1,4 @@
-import type { Store } from './Store';
+import type { Awaited, Store } from './Store';
 
 /**
  * Represents the data from [[PieceContext.extras]] and may be used for dependency injection.
@@ -81,6 +81,22 @@ export class Piece {
 		this.path = context.path;
 		this.name = options.name ?? '';
 		this.enabled = options.enabled ?? true;
+	}
+
+	/**
+	 * Per-piece listener that is called when the piece is loaded into the store.
+	 * Useful to set-up asynchronous initialization tasks.
+	 */
+	public onLoad(): Awaited<unknown> {
+		return undefined;
+	}
+
+	/**
+	 * Per-piece listener that is called when the piece is unloaded from the store.
+	 * Useful to set-up clean-up tasks.
+	 */
+	public onUnload(): Awaited<unknown> {
+		return undefined;
 	}
 
 	public toJSON(): Record<string, any> {

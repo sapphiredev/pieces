@@ -8,10 +8,8 @@ import { LoadJavaScript } from './strategies/filters/LoadJavaScript';
 import type { ILoaderResult, ILoaderResultEntry } from './strategies/loaders/ILoader';
 import { LoadSingle } from './strategies/loaders/LoadSingle';
 
-/** @private */
-type Constructor<T> = new (...args: any[]) => T;
-/** @private */
-type Awaited<T> = PromiseLike<T> | T;
+export type Constructor<T> = new (...args: any[]) => T;
+export type Awaited<T> = PromiseLike<T> | T;
 
 /**
  * The error handler.
@@ -218,7 +216,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		if (data === null) return;
 
 		for await (const Ctor of this.loadHook(this, path)) {
-			yield this.insert(this.construct(Ctor, path, data.name));
+			yield await this.insert(this.construct(Ctor, path, data.name));
 		}
 	}
 
@@ -227,8 +225,9 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public unload(name: string | T): T {
+	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
+		await piece.onUnload();
 		this.delete(piece.name);
 		this.onUnload(this, piece);
 		return piece;
@@ -248,7 +247,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 
 		this.clear();
 		for (const piece of pieces) {
-			this.insert(piece);
+			await this.insert(piece);
 		}
 	}
 
@@ -280,9 +279,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
-	protected insert(piece: T): T {
+	protected async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
+		await piece.onLoad();
 		this.set(piece.name, piece);
 		this.onPostLoad(this, piece);
 		return piece;
