@@ -82,4 +82,12 @@ export class Piece {
 		this.name = options.name ?? '';
 		this.enabled = options.enabled ?? true;
 	}
+
+	public toJSON() {
+		return {
+			path: this.path,
+			name: this.name,
+			enabled: this.enabled
+		};
+	}
 }

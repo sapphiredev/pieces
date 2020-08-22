@@ -20,4 +20,11 @@ export class AliasPiece extends Piece {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
 	}
+
+	public toJSON() {
+		return {
+			...super.toJSON(),
+			aliases: this.aliases.slice()
+		};
+	}
 }
