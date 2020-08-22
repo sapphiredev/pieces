@@ -21,7 +21,7 @@ export class AliasPiece extends Piece {
 		this.aliases = options.aliases ?? [];
 	}
 
-	public toJSON() {
+	public toJSON(): Record<string, any> {
 		return {
 			...super.toJSON(),
 			aliases: this.aliases.slice()

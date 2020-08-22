@@ -83,7 +83,7 @@ export class Piece {
 		this.enabled = options.enabled ?? true;
 	}
 
-	public toJSON() {
+	public toJSON(): Record<string, any> {
 		return {
 			path: this.path,
 			name: this.name,
