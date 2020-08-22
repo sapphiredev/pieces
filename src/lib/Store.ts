@@ -1,6 +1,5 @@
 import Collection from '@discordjs/collection';
-import type { Dirent } from 'fs';
-import { opendir } from 'fs/promises';
+import { Dirent, promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
@@ -325,7 +324,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return An async iterator that yields the modules to be processed and loaded into the store.
 	 */
 	private async *walk(path: string): AsyncIterableIterator<Dirent> {
-		const dir = await opendir(path);
+		const dir = await fsp.opendir(path);
 		for await (const item of dir) {
 			if (item.isFile()) yield item;
 			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
