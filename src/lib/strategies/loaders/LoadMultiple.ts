@@ -1,6 +1,6 @@
-import { LoaderError, LoaderErrorType } from '../../errors/LoaderError';
-import type { ILoader } from './ILoader';
+import { MissingExportsError } from '../../errors/MissingExportsError';
 import { classExtends, isClass } from '../Shared';
+import type { ILoader } from './ILoader';
 
 /**
  * The multi-loader. This loader can load multiple classes from a module
@@ -27,7 +27,7 @@ export const LoadMultiple: ILoader = {
 		}
 
 		if (!yielded) {
-			throw new LoaderError(LoaderErrorType.EmptyModule, 'A compatible class export was not found.');
+			throw new MissingExportsError(path);
 		}
 	}
 };

@@ -1,6 +1,6 @@
-import { LoaderError, LoaderErrorType } from '../../errors/LoaderError';
-import type { ILoader } from './ILoader';
+import { MissingExportsError } from '../../errors/MissingExportsError';
 import { classExtends, isClass } from '../Shared';
+import type { ILoader } from './ILoader';
 
 /**
  * The single loader. This loader is the default and returns the first loaded class.
@@ -17,6 +17,6 @@ export const LoadSingle: ILoader = {
 			if (isClass(value) && classExtends(value, store.Constructor)) return yield value;
 		}
 
-		throw new LoaderError(LoaderErrorType.EmptyModule, 'A compatible class export was not found.');
+		throw new MissingExportsError(path);
 	}
 };
