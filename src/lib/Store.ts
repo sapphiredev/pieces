@@ -305,15 +305,14 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	private async *loadPath(directory: string): AsyncIterableIterator<T> {
 		for await (const child of this.walk(directory)) {
-			const path = join(directory, child);
-			const data = this.filterHook(path);
+			const data = this.filterHook(child);
 			if (data === null) continue;
 			try {
-				for await (const Ctor of this.loadHook(this, path)) {
-					yield this.construct(Ctor, path, data.name);
+				for await (const Ctor of this.loadHook(this, child)) {
+					yield this.construct(Ctor, child, data.name);
 				}
 			} catch (error) {
-				this.onError(error, path);
+				this.onError(error, child);
 			}
 		}
 	}
@@ -326,7 +325,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	private async *walk(path: string, subdirectory?: string): AsyncIterableIterator<string> {
 		const dir = await fsp.opendir(path);
 		for await (const item of dir) {
-			if (item.isFile()) yield subdirectory ? join(subdirectory, item.name) : item.name;
+			if (item.isFile()) yield join(path, subdirectory ? join(subdirectory, item.name) : item.name);
 			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name), `${subdirectory ? `${subdirectory}${sep}` : ''}${item.name}`);
 		}
 	}
