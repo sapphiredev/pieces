@@ -1,6 +1,6 @@
 import Collection from '@discordjs/collection';
 import { promises as fsp } from 'fs';
-import { join } from 'path';
+import { join, sep } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
 import type { FilterResult } from './strategies/filters/IFilter';
@@ -327,7 +327,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		const dir = await fsp.opendir(path);
 		for await (const item of dir) {
 			if (item.isFile()) yield subdirectory ? join(subdirectory, item.name) : item.name;
-			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name), item.name);
+			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name), `${subdirectory ? `${subdirectory}${sep}` : ''}${item.name}`);
 		}
 	}
 }
