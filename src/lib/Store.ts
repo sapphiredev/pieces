@@ -1,5 +1,5 @@
 import Collection from '@discordjs/collection';
-import { Dirent, promises as fsp } from 'fs';
+import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
@@ -305,15 +305,14 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	private async *loadPath(directory: string): AsyncIterableIterator<T> {
 		for await (const child of this.walk(directory)) {
-			const path = join(directory, child.name);
-			const data = this.filterHook(path);
+			const data = this.filterHook(child);
 			if (data === null) continue;
 			try {
-				for await (const Ctor of this.loadHook(this, path)) {
-					yield this.construct(Ctor, path, data.name);
+				for await (const Ctor of this.loadHook(this, child)) {
+					yield this.construct(Ctor, child, data.name);
 				}
 			} catch (error) {
-				this.onError(error, path);
+				this.onError(error, child);
 			}
 		}
 	}
@@ -323,10 +322,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param path The directory to load the pieces from.
 	 * @return An async iterator that yields the modules to be processed and loaded into the store.
 	 */
-	private async *walk(path: string): AsyncIterableIterator<Dirent> {
+	private async *walk(path: string): AsyncIterableIterator<string> {
 		const dir = await fsp.opendir(path);
 		for await (const item of dir) {
-			if (item.isFile()) yield item;
+			if (item.isFile()) yield join(dir.path, item.name);
 			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
 		}
 	}
