@@ -19,9 +19,14 @@ export interface PieceContext {
 	readonly extras: PieceContextExtras;
 
 	/**
-	 * The path the piece was loaded from.
+	 * The path the module was loaded from.
 	 */
 	readonly path: string;
+
+	/**
+	 * The module's name extracted from the path.
+	 */
+	readonly name: string;
 
 	/**
 	 * The store that loaded the piece.
@@ -79,7 +84,7 @@ export class Piece {
 		this.extras = context.extras;
 		this.store = context.store;
 		this.path = context.path;
-		this.name = options.name ?? '';
+		this.name = options.name ?? context.name;
 		this.enabled = options.enabled ?? true;
 	}
 

@@ -295,7 +295,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param name The name of the piece.
 	 */
 	protected construct(Ctor: ILoaderResultEntry<T>, path: string, name: string): T {
-		return new Ctor({ extras: this.extras, store: (this as unknown) as Store<Piece>, path }, { name, enabled: true });
+		return new Ctor({ extras: this.extras, store: (this as unknown) as Store<Piece>, path, name }, { name, enabled: true });
 	}
 
 	/**
