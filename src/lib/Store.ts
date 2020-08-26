@@ -1,6 +1,6 @@
 import Collection from '@discordjs/collection';
 import { promises as fsp } from 'fs';
-import { join, sep } from 'path';
+import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
 import type { FilterResult } from './strategies/filters/IFilter';
@@ -322,11 +322,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param path The directory to load the pieces from.
 	 * @return An async iterator that yields the modules to be processed and loaded into the store.
 	 */
-	private async *walk(path: string, subdirectory?: string): AsyncIterableIterator<string> {
+	private async *walk(path: string): AsyncIterableIterator<string> {
 		const dir = await fsp.opendir(path);
 		for await (const item of dir) {
-			if (item.isFile()) yield join(path, subdirectory ? join(subdirectory, item.name) : item.name);
-			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name), `${subdirectory ? `${subdirectory}${sep}` : ''}${item.name}`);
+			if (item.isFile()) yield join(dir.path, item.name);
+			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
 		}
 	}
 }
