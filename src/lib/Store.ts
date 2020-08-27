@@ -116,6 +116,11 @@ export interface StoreOptionsUnLoadHandler<T extends Piece> {
  */
 export interface StoreOptions<T extends Piece, C = unknown> {
 	/**
+	 * The name for this store.
+	 */
+	readonly name: string;
+
+	/**
 	 * The paths to load pieces from, should be absolute.
 	 */
 	readonly paths?: readonly string[];
@@ -167,6 +172,7 @@ export interface StoreOptions<T extends Piece, C = unknown> {
  */
 export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
+	public readonly name: string;
 	public readonly paths: Set<string>;
 	public readonly filterHook: StoreOptionsFilterHook;
 	public readonly preloadHook: StoreOptionsPreLoadHook<T>;
@@ -179,9 +185,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param constructor The piece constructor this store loads.
 	 * @param options The options for the store.
 	 */
-	public constructor(constructor: Constructor<T>, options: StoreOptions<T> = {}) {
+	public constructor(constructor: Constructor<T>, options: StoreOptions<T>) {
 		super();
 		this.Constructor = constructor;
+		this.name = options.name;
 		this.paths = new Set(options.paths ?? []);
 		this.filterHook = options.filterHook ?? LoadJavaScript.getNameData.bind(LoadJavaScript);
 		this.preloadHook = options.preloadHook ?? ((path) => import(path));
