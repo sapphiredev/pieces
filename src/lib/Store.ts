@@ -323,10 +323,17 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return An async iterator that yields the modules to be processed and loaded into the store.
 	 */
 	private async *walk(path: string): AsyncIterableIterator<string> {
-		const dir = await fsp.opendir(path);
-		for await (const item of dir) {
-			if (item.isFile()) yield join(dir.path, item.name);
-			else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
+		try {
+			const dir = await fsp.opendir(path);
+			for await (const item of dir) {
+				if (item.isFile()) yield join(dir.path, item.name);
+				else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
+			}
+		} catch (error) {
+			// Specifically ignore ENOENT, which is commonly raised by fs operations
+			// to indicate that a component of the specified pathname does not exist.
+			// No entity (file or directory) could be found by the given path.
+			if (error.code !== 'ENOENT') this.onError(error, path);
 		}
 	}
 }
