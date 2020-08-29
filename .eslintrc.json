@@ -1,9 +1,6 @@
 {
-	"extends": [
-		"@skyra",
-		"plugin:prettier/recommended"
-	],
+	"extends": "@sapphire",
 	"rules": {
-		"@typescript-eslint/naming-convention": 0
+		"@typescript-eslint/naming-convention": "off"
 	}
 }

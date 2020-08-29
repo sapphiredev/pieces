@@ -3,10 +3,7 @@
 	"compilerOptions": {
 		"rootDir": "./",
 		"outDir": "../dist",
-		"composite": true,
-		"preserveConstEnums": true
+		"composite": true
 	},
-	"include": [
-		"."
-	]
+	"include": ["."]
 }
