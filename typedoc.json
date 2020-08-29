@@ -1,11 +1,8 @@
 {
 	"out": "./docs/",
 	"readme": "./README.md",
-	"name": "@sapphire/framework",
-	"exclude": [
-		"**/node_modules/**",
-		"tests/**"
-	],
+	"name": "@sapphire/pieces",
+	"exclude": ["**/node_modules/**", "tests/**"],
 	"mode": "file",
 	"excludeExternals": true,
 	"excludeNotExported": true,
