@@ -1,5 +1,5 @@
 {
-  "projectName": "framework",
+  "projectName": "pieces",
   "projectOwner": "sapphire-project",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -22,6 +22,16 @@
         "ideas",
         "infra",
         "projectManagement"
+      ]
+    },
+    {
+      "login": "QuantumlyTangled",
+      "name": "Nejc",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7919610?v=4",
+      "profile": "https://quantumlytangled.com/",
+      "contributions": [
+        "code",
+        "userTesting"
       ]
     }
   ],
