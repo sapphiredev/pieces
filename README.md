@@ -17,7 +17,7 @@ Sapphire's piece loader</h4>
 
 ## Description
 
-Pieces make up the core of the [Sapphire Framework][]. In the design of [Sapphire Framework][] every command, event, precondition and others in the root "pieces". They are pieces of your code, that make up the whole.
+Pieces make up the core of the [Sapphire Framework][]. In the design of [Sapphire Framework][] your commands, events, preconditions and more are "pieces". They are pieces of your code, that make up the whole.
 
 **Much of the code in this repository is based on the ideas in [klasa]. This project would not exist without it.**
 
