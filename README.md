@@ -4,7 +4,7 @@
 
 # @sapphire/pieces
 
-Sapphire's piece loader.</h4>
+**Sapphire's piece loader.**
 
 [![GitHub](https://img.shields.io/github/license/sapphire-project/pieces)](https://github.com/sapphire-project/pieces/blob/main/LICENSE.md)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/sapphire-project/pieces.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sapphire-project/pieces/alerts/)
