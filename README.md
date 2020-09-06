@@ -1,5 +1,10 @@
-<div style="text-align:center;"><h1>@sapphire/pieces</h1>
-<h3>Sapphire's piece loader</h3></div>
+<div align="center">
+
+![Sapphire Logo](https://cdn.skyra.pw/gh-assets/sapphire.png)
+
+# @sapphire/pieces
+
+**Sapphire's piece loader.**
 
 [![GitHub](https://img.shields.io/github/license/sapphire-project/pieces)](https://github.com/sapphire-project/pieces/blob/main/LICENSE.md)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/sapphire-project/pieces.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sapphire-project/pieces/alerts/)
@@ -8,16 +13,21 @@
 [![npm](https://img.shields.io/npm/v/@sapphire/pieces?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@sapphire/pieces)
 [![Depfu](https://badges.depfu.com/badges/30f62cdba0c569448b5f93d532dad8e4/count.svg)](https://depfu.com/github/sapphire-project/pieces?project_id=15121)
 
+</div>
+
+## Description
+
+Pieces make up the core of the [Sapphire Framework][]. In the design of [Sapphire Framework][] your commands, events, preconditions and more are "pieces". They are pieces of your code, that make up the whole.
+
 **Much of the code in this repository is based on the ideas in [klasa]. This project would not exist without it.**
 
 ## API Documentation
 
-For the full API documentation please refer to [the TypeDoc generated documentation](https://sapphire-project.github.io/pieces)
+For the full API documentation please refer to the TypeDoc generated [documentation](https://sapphire-project.github.io/pieces).
 
 ## Buy us some doughnuts
 
-Sapphire Project is open source and always will be, even if we don't get donations. That said, we know there are amazing people who
-may still want to donate just to show their appreciation. Thanks you very much in advance!
+Sapphire Project is and always will be open source, even if we don't get donations. That being said, we know there are amazing people who may still want to donate just to show their appreciation. Thank you very much in advance!
 
 We accept donations through Open Collective, Ko-fi, Paypal, Patreon and GitHub Sponsorships. You can use the buttons below to donate through your method of choice.
 
@@ -49,3 +59,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+[sapphire framework]: https://github.com/sapphire-project/framework
+[klasa]: https://github.com/dirigeants/klasa
