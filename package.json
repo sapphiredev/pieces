@@ -26,18 +26,23 @@
 	"devDependencies": {
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
-		"@sapphire/eslint-config": "github:sapphire-project/utilities#build-eslint-config",
-		"@sapphire/ts-config": "github:sapphire-project/utilities#build-tsconfig",
-		"@types/node": "^14.6.0",
-		"cz-conventional-changelog": "^3.2.0",
-		"husky": "^4.2.5",
-		"lint-staged": "^10.2.11",
-		"prettier": "^2.1.1",
-		"pretty-quick": "^3.0.0",
+		"@sapphire/eslint-config": "^1.0.2",
+		"@sapphire/ts-config": "^1.0.1",
+		"@types/node": "^14.11.1",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^7.9.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"husky": "^4.3.0",
+		"lint-staged": "^10.4.0",
+		"prettier": "^2.1.2",
+		"pretty-quick": "^3.0.2",
 		"standard-version": "^9.0.0",
-		"typedoc": "^0.19.0",
+		"typedoc": "^0.19.1",
 		"typedoc-plugin-nojekyll": "^1.0.1",
-		"typescript": "^4.0.2"
+		"typescript": "^4.0.3"
 	},
 	"repository": {
 		"type": "git",
@@ -87,9 +92,9 @@
 		"access": "public"
 	},
 	"resolutions": {
-		"acorn": "^7.3.1",
-		"minimist": "^1.2.2",
+		"acorn": "^7.4.0",
+		"minimist": "^1.2.5",
 		"kind-of": "^6.0.3",
-		"dot-prop": "^5.2.0"
+		"dot-prop": "^5.3.0"
 	}
 }
