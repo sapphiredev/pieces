@@ -10,7 +10,7 @@ export class MissingExportsError extends LoaderError {
 	public readonly path: string;
 
 	public constructor(path: string) {
-		super(LoaderErrorType.EmptyModule, `Error: A compatible class export was not found. [${path}]`);
+		super(LoaderErrorType.EmptyModule, `A compatible class export was not found. [${path}]`);
 		this.path = path;
 	}
 }
