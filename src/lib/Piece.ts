@@ -104,6 +104,14 @@ export class Piece {
 		return undefined;
 	}
 
+	/**
+	 * Disables the piece and removes it from its store
+	 */
+	public disable() {
+		this.enabled = false;
+		this.store.delete(this.name);
+	}
+
 	public toJSON(): Record<string, any> {
 		return {
 			path: this.path,
