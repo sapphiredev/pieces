@@ -107,9 +107,9 @@ export class Piece {
 	/**
 	 * Disables the piece and removes it from its store
 	 */
-	public disable() {
+	public async disable() {
+		await this.store.unload(this.name);
 		this.enabled = false;
-		this.store.unload(this.name).catch((error) => this.store.onError(error, this.path));
 	}
 
 	public toJSON(): Record<string, any> {
