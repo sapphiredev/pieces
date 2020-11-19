@@ -109,7 +109,7 @@ export class Piece {
 	 */
 	public disable() {
 		this.enabled = false;
-		this.store.delete(this.name);
+		this.store.unload(this.name).catch((error) => this.store.onError(error, this.path));
 	}
 
 	public toJSON(): Record<string, any> {
