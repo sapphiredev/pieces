@@ -3,118 +3,13 @@ import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
-import type { FilterResult } from './strategies/filters/IFilter';
-import { LoadJavaScript } from './strategies/filters/LoadJavaScript';
-import type { ILoaderResult, ILoaderResultEntry } from './strategies/loaders/ILoader';
-import { LoadSingle } from './strategies/loaders/LoadSingle';
-
-export type Constructor<T> = new (...args: any[]) => T;
-export type Awaited<T> = PromiseLike<T> | T;
-
-/**
- * The error handler.
- * @example
- * ```typescript
- * // Log errors to console
- * new Store(MyPiece, {
- *   onError: (error) => console.error(error)
- * });
- */
-export interface StoreOptionsErrorHandler {
-	/**
-	 * @param error The error that was thrown.
-	 * @param path The path of the file that caused the error to be thrown.
-	 */
-	(error: Error, path: string): void;
-}
-
-/**
- * The filter hook, use this to override the default behavior.
- * @example
- * ```typescript
- * // ts-node support
- * new Store(MyPiece, {
- *   filterHook: (path) => {
- *     const extension = extname(path);
- *     if (!['.js', '.ts'].includes(extension)) return null;
- *     const name = basename(path, extension);
- *     return { extension, name };
- *   }
- * });
- */
-export interface StoreOptionsFilterHook {
-	/**
-	 * @param path The path of the file to get the name and extension from,
-	 * allowing null to stop the store from loading it, e.g. on unsupported extensions.
-	 */
-	(path: string): FilterResult;
-}
-
-/**
- * The pre-load hook, use this to override the loader.
- * @example
- * ```typescript
- * // CommonJS support:
- * new Store(MyPiece, {
- *   preloadHook: (path) => require(path)
- * });
- * ```
- * @example
- * ```typescript
- * // ESM support:
- * new Store(MyPiece, {
- *   preloadHook: (path) => import(path)
- * });
- * ```
- */
-export interface StoreOptionsPreLoadHook<T extends Piece> {
-	/**
-	 * @param path The path of the file to be loaded.
-	 */
-	(path: string): Awaited<Constructor<T> & Record<PropertyKey, unknown>>;
-}
-
-/**
- * The load hook, use this to override the loader.
- * @example
- * ```typescript
- * // Using multi-loader:
- * import { LoadMultiple } from '@sapphire/cache';
- *
- * new Store(MyPiece, {
- *   loadHook: LoadMultiple.load.bind(LoadMultiple)
- * });
- */
-export interface StoreOptionsLoadHook<T extends Piece> {
-	(store: Store<T>, path: string): ILoaderResult<T>;
-}
-
-/**
- * The post-load handler.
- */
-export interface StoreOptionsPostLoadHandler<T extends Piece> {
-	/**
-	 * @param store The store that holds the piece.
-	 * @param piece The piece that was loaded.
-	 */
-	(store: Store<T>, piece: T): void;
-}
-
-/**
- * The unload handler.
- */
-export interface StoreOptionsUnLoadHandler<T extends Piece> {
-	/**
-	 * @param store The store that held the piece.
-	 * @param piece The piece that was unloaded.
-	 */
-	(store: Store<T>, piece: T): void;
-}
+import type { Constructor, ILoaderResultEntry, ILoaderStrategy } from './strategies/ILoaderStrategy';
+import { LoaderStrategy } from './strategies/LoaderStrategy';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
  */
-export interface StoreOptions<T extends Piece, C = unknown> {
+export interface StoreOptions<T extends Piece> {
 	/**
 	 * The name for this store.
 	 */
@@ -122,49 +17,15 @@ export interface StoreOptions<T extends Piece, C = unknown> {
 
 	/**
 	 * The paths to load pieces from, should be absolute.
+	 * @default []
 	 */
 	readonly paths?: readonly string[];
 
 	/**
-	 * The context to be passed to the pieces.
+	 * The strategy to be used for the loader.
+	 * @default Store.defaultStrategy
 	 */
-	readonly context?: C;
-
-	/**
-	 * The filter hook. Setting this will modify the behaviour of the store.
-	 * @default LoadJavaScript.getNameData.bind(LoadJavaScript)
-	 */
-	readonly filterHook?: StoreOptionsFilterHook;
-
-	/**
-	 * The preload hook. Setting this will modify the behaviour of the store.
-	 * @default ((path) => Promise.resolve().then(() => require(path))
-	 */
-	readonly preloadHook?: StoreOptionsPreLoadHook<T>;
-
-	/**
-	 * The load hook. Setting this will modify the behaviour of the store.
-	 * @default LoadSingle.onLoad.bind(LoadSingle)
-	 */
-	readonly loadHook?: StoreOptionsLoadHook<T>;
-
-	/**
-	 * The post-load handler.
-	 * @default (() => void 0)
-	 */
-	readonly onPostLoad?: StoreOptionsPostLoadHandler<T>;
-
-	/**
-	 * The unload handler.
-	 * @default (() => void 0)
-	 */
-	readonly onUnload?: StoreOptionsUnLoadHandler<T>;
-
-	/**
-	 * The error handler.
-	 * @default (error) => console.error(error)
-	 */
-	readonly onError?: StoreOptionsErrorHandler;
+	readonly strategy?: ILoaderStrategy<T>;
 }
 
 /**
@@ -174,12 +35,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
 	public readonly name: string;
 	public readonly paths: Set<string>;
-	public readonly filterHook: StoreOptionsFilterHook;
-	public readonly preloadHook: StoreOptionsPreLoadHook<T>;
-	public readonly loadHook: StoreOptionsLoadHook<T>;
-	public readonly onPostLoad: StoreOptionsPostLoadHandler<T>;
-	public readonly onUnload: StoreOptionsUnLoadHandler<T>;
-	public readonly onError: StoreOptionsErrorHandler;
+	public readonly strategy: ILoaderStrategy<T>;
 
 	/**
 	 * @param constructor The piece constructor this store loads.
@@ -190,12 +46,14 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.Constructor = constructor;
 		this.name = options.name;
 		this.paths = new Set(options.paths ?? []);
-		this.filterHook = options.filterHook ?? LoadJavaScript.getNameData.bind(LoadJavaScript);
-		this.preloadHook = options.preloadHook ?? ((path) => import(path));
-		this.loadHook = options.loadHook ?? LoadSingle.load.bind(LoadSingle);
-		this.onPostLoad = options.onPostLoad ?? (() => void 0);
-		this.onUnload = options.onUnload ?? (() => void 0);
-		this.onError = options.onError ?? ((error) => console.error(error));
+		this.strategy = options.strategy ?? (Store.defaultStrategy ??= new LoaderStrategy());
+	}
+
+	/**
+	 * The extras to be used for dependency injection in all pieces. Returns a reference of [[Store.defaultExtras]].
+	 */
+	public get context(): PieceContextExtras {
+		return Store.injectedContext;
 	}
 
 	/**
@@ -219,10 +77,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return An async iterator that yields each one of the loaded pieces.
 	 */
 	public async *load(path: string): AsyncIterableIterator<T> {
-		const data = this.filterHook(path);
+		const data = this.strategy.filter(path);
 		if (data === null) return;
 
-		for await (const Ctor of this.loadHook(this, path)) {
+		for await (const Ctor of this.strategy.load(this, path)) {
 			yield await this.insert(this.construct(Ctor, path, data.name));
 		}
 	}
@@ -235,7 +93,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
 		this.delete(piece.name);
-		this.onUnload(this, piece);
+		this.strategy.onUnload(this, piece);
 		await piece.onUnload();
 		return piece;
 	}
@@ -275,13 +133,6 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * The extras to be passed to the constructor of all pieces.
-	 */
-	protected get extras(): PieceContextExtras {
-		return {};
-	}
-
-	/**
 	 * Inserts a piece into the store.
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
@@ -290,7 +141,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		if (!piece.enabled) return piece;
 
 		this.set(piece.name, piece);
-		this.onPostLoad(this, piece);
+		this.strategy.onPostLoad(this, piece);
 		await piece.onLoad();
 		return piece;
 	}
@@ -302,7 +153,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param name The name of the piece.
 	 */
 	protected construct(Ctor: ILoaderResultEntry<T>, path: string, name: string): T {
-		return new Ctor({ extras: this.extras, store: (this as unknown) as Store<Piece>, path, name }, { name, enabled: true });
+		return new Ctor({ store: (this as unknown) as Store<Piece>, path, name }, { name, enabled: true });
 	}
 
 	/**
@@ -312,14 +163,14 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	private async *loadPath(directory: string): AsyncIterableIterator<T> {
 		for await (const child of this.walk(directory)) {
-			const data = this.filterHook(child);
+			const data = this.strategy.filter(child);
 			if (data === null) continue;
 			try {
-				for await (const Ctor of this.loadHook(this, child)) {
+				for await (const Ctor of this.strategy.load(this, child)) {
 					yield this.construct(Ctor, child, data.name);
 				}
 			} catch (error) {
-				this.onError(error, child);
+				this.strategy.onError(error, child);
 			}
 		}
 	}
@@ -340,7 +191,80 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			// Specifically ignore ENOENT, which is commonly raised by fs operations
 			// to indicate that a component of the specified pathname does not exist.
 			// No entity (file or directory) could be found by the given path.
-			if (error.code !== 'ENOENT') this.onError(error, path);
+			if (error.code !== 'ENOENT') this.strategy.onError(error, path);
 		}
 	}
+
+	/**
+	 * The injected variables that will be accessible to all stores and pieces. To add an extra property, simply mutate
+	 * the object to add it, and this will update all stores and pieces simultaneously.
+	 *
+	 * @example
+	 * ```typescript
+	 * // Add a reference to the Client:
+	 * import { Store } from '(at)sapphire/pieces';
+	 *
+	 * export class SapphireClient extends Client {
+	 *   constructor(options) {
+	 *     super(options);
+	 *
+	 *     Store.injectedContext.client = this;
+	 *   }
+	 * }
+	 *
+	 * // Can be placed anywhere in a TypeScript file, for JavaScript projects,
+	 * // you can create an `augments.d.ts` and place the code there.
+	 * declare module '(at)sapphire/pieces' {
+	 *   interface PieceContextExtras {
+	 *     client: SapphireClient;
+	 *   }
+	 * }
+	 *
+	 * // In any piece, core, plugin, or custom:
+	 * export class UserCommand extends Command {
+	 *   public run(message, args) {
+	 *     // The injected client is available here:
+	 *     const { client } = this.context;
+	 *
+	 *     // ...
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @example
+	 * ```typescript
+	 * // In a plugin's context, e.g. API:
+	 * class Api extends Plugin {
+	 *   static [postInitialization]() {
+	 *     const server = new Server(this);
+	 *     Store.injectedContext.server = server;
+	 *
+	 *     // ...
+	 *   }
+	 * }
+	 *
+	 * declare module '(at)sapphire/pieces' {
+	 *   interface PieceContextExtras {
+	 *     server: Server;
+	 *   }
+	 * }
+	 *
+	 * // In any piece, even those that aren't routes nor middlewares:
+	 * export class UserRoute extends Route {
+	 *   public [methods.POST](message, args) {
+	 *     // The injected server is available here:
+	 *     const { server } = this.context;
+	 *
+	 *     // ...
+	 *   }
+	 * }
+	 * ```
+	 */
+	public static injectedContext: PieceContextExtras = {};
+
+	/**
+	 * The default strategy, defaults to [[LoaderStrategy]], which is constructed on demand when a store is constructed,
+	 * when none was set beforehand.
+	 */
+	public static defaultStrategy: ILoaderStrategy<any> | null = null;
 }
