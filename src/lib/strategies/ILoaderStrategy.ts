@@ -46,7 +46,7 @@ export type ILoaderResultEntry<T extends Piece> = Ctor<ConstructorParameters<typ
 export type ILoaderResult<T extends Piece> = AsyncIterableIterator<ILoaderResultEntry<T>>;
 
 /**
- * An abstracted loader interface.
+ * An abstracted loader strategy interface.
  */
 export interface ILoaderStrategy<T extends Piece> {
 	/**

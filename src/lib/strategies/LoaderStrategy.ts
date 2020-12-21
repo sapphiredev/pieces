@@ -8,7 +8,8 @@ import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderStrategy, 
 import { classExtends, isClass } from './Shared';
 
 /**
- * An abstracted loader interface.
+ * A multi-purpose feature-complete loader strategy supporting multi-piece modules as well as supporting both ECMAScript
+ * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	private readonly clientESM: boolean = require.main === undefined;
