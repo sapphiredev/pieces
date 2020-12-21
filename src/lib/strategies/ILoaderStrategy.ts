@@ -12,7 +12,7 @@ export interface ModuleData {
 	/**
 	 * The name of the module.
 	 */
-	name: string;
+	path: string;
 
 	/**
 	 * The extension of the module.
@@ -29,6 +29,11 @@ export type FilterResult = ModuleData | null;
  * Represents the return data from [[ILoaderStrategy.preload]]
  */
 export type PreloadResult<T extends Piece> = Awaited<Constructor<T> & Record<PropertyKey, unknown>>;
+
+/**
+ * Represents the return data from [[ILoaderStrategy.preload]]
+ */
+export type AsyncPreloadResult<T extends Piece> = Promise<Constructor<T> & Record<PropertyKey, unknown>>;
 
 /**
  * Represents an entry from [[ILoaderResult]].
@@ -77,25 +82,25 @@ export interface ILoaderStrategy<T extends Piece> {
 	 * ```typescript
 	 * // ESM support:
 	 * class MyStrategy extends LoaderStrategy {
-	 *   preload(path) {
-	 *     return import(path);
+	 *   preload(file) {
+	 *     return import(file.path);
 	 *   }
 	 * }
 	 * ```
 	 */
-	preload(path: string): PreloadResult<T>;
+	preload(file: ModuleData): PreloadResult<T>;
 
 	/**
 	 * The load hook, use this to override the loader.
 	 * @example
 	 * ```typescript
 	 * class MyStrategy extends LoaderStrategy {
-	 *   load(store, path) {
+	 *   load(store, file) {
 	 *     // ...
 	 *   }
 	 * }
 	 */
-	load(store: Store<T>, path: string): ILoaderResult<T>;
+	load(store: Store<T>, file: ModuleData): ILoaderResult<T>;
 
 	/**
 	 * @param store The store that holds the piece.

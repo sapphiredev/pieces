@@ -80,8 +80,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		const data = this.strategy.filter(path);
 		if (data === null) return;
 
-		for await (const Ctor of this.strategy.load(this, path)) {
-			yield await this.insert(this.construct(Ctor, path, data.name));
+		for await (const Ctor of this.strategy.load(this, data)) {
+			yield await this.insert(this.construct(Ctor, path, data.path));
 		}
 	}
 
@@ -166,8 +166,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			const data = this.strategy.filter(child);
 			if (data === null) continue;
 			try {
-				for await (const Ctor of this.strategy.load(this, child)) {
-					yield this.construct(Ctor, child, data.name);
+				for await (const Ctor of this.strategy.load(this, data)) {
+					yield this.construct(Ctor, child, data.path);
 				}
 			} catch (error) {
 				this.strategy.onError(error, child);

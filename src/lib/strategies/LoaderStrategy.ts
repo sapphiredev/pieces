@@ -1,43 +1,67 @@
 import { basename, extname } from 'path';
+import { URL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
+import { mjsImport } from '../internal/import';
 import type { Piece } from '../Piece';
 import type { Store } from '../Store';
-import type { FilterResult, ILoaderResult, ILoaderStrategy, PreloadResult } from './ILoaderStrategy';
+import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
 import { classExtends, isClass } from './Shared';
 
 /**
  * An abstracted loader interface.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
+	private readonly clientESM: boolean = require.main === undefined;
+	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs'];
+
 	public filter(path: string): FilterResult {
 		// Retrieve the file extension.
 		const extension = extname(path);
-		if (extension !== '.js') return null;
+		if (!this.supportedExtensions.includes(extension)) return null;
 
 		// Retrieve the name of the file, return null if empty.
 		const name = basename(path, extension);
 		if (name === '') return null;
 
 		// Return the name and extension.
-		return { extension, name };
+		return { extension, path: name };
 	}
 
-	public preload(path: string): PreloadResult<T> {
-		return import(path);
+	public async preload(file: ModuleData): AsyncPreloadResult<T> {
+		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientESM);
+		if (mjs) {
+			const url = new URL(file.path, 'file:');
+			url.searchParams.append('d', Date.now().toString());
+			return mjsImport(url);
+		}
+
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const mod = require(file.path);
+		delete require.cache[require.resolve(file.path)];
+		return mod;
 	}
 
-	public async *load(store: Store<T>, path: string): ILoaderResult<T> {
-		const result = await this.preload(path);
+	public async *load(store: Store<T>, file: ModuleData): ILoaderResult<T> {
+		let yielded = false;
+		const result = await this.preload(file);
 
 		// Support `module.exports`:
-		if (isClass(result) && classExtends(result, store.Constructor)) return yield result;
+		if (isClass(result) && classExtends(result, store.Constructor)) {
+			yield result;
+			yielded = true;
+		}
 
 		// Support any other export:
 		for (const value of Object.values(result)) {
-			if (isClass(value) && classExtends(value, store.Constructor)) return yield value;
+			if (isClass(value) && classExtends(value, store.Constructor)) {
+				yield value;
+				yielded = true;
+			}
 		}
 
-		throw new MissingExportsError(path);
+		if (!yielded) {
+			throw new MissingExportsError(file.path);
+		}
 	}
 
 	public onPostLoad(): unknown {
