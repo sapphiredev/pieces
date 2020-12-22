@@ -108,16 +108,24 @@ export interface ILoaderStrategy<T extends Piece> {
 	load(store: Store<T>, file: ModuleData): ILoaderResult<T>;
 
 	/**
+	 * Called after a piece has been loaded, but before [[Piece.onLoad]] and [[Store.set]].
 	 * @param store The store that holds the piece.
 	 * @param piece The piece that was loaded.
 	 */
-	onPostLoad(store: Store<T>, piece: T): unknown;
+	onLoad(store: Store<T>, piece: T): Awaited<unknown>;
 
 	/**
+	 * Called after all pieces have been loaded.
+	 * @param store The store that loaded all pieces.
+	 */
+	onLoadAll(store: Store<T>): Awaited<unknown>;
+
+	/**
+	 * Called after a piece has been unloaded or overwritten by a newly loaded piece.
 	 * @param store The store that held the piece.
 	 * @param piece The piece that was unloaded.
 	 */
-	onUnload(store: Store<T>, piece: T): unknown;
+	onUnload(store: Store<T>, piece: T): Awaited<unknown>;
 
 	/**
 	 * @param error The error that was thrown.
