@@ -46,7 +46,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.Constructor = constructor;
 		this.name = options.name;
 		this.paths = new Set(options.paths ?? []);
-		this.strategy = options.strategy ?? (Store.defaultStrategy ??= new LoaderStrategy());
+		this.strategy = options.strategy ?? Store.defaultStrategy;
 	}
 
 	/**
@@ -121,6 +121,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		for (const piece of pieces) {
 			await this.insert(piece);
 		}
+
+		this.strategy.onLoadAll(this);
 	}
 
 	/**
@@ -148,7 +150,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		if (!piece.enabled) return piece;
 
 		// Load piece:
-		this.strategy.onPostLoad(this, piece);
+		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
 
 		// Unload existing piece, if any:
@@ -280,5 +282,5 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * The default strategy, defaults to [[LoaderStrategy]], which is constructed on demand when a store is constructed,
 	 * when none was set beforehand.
 	 */
-	public static defaultStrategy: ILoaderStrategy<any> | null = null;
+	public static defaultStrategy: ILoaderStrategy<any> = new LoaderStrategy();
 }
