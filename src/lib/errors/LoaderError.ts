@@ -17,4 +17,8 @@ export class LoaderError extends Error {
 		super(message);
 		this.type = type;
 	}
+
+	public get name() {
+		return `${super.name} [${this.type}]`;
+	}
 }
