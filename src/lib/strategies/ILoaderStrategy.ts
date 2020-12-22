@@ -1,5 +1,5 @@
-import type { Piece } from '../Piece';
-import type { Store } from '../Store';
+import type { Piece } from '../structures/Piece';
+import type { Store } from '../structures/Store';
 import type { Ctor } from './Shared';
 
 export type Constructor<T> = new (...args: any[]) => T;
