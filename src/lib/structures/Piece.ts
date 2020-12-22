@@ -1,5 +1,5 @@
-import type { Store } from './Store';
 import type { Awaited } from '../strategies/ILoaderStrategy';
+import type { Store } from './Store';
 
 /**
  * Represents the data from [[PieceContext.extras]] and may be used for dependency injection.
