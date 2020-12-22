@@ -1,9 +1,10 @@
 import { basename, extname } from 'path';
 import { URL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
-import { mjsImport } from '../internal';
-import type { Piece } from '../Piece';
-import type { Store } from '../Store';
+import { mjsImport } from '../internal/internal';
+import { getRootData } from '../internal/RootScan';
+import type { Piece } from '../structures/Piece';
+import type { Store } from '../structures/Store';
 import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
 import { classExtends, isClass } from './Shared';
 
@@ -12,7 +13,7 @@ import { classExtends, isClass } from './Shared';
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
-	private readonly clientESM: boolean = require.main === undefined;
+	private readonly clientESM: boolean = getRootData().type === 'ESM';
 	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs'];
 
 	public filter(path: string): FilterResult {

@@ -24,7 +24,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public async unload(name: string | T): Promise<T> {
+	public unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload all aliases for the given piece:
