@@ -65,7 +65,11 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		}
 	}
 
-	public onPostLoad(): unknown {
+	public onLoad(): unknown {
+		return undefined;
+	}
+
+	public onLoadAll(): unknown {
 		return undefined;
 	}
 
