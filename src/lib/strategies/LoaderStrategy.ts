@@ -1,5 +1,5 @@
 import { basename, extname } from 'path';
-import { URL } from 'url';
+import { pathToFileURL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
 import { mjsImport } from '../internal/internal';
 import { getRootData } from '../internal/RootScan';
@@ -32,7 +32,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public async preload(file: ModuleData): AsyncPreloadResult<T> {
 		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientESM);
 		if (mjs) {
-			const url = new URL(file.path, 'file:');
+			const url = pathToFileURL(file.path);
 			url.searchParams.append('d', Date.now().toString());
 			return mjsImport(url);
 		}
