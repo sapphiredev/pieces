@@ -72,17 +72,20 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * Loads a piece or more from a path.
+	 * Loads one or more pieces from a path.
 	 * @param path The path of the file to load.
 	 * @return An async iterator that yields each one of the loaded pieces.
 	 */
-	public async *load(path: string): AsyncIterableIterator<T> {
+	public async load(path: string): Promise<T[]> {
 		const data = this.strategy.filter(path);
-		if (data === null) return;
+		if (data === null) return [];
 
+		const promises: Promise<T>[] = [];
 		for await (const Ctor of this.strategy.load(this, data)) {
-			yield await this.insert(this.construct(Ctor, data));
+			promises.push(this.insert(this.construct(Ctor, data)));
 		}
+
+		return Promise.all(promises);
 	}
 
 	/**
@@ -140,6 +143,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	protected async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
+		const previous = super.get(piece.name);
+		if (previous) await this.unload(previous);
+
+		// Set the piece, call post-load, and call the piece's load:
 		this.set(piece.name, piece);
 		this.strategy.onPostLoad(this, piece);
 		await piece.onLoad();

@@ -43,9 +43,6 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @return The inserted piece.
 	 */
 	protected async insert(piece: T) {
-		const previous = super.get(piece.name);
-		if (previous) await this.unload(previous);
-
 		for (const key of piece.aliases) {
 			this.aliases.set(key, piece);
 		}
