@@ -3,7 +3,7 @@ import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from './errors/LoaderError';
 import type { Piece, PieceContextExtras } from './Piece';
-import type { Constructor, ILoaderResultEntry, ILoaderStrategy } from './strategies/ILoaderStrategy';
+import type { Constructor, ILoaderResultEntry, ILoaderStrategy, ModuleData } from './strategies/ILoaderStrategy';
 import { LoaderStrategy } from './strategies/LoaderStrategy';
 
 /**
@@ -81,7 +81,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		if (data === null) return;
 
 		for await (const Ctor of this.strategy.load(this, data)) {
-			yield await this.insert(this.construct(Ctor, path, data.path));
+			yield await this.insert(this.construct(Ctor, data));
 		}
 	}
 
@@ -152,8 +152,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param path The path of the file.
 	 * @param name The name of the piece.
 	 */
-	protected construct(Ctor: ILoaderResultEntry<T>, path: string, name: string): T {
-		return new Ctor({ store: (this as unknown) as Store<Piece>, path, name }, { name, enabled: true });
+	protected construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
+		return new Ctor({ store: (this as unknown) as Store<Piece>, path: data.path, name: data.name }, { name: data.name, enabled: true });
 	}
 
 	/**
@@ -167,7 +167,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			if (data === null) continue;
 			try {
 				for await (const Ctor of this.strategy.load(this, data)) {
-					yield this.construct(Ctor, child, data.path);
+					yield this.construct(Ctor, data);
 				}
 			} catch (error) {
 				this.strategy.onError(error, data.path);
