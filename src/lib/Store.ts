@@ -95,9 +95,13 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
-		this.delete(piece.name);
+
+		// Unload piece:
 		this.strategy.onUnload(this, piece);
 		await piece.onUnload();
+
+		// Remove from cache and return it:
+		this.delete(piece.name);
 		return piece;
 	}
 
@@ -143,13 +147,16 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	protected async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
+		// Load piece:
+		this.strategy.onPostLoad(this, piece);
+		await piece.onLoad();
+
+		// Unload existing piece, if any:
 		const previous = super.get(piece.name);
 		if (previous) await this.unload(previous);
 
-		// Set the piece, call post-load, and call the piece's load:
+		// Set the new piece and return it:
 		this.set(piece.name, piece);
-		this.strategy.onPostLoad(this, piece);
-		await piece.onLoad();
 		return piece;
 	}
 
@@ -160,7 +167,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param name The name of the piece.
 	 */
 	protected construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
-		return new Ctor({ store: (this as unknown) as Store<Piece>, path: data.path, name: data.name }, { name: data.name, enabled: true });
+		return new Ctor({ store: this, path: data.path, name: data.name }, { name: data.name, enabled: true });
 	}
 
 	/**
