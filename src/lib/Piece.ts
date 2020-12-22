@@ -103,11 +103,18 @@ export class Piece {
 	}
 
 	/**
-	 * Disables the piece and removes it from its store
+	 * Unloads and disables the piece.
 	 */
-	public async disable() {
+	public async unload() {
 		await this.store.unload(this.name);
 		this.enabled = false;
+	}
+
+	/**
+	 * Reloads the piece by loading the same path in the store.
+	 */
+	public async reload() {
+		await this.store.load(this.path);
 	}
 
 	public toJSON(): Record<string, any> {
