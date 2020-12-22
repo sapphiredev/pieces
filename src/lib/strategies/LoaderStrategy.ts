@@ -1,7 +1,7 @@
 import { basename, extname } from 'path';
 import { URL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
-import { mjsImport } from '../internal/import';
+import { mjsImport } from '../internal';
 import type { Piece } from '../Piece';
 import type { Store } from '../Store';
 import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
