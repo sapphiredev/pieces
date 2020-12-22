@@ -25,7 +25,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		if (name === '') return null;
 
 		// Return the name and extension.
-		return { extension, path: name };
+		return { extension, path, name };
 	}
 
 	public async preload(file: ModuleData): AsyncPreloadResult<T> {

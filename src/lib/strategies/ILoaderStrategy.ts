@@ -12,6 +12,11 @@ export interface ModuleData {
 	/**
 	 * The name of the module.
 	 */
+	name: string;
+
+	/**
+	 * The absolute path to the module.
+	 */
 	path: string;
 
 	/**

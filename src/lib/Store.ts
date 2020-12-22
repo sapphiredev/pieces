@@ -170,7 +170,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 					yield this.construct(Ctor, child, data.path);
 				}
 			} catch (error) {
-				this.strategy.onError(error, child);
+				this.strategy.onError(error, data.path);
 			}
 		}
 	}
