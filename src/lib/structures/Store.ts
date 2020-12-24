@@ -153,6 +153,14 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
 
+		// If the onLoad disabled the piece, call unload and return it:
+		if (!piece.enabled) {
+			// Unload piece:
+			this.strategy.onUnload(this, piece);
+			await piece.onUnload();
+			return piece;
+		}
+
 		// Unload existing piece, if any:
 		const previous = super.get(piece.name);
 		if (previous) await this.unload(previous);
