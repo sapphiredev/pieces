@@ -24,7 +24,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-14-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
-        run: yarn --ignore-scripts --frozen-lockfile
+        run: yarn --immutable
       - name: Run ESLint
         uses: icrawl/action-eslint@v1
 
@@ -45,7 +45,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-14-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
-        run: yarn --ignore-scripts --frozen-lockfile
+        run: --immutable
       - name: Build Code
         uses: icrawl/action-tsc@v1
         with:

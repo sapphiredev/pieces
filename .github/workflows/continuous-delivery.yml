@@ -23,7 +23,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-14-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
-        run: yarn --ignore-scripts --frozen-lockfile
+        run: yarn --immutable
       - name: Build Code
         run: yarn prepublishOnly
       - name: Push new code
@@ -86,7 +86,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-14-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
-        run: yarn --ignore-scripts --frozen-lockfile
+        run: yarn --immutable
       - name: Build documentation
         run: yarn docs
       - name: Publish Docs
