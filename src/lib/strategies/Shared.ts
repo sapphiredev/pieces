@@ -28,7 +28,7 @@ export function isClass(value: unknown): value is Ctor {
 export function classExtends<T extends Ctor>(value: Ctor, base: T): value is T {
 	let ctor: Ctor | null = value;
 	while (ctor !== null) {
-		if (ctor === base) return true;
+		if (ctor.constructor === base.constructor) return true;
 		ctor = Object.getPrototypeOf(ctor);
 	}
 
