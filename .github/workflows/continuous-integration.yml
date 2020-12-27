@@ -45,7 +45,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-14-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
-        run: --immutable
+        run: yarn --immutable
       - name: Build Code
         uses: icrawl/action-tsc@v1
         with:
