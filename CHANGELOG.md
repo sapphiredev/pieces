@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/sapphire-project/pieces/compare/v1.0.0...v1.0.1) (2020-12-28)
+
+### Bug Fixes
+
+-   **loader:** compare constructors instead of prototypes ([#40](https://github.com/sapphire-project/pieces/issues/40)) ([807cf6a](https://github.com/sapphire-project/pieces/commit/807cf6aded9c089fcc15c5d8fa2206bdd68e91c2))
+-   **store:** call unload when onLoad disables the piece ([#39](https://github.com/sapphire-project/pieces/issues/39)) ([4bb9be0](https://github.com/sapphire-project/pieces/commit/4bb9be0d45caf8604545a5d55eb80b5805972cc5))
+
 ## 1.0.0 (2020-12-22)
 
 ### Features
