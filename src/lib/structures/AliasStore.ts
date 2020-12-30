@@ -20,6 +20,14 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	}
 
 	/**
+	 * Checks whether a key is in the store, or is an alias
+	 * @param key The key to check
+	 */
+	public has(key: string): boolean {
+		return super.has(key) || this.aliases.has(key);
+	}
+
+	/**
 	 * Unloads a piece given its instance or its name, and removes all the aliases.
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
