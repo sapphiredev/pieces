@@ -191,11 +191,12 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		const previous = super.get(piece.name);
 		if (previous) {
 			await this.unload(previous);
-			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded existing piece '${piece.name}'.`);
+			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded existing piece '${piece.name}' due to conflicting 'name'.`);
 		}
 
 		// Set the new piece and return it:
 		this.set(piece.name, piece);
+		Store.logger?.(`[STORE => ${this.name}] [INSERT] Inserted new piece '${piece.name}'.`);
 		return piece;
 	}
 
