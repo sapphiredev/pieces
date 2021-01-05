@@ -26,12 +26,6 @@ export interface StoreOptions<T extends Piece> {
 	 * @default Store.defaultStrategy
 	 */
 	readonly strategy?: ILoaderStrategy<T>;
-
-	/**
-	 * The logger to be used for tracing.
-	 * @default (() => {})
-	 */
-	readonly logger?: StoreLogger;
 }
 
 /**
@@ -333,7 +327,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public static defaultStrategy: ILoaderStrategy<any> = new LoaderStrategy();
 
 	/**
-	 * The default logger, defaults to an empty function.
+	 * The default logger, defaults to `null`.
 	 */
 	public static logger: StoreLogger | null = null;
 }
