@@ -118,13 +118,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		// Unload piece:
 		this.strategy.onUnload(this, piece);
 		await piece.onUnload();
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Unloaded piece '${piece.name}'.`);
 
 		// Remove from cache and return it:
 		this.delete(piece.name);
-
-		// Emit log entry:
-		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Unloaded piece '${piece.name}'.`);
-
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Removed piece '${piece.name}'.`);
 		return piece;
 	}
 
@@ -140,12 +138,20 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			}
 		}
 
+		Store.logger?.(`[STORE => ${this.name}] [LOAD-ALL] Found '${pieces.length}' pieces.`);
+
+		// Clear the store before inserting the new pieces:
 		this.clear();
+		Store.logger?.(`[STORE => ${this.name}] [LOAD-ALL] Cleared all pieces.`);
+
+		// Load each piece:
 		for (const piece of pieces) {
 			await this.insert(piece);
 		}
 
+		// Call onLoadAll:
 		this.strategy.onLoadAll(this);
+		Store.logger?.(`[STORE => ${this.name}] [LOAD-ALL] Successfully loaded '${this.size}' pieces.`);
 	}
 
 	/**
