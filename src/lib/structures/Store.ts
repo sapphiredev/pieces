@@ -26,6 +26,27 @@ export interface StoreOptions<T extends Piece> {
 	 * @default Store.defaultStrategy
 	 */
 	readonly strategy?: ILoaderStrategy<T>;
+
+	/**
+	 * The logger to be used for tracing.
+	 * @default (() => {})
+	 */
+	readonly logger?: StoreLogger;
+}
+
+/**
+ * An interface representing a logger function.
+ */
+export interface StoreLogger {
+	/**
+	 * @param value The string to print. All strings will be formatted with the format `[STORE => ${name}] [${type}] ${content}`,
+	 * where the content may have identifiers (values or names of methods) surrounded by `'`. For example:
+	 *
+	 * - `[STORE => commands] [LOAD] Skipped piece '/home/user/bot/src/commands/foo.js' as 'LoaderStrategy#filter' returned 'null'.`
+	 * - `[STORE => commands] [INSERT] Unloaded new piece 'foo' due to 'enabled' being 'false'.`
+	 * - `[STORE => commands] [UNLOAD] Unloaded piece 'foo'.`
+	 */
+	(value: string): void;
 }
 
 /**
@@ -68,6 +89,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	public registerPath(path: string): this {
 		this.paths.add(path);
+		Store.logger?.(`[STORE => ${this.name}] [REGISTER] Registered path '${path}'.`);
 		return this;
 	}
 
@@ -78,7 +100,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	public async load(path: string): Promise<T[]> {
 		const data = this.strategy.filter(path);
-		if (data === null) return [];
+		if (data === null) {
+			Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${path}' as 'LoaderStrategy#filter' returned 'null'.`);
+			return [];
+		}
 
 		const promises: Promise<T>[] = [];
 		for await (const Ctor of this.strategy.load(this, data)) {
@@ -102,6 +127,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 
 		// Remove from cache and return it:
 		this.delete(piece.name);
+
+		// Emit log entry:
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Unloaded piece '${piece.name}'.`);
+
 		return piece;
 	}
 
@@ -152,18 +181,24 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		// Load piece:
 		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
+		Store.logger?.(`[STORE => ${this.name}] [INSERT] Loaded new piece '${piece.name}'.`);
 
 		// If the onLoad disabled the piece, call unload and return it:
 		if (!piece.enabled) {
 			// Unload piece:
 			this.strategy.onUnload(this, piece);
 			await piece.onUnload();
+			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded new piece '${piece.name}' due to 'enabled' being 'false'.`);
+
 			return piece;
 		}
 
 		// Unload existing piece, if any:
 		const previous = super.get(piece.name);
-		if (previous) await this.unload(previous);
+		if (previous) {
+			await this.unload(previous);
+			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded existing piece '${piece.name}'.`);
+		}
 
 		// Set the new piece and return it:
 		this.set(piece.name, piece);
@@ -186,9 +221,13 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return An async iterator that yields the pieces to be loaded into the store.
 	 */
 	private async *loadPath(directory: string): AsyncIterableIterator<T> {
+		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${directory}'.`);
 		for await (const child of this.walk(directory)) {
 			const data = this.strategy.filter(child);
-			if (data === null) continue;
+			if (data === null) {
+				Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${child}' as 'LoaderStrategy#filter' returned 'null'.`);
+				continue;
+			}
 			try {
 				for await (const Ctor of this.strategy.load(this, data)) {
 					yield this.construct(Ctor, data);
@@ -205,6 +244,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return An async iterator that yields the modules to be processed and loaded into the store.
 	 */
 	private async *walk(path: string): AsyncIterableIterator<string> {
+		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${path}'.`);
 		try {
 			const dir = await fsp.opendir(path);
 			for await (const item of dir) {
@@ -291,4 +331,9 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * when none was set beforehand.
 	 */
 	public static defaultStrategy: ILoaderStrategy<any> = new LoaderStrategy();
+
+	/**
+	 * The default logger, defaults to an empty function.
+	 */
+	public static logger: StoreLogger | null = null;
 }
