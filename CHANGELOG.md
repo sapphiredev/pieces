@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/sapphire-project/pieces/compare/v1.0.1...v1.1.0) (2021-01-08)
+
+### Features
+
+-   **store:** add trace logging ([#45](https://github.com/sapphire-project/pieces/issues/45)) ([79a4f9e](https://github.com/sapphire-project/pieces/commit/79a4f9e66c610522931e66655f60e6bff7739e6a))
+-   add AliasStore#has ([#43](https://github.com/sapphire-project/pieces/issues/43)) ([87a6213](https://github.com/sapphire-project/pieces/commit/87a6213f2bdea8226904534ee8d11479eafe8c94))
+
 ### [1.0.1](https://github.com/sapphire-project/pieces/compare/v1.0.0...v1.0.1) (2020-12-28)
 
 ### Bug Fixes
