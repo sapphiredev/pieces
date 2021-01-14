@@ -13,7 +13,7 @@
 	"private": false,
 	"scripts": {
 		"prepublishOnly": "yarn build:cleanup && yarn build && yarn build:rollup && yarn build:pre-publish",
-		"lint": "eslint src scripts --ext ts --fix",
+		"lint": "eslint src scripts --ext mjs,ts --fix",
 		"format": "prettier --write {src,scripts}/**/*.ts",
 		"docs": "typedoc",
 		"update": "yarn upgrade-interactive --latest",
