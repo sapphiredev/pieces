@@ -50,7 +50,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
-	protected async insert(piece: T) {
+	public async insert(piece: T) {
 		for (const key of piece.aliases) {
 			this.aliases.set(key, piece);
 		}
