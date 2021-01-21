@@ -175,7 +175,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
-	protected async insert(piece: T): Promise<T> {
+	public async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
 		// Load piece:
@@ -212,7 +212,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param path The path of the file.
 	 * @param name The name of the piece.
 	 */
-	protected construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
+	public construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
 		return new Ctor({ store: this, path: data.path, name: data.name }, { name: data.name, enabled: true });
 	}
 
