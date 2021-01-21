@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/sapphire-project/pieces/compare/v1.1.0...v1.2.0) (2021-01-21)
+
+### Features
+
+-   Expose Store.construct & Store.insert ([#47](https://github.com/sapphire-project/pieces/issues/47)) ([797ddac](https://github.com/sapphire-project/pieces/commit/797ddac348aff134c1af1d308357ba00d0edd6b3))
+
 ## [1.1.0](https://github.com/sapphire-project/pieces/compare/v1.0.1...v1.1.0) (2021-01-08)
 
 ### Features
