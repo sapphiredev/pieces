@@ -15,7 +15,7 @@ export class AliasPiece extends Piece {
 	/**
 	 * The aliases for the piece.
 	 */
-	public readonly aliases: readonly string[];
+	public aliases: readonly string[];
 	public constructor(context: PieceContext, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
