@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/sapphire-project/pieces/compare/v1.2.0...v1.2.1) (2021-01-30)
+
+### Bug Fixes
+
+-   update discord redirect URL ([f1dbdee](https://github.com/sapphire-project/pieces/commit/f1dbdee9f14e00eb800bee3a2d3d7ff46d4c6036))
+-   **aliaspiece:** make aliases writable ([#51](https://github.com/sapphire-project/pieces/issues/51)) ([7ed3da6](https://github.com/sapphire-project/pieces/commit/7ed3da6ca22d59dd25c0691e11032e6e54e7d96d))
+
 ## [1.2.0](https://github.com/sapphire-project/pieces/compare/v1.1.0...v1.2.0) (2021-01-21)
 
 ### Features
