@@ -57,7 +57,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	/**
 	 * Retrieves the name and the extension of the specified file path.
 	 * @param path The path of the file to be processed.
-	 * @return A [[PieceData]] on success, otherwise `null` to stop the store from processing the path.
+	 * @return A [[ModuleData]] on success, otherwise `null` to stop the store from processing the path.
 	 * @example
 	 * ```typescript
 	 * // ts-node support
@@ -69,6 +69,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	 *     return { extension, name };
 	 *   }
 	 * }
+	 * ```
 	 */
 	filter(path: string): FilterResult;
 
@@ -104,6 +105,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	 *     // ...
 	 *   }
 	 * }
+	 * ```
 	 */
 	load(store: Store<T>, file: ModuleData): ILoaderResult<T>;
 

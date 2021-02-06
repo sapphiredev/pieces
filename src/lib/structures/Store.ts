@@ -209,8 +209,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	/**
 	 * Constructs a [[Piece]] instance.
 	 * @param Ctor The [[Piece]]'s constructor used to build the instance.
-	 * @param path The path of the file.
-	 * @param name The name of the piece.
+	 * @param data The module's information
+	 * @return An instance of the constructed piece.
 	 */
 	public construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
 		return new Ctor({ store: this, path: data.path, name: data.name }, { name: data.name, enabled: true });
