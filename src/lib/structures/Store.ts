@@ -209,7 +209,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	/**
 	 * Constructs a [[Piece]] instance.
 	 * @param Ctor The [[Piece]]'s constructor used to build the instance.
-	 * @param data The ModuleData
+	 * @param data The module's information
 	 * @return An instance of the constructed piece.
 	 */
 	public construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
