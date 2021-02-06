@@ -43,6 +43,15 @@
         "code",
         "infra"
       ]
+    },
+    {
+      "login": "LeonardSSH",
+      "name": "Narcis B.",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35312043?v=4",
+      "profile": "http://leonard.sh",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
