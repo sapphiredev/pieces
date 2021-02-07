@@ -117,6 +117,9 @@ export class Piece {
 		await this.store.load(this.path);
 	}
 
+	/**
+	 * Defines the `JSON.stringify` behavior of this piece.
+	 */
 	public toJSON(): Record<string, any> {
 		return {
 			path: this.path,
