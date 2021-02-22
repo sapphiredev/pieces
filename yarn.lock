@@ -215,10 +215,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@sapphire/eslint-config@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@sapphire/eslint-config/-/eslint-config-2.1.2.tgz#1fbb908045cfa5b3e2c553ff3fc3afe940f9ec50"
-  integrity sha512-lMphSKfCzRcAmGZF+VmcHd8inJiUIIIShv6c0+r3WWFY0lRxrZvcElKNSO8rjBOMUNMTfdqlXP8IRCg+SDdq8g==
+"@sapphire/eslint-config@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sapphire/eslint-config/-/eslint-config-3.0.1.tgz#f3a177fc8c957d877b2b10f6354a1068b299fa2a"
+  integrity sha512-B4IYg7m1wRXeetslu1jR9jLB/HxK8n3UF1dI1jF0ZDsm5+15dSCWX4Qabasd03yc8cui7TSumbGhZv9617DwDQ==
 
 "@sapphire/prettier-config@^1.0.7":
   version "1.0.7"
