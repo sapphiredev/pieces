@@ -53,7 +53,7 @@
 		"prettier": "^2.2.1",
 		"pretty-quick": "^3.1.0",
 		"rollup": "^2.40.0",
-		"rollup-plugin-dts": "^2.0.1",
+		"rollup-plugin-dts": "^3.0.1",
 		"standard-version": "^9.1.1",
 		"typedoc": "^0.20.30",
 		"typedoc-plugin-nojekyll": "^1.0.1",
