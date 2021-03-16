@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/sapphire-project/pieces/compare/v1.2.2...v1.2.3) (2021-03-16)
+
+### Bug Fixes
+
+-   add tslib as dependency ([a7d9695](https://github.com/sapphire-project/pieces/commit/a7d969542895de4fb876475cb35acc8d2851d9ff))
+-   update packages, ship with tslib ([f7b76c2](https://github.com/sapphire-project/pieces/commit/f7b76c266c355268260f689f1343ac0e48b3d6ea))
+
 ### [1.2.2](https://github.com/sapphire-project/pieces/compare/v1.2.1...v1.2.2) (2021-02-12)
 
 ### Bug Fixes
