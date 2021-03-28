@@ -3932,10 +3932,10 @@ rollup-plugin-dts@^3.0.1:
   optionalDependencies:
     "@babel/code-frame" "^7.12.13"
 
-rollup@^2.42.1:
-  version "2.42.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.42.1.tgz#6d675b7971e3bee510935326a0f7e556bb7d43de"
-  integrity sha512-/y7M2ULg06JOXmMpPzhTeQroJSchy8lX8q6qrjqil0jmLz6ejCWbQzVnWTsdmMQRhfU0QcwtiW8iZlmrGXWV4g==
+rollup@^2.43.1:
+  version "2.43.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.43.1.tgz#9e5c9208c2011de227ac6c93101e11dc12e88e04"
+  integrity sha512-kvRE6VJbiv4d8m2nGeccc3qRpzOMghAhu2KeITjyZVCjneIFLPQ3zm2Wmqnl0LcUg3FvDaV0MfKnG4NCMbiSfw==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -4581,10 +4581,10 @@ typedoc-plugin-nojekyll@^1.0.1:
   dependencies:
     fs-extra "^6.0.1"
 
-typedoc@^0.20.32:
-  version "0.20.32"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.20.32.tgz#d06fc4cce12dca66797220bbd289bac9f4481b5b"
-  integrity sha512-GSopd/tiqoKE3fEdvhoaEpR9yrEPsR9tknAjkoeSPL6p1Rq5aVsKxBhhF6cwoDJ7oWjpvnm8vs0rQN0BxEHuWQ==
+typedoc@^0.20.34:
+  version "0.20.34"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.20.34.tgz#763c4e1ebef55fd4f71a27f0f02249926107021a"
+  integrity sha512-es+N/KyGPcHl9cAuYh1Z5m7HzwcmfNLghkmb2pzGz7HRDS5GS2uA3hu/c2cv4gCxDsw8pPUPCOvww+Hzf48Kug==
   dependencies:
     colors "^1.4.0"
     fs-extra "^9.1.0"
