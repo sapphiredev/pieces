@@ -62,7 +62,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sapphire-project/pieces.git"
+		"url": "git+https://github.com/sapphire-community/pieces.git"
 	},
 	"files": [
 		"dist",
@@ -82,9 +82,9 @@
 		"sapphire"
 	],
 	"bugs": {
-		"url": "https://github.com/sapphire-project/pieces/issues"
+		"url": "https://github.com/sapphire-community/pieces/issues"
 	},
-	"homepage": "https://sapphire-project.github.io/pieces",
+	"homepage": "https://sapphire-community.github.io/pieces",
 	"commitlint": {
 		"extends": [
 			"@commitlint/config-conventional"

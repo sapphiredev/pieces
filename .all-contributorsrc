@@ -1,59 +1,42 @@
 {
-  "projectName": "pieces",
-  "projectOwner": "sapphire-project",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "files": [
-    "README.md"
-  ],
-  "imageSize": 100,
-  "commit": true,
-  "commitConvention": "angular",
-  "contributors": [
-    {
-      "login": "kyranet",
-      "name": "Antonio Román",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/24852502?v=4",
-      "profile": "https://github.com/kyranet",
-      "contributions": [
-        "code",
-        "doc",
-        "design",
-        "ideas",
-        "infra",
-        "projectManagement"
-      ]
-    },
-    {
-      "login": "QuantumlyTangled",
-      "name": "Nejc",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/7919610?v=4",
-      "profile": "https://quantumlytangled.com/",
-      "contributions": [
-        "code",
-        "userTesting"
-      ]
-    },
-    {
-      "login": "favna",
-      "name": "Jeroen Claassens",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/4019718?v=4",
-      "profile": "https://favware.tech",
-      "contributions": [
-        "code",
-        "infra"
-      ]
-    },
-    {
-      "login": "LeonardSSH",
-      "name": "Narcis B.",
-      "avatar_url": "https://avatars.githubusercontent.com/u/35312043?v=4",
-      "profile": "http://leonard.sh",
-      "contributions": [
-        "doc"
-      ]
-    }
-  ],
-  "contributorsPerLine": 7,
-  "skipCi": true
+	"projectName": "pieces",
+	"projectOwner": "sapphire-community",
+	"repoType": "github",
+	"repoHost": "https://github.com",
+	"files": ["README.md"],
+	"imageSize": 100,
+	"commit": true,
+	"commitConvention": "angular",
+	"contributors": [
+		{
+			"login": "kyranet",
+			"name": "Antonio Román",
+			"avatar_url": "https://avatars0.githubusercontent.com/u/24852502?v=4",
+			"profile": "https://github.com/kyranet",
+			"contributions": ["code", "doc", "design", "ideas", "infra", "projectManagement"]
+		},
+		{
+			"login": "QuantumlyTangled",
+			"name": "Nejc",
+			"avatar_url": "https://avatars1.githubusercontent.com/u/7919610?v=4",
+			"profile": "https://quantumlytangled.com/",
+			"contributions": ["code", "userTesting"]
+		},
+		{
+			"login": "favna",
+			"name": "Jeroen Claassens",
+			"avatar_url": "https://avatars3.githubusercontent.com/u/4019718?v=4",
+			"profile": "https://favware.tech",
+			"contributions": ["code", "infra"]
+		},
+		{
+			"login": "LeonardSSH",
+			"name": "Narcis B.",
+			"avatar_url": "https://avatars.githubusercontent.com/u/35312043?v=4",
+			"profile": "http://leonard.sh",
+			"contributions": ["doc"]
+		}
+	],
+	"contributorsPerLine": 7,
+	"skipCi": true
 }
