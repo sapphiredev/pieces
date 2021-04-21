@@ -430,7 +430,7 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@sapphire/eslint-config@^3.1.0":
+"@sapphire/eslint-config@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@sapphire/eslint-config/-/eslint-config-3.1.1.tgz#faf06dbbb500f9685c9841d40225a091ed281d8f"
   integrity sha512-FIcGe47cOhM7DUfnH/lH4ZI57BnaklW7cp9wxUGOr/Van5wxvEDumVEgG47fylWbGrBlxKuzG1CrWPZNDC4iVg==
