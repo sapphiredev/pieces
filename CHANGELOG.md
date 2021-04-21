@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/sapphire-community/pieces/compare/v1.2.3...v1.2.4) (2021-04-21)
+
+### Bug Fixes
+
+-   change all Sapphire URLs from "project"->"community" & use our domain where applicable 👨‍🌾🚜 ([#69](https://github.com/sapphire-community/pieces/issues/69)) ([fc55625](https://github.com/sapphire-community/pieces/commit/fc55625fa83ade76193d3e990f97bfedecbcb526))
+
 ### [1.2.3](https://github.com/sapphire-community/pieces/compare/v1.2.2...v1.2.3) (2021-03-16)
 
 ### Bug Fixes
