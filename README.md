@@ -7,7 +7,7 @@
 **Sapphire's piece loader.**
 
 [![GitHub](https://img.shields.io/github/license/sapphiredev/pieces)](https://github.com/sapphiredev/pieces/blob/main/LICENSE.md)
-[![codecov](https://codecov.io/gh/sapphire-community/pieces/branch/main/graph/badge.svg?token=D5P9QPKA9T)](https://codecov.io/gh/sapphire-community/pieces)
+[![codecov](https://codecov.io/gh/sapphiredev/pieces/branch/main/graph/badge.svg?token=D5P9QPKA9T)](https://codecov.io/gh/sapphiredev/pieces)
 [![npm](https://img.shields.io/npm/v/@sapphire/pieces?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@sapphire/pieces)
 [![Depfu](https://badges.depfu.com/badges/30f62cdba0c569448b5f93d532dad8e4/count.svg)](https://depfu.com/github/sapphiredev/project_id=15121)
 
