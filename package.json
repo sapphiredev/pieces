@@ -56,7 +56,7 @@
 		"rollup": "^2.45.2",
 		"rollup-plugin-dts": "^3.0.1",
 		"standard-version": "^9.2.0",
-		"typedoc": "^0.20.35",
+		"typedoc": "^0.20.36",
 		"typedoc-plugin-nojekyll": "^1.0.1",
 		"typescript": "^4.2.4"
 	},
