@@ -1,13 +1,6 @@
+import { container, Container } from '../shared/Container';
 import type { Awaited } from '../strategies/ILoaderStrategy';
 import type { Store } from './Store';
-
-/**
- * Represents the data from [[PieceContext.extras]] and may be used for dependency injection.
- * Libraries can provide strict typing by augmenting this module, check
- * {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation module augmentation}
- * for more information.
- */
-export interface PieceContextExtras extends Record<PropertyKey, unknown> {}
 
 /**
  * The context for the piece, contains extra information from the store,
@@ -79,11 +72,11 @@ export class Piece {
 	}
 
 	/**
-	 * The context given by the store.
-	 * @see Store.injectedContext
+	 * A reference to the [[container]] object for ease of use.
+	 * @see container
 	 */
-	public get context(): PieceContextExtras {
-		return this.store.context;
+	public get container(): Container {
+		return container;
 	}
 
 	/**
