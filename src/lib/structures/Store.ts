@@ -2,9 +2,10 @@ import Collection from '@discordjs/collection';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
+import { container, Container } from '../shared/Container';
 import type { Constructor, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
-import type { Piece, PieceContextExtras } from './Piece';
+import type { Piece } from './Piece';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
@@ -65,10 +66,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * The extras to be used for dependency injection in all pieces. Returns a reference of [[Store.defaultExtras]].
+	 * A reference to the {@link Container} object for ease of use.
+	 * @see container
 	 */
-	public get context(): PieceContextExtras {
-		return Store.injectedContext;
+	public get container(): Container {
+		return container;
 	}
 
 	/**
@@ -259,73 +261,6 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			if (error.code !== 'ENOENT') this.strategy.onError(error, path);
 		}
 	}
-
-	/**
-	 * The injected variables that will be accessible to all stores and pieces. To add an extra property, simply mutate
-	 * the object to add it, and this will update all stores and pieces simultaneously.
-	 *
-	 * @example
-	 * ```typescript
-	 * // Add a reference to the Client:
-	 * import { Store } from '(at)sapphire/pieces';
-	 *
-	 * export class SapphireClient extends Client {
-	 *   constructor(options) {
-	 *     super(options);
-	 *
-	 *     Store.injectedContext.client = this;
-	 *   }
-	 * }
-	 *
-	 * // Can be placed anywhere in a TypeScript file, for JavaScript projects,
-	 * // you can create an `augments.d.ts` and place the code there.
-	 * declare module '(at)sapphire/pieces' {
-	 *   interface PieceContextExtras {
-	 *     client: SapphireClient;
-	 *   }
-	 * }
-	 *
-	 * // In any piece, core, plugin, or custom:
-	 * export class UserCommand extends Command {
-	 *   public run(message, args) {
-	 *     // The injected client is available here:
-	 *     const { client } = this.context;
-	 *
-	 *     // ...
-	 *   }
-	 * }
-	 * ```
-	 *
-	 * @example
-	 * ```typescript
-	 * // In a plugin's context, e.g. API:
-	 * class Api extends Plugin {
-	 *   static [postInitialization]() {
-	 *     const server = new Server(this);
-	 *     Store.injectedContext.server = server;
-	 *
-	 *     // ...
-	 *   }
-	 * }
-	 *
-	 * declare module '(at)sapphire/pieces' {
-	 *   interface PieceContextExtras {
-	 *     server: Server;
-	 *   }
-	 * }
-	 *
-	 * // In any piece, even those that aren't routes nor middlewares:
-	 * export class UserRoute extends Route {
-	 *   public [methods.POST](message, args) {
-	 *     // The injected server is available here:
-	 *     const { server } = this.context;
-	 *
-	 *     // ...
-	 *   }
-	 * }
-	 * ```
-	 */
-	public static injectedContext: PieceContextExtras = {};
 
 	/**
 	 * The default strategy, defaults to [[LoaderStrategy]], which is constructed on demand when a store is constructed,

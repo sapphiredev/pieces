@@ -13,7 +13,7 @@ import { classExtends, isClass } from './Shared';
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
-	private readonly clientESM: boolean = getRootData().type === 'ESM';
+	private readonly clientUsesESModules: boolean = getRootData().type === 'ESM';
 	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs'];
 
 	public filter(path: string): FilterResult {
@@ -30,7 +30,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	}
 
 	public async preload(file: ModuleData): AsyncPreloadResult<T> {
-		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientESM);
+		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientUsesESModules);
 		if (mjs) {
 			const url = pathToFileURL(file.path);
 			url.searchParams.append('d', Date.now().toString());
