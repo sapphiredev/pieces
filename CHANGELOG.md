@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/sapphiredev/pieces/compare/v1.2.5...v2.0.0) (2021-05-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Renamed `PieceContextExtras` to `Container`, usage and augmentation is the same.
+* Removed `Store.injectedContext`, use globally exported `container`
+variable instead.
+* Renamed `Store#context` to `Store#container`.
+* Renamed `Piece#context` to `Piece#container`.
+
+* minor naming changes for consistency with ecosystem ([40f85d6](https://github.com/sapphiredev/pieces/commit/40f85d635fc482d747f461c88380c7a3783a2c1b))
+
 ### [1.2.5](https://github.com/sapphiredev/pieces/compare/v1.2.4...v1.2.5) (2021-05-02)
 
 ### Bug Fixes
