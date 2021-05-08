@@ -1,12 +1,16 @@
 /**
- * Represents the data from [[Container]] and may be used for dependency injection.
- * Libraries can provide strict typing by augmenting this module, check
- * [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
- * for more information.
+ * Represents the type of the properties injected into the container, which is available at {@link container}.
  *
- * The data from this interface is available at {@link container}.
+ * Because Sapphire works as a standalone framework (independent of external libraries), there is a need to pass data
+ * from one place to another, which would vary depending on the user and their use-cases.
+ *
+ * Furthermore, plugins may use this structure to add properties referencing to the plugin's objects so they can be
+ * accessed by both the user and the plugin at any moment and at any place.
+ *
+ * Finally, both library developers and bot developers should augment the Container interface from this module using
+ * [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
  */
-export interface Container extends Record<PropertyKey, unknown> {}
+export interface Container {}
 
 /**
  * The injected variables that will be accessible to any place. To add an extra property, simply add a property with a
