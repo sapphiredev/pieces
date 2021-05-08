@@ -72,7 +72,7 @@ export class Piece {
 	}
 
 	/**
-	 * A reference to the [[container]] object for ease of use.
+	 * A reference to the {@link Container} object for ease of use.
 	 * @see container
 	 */
 	public get container(): Container {

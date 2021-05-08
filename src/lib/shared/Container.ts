@@ -1,8 +1,10 @@
 /**
  * Represents the data from [[Container]] and may be used for dependency injection.
  * Libraries can provide strict typing by augmenting this module, check
- * {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation module augmentation}
+ * [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
  * for more information.
+ *
+ * The data from this interface is available at {@link container}.
  */
 export interface Container extends Record<PropertyKey, unknown> {}
 

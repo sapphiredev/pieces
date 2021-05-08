@@ -66,7 +66,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * A reference to the [[container]] object for ease of use.
+	 * A reference to the {@link Container} object for ease of use.
 	 * @see container
 	 */
 	public get container(): Container {
