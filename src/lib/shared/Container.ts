@@ -1,3 +1,5 @@
+import { StoreRegistry } from '../structures/StoreRegistry';
+
 /**
  * Represents the type of the properties injected into the container, which is available at {@link container}.
  *
@@ -10,7 +12,9 @@
  * Finally, both library developers and bot developers should augment the Container interface from this module using
  * [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
  */
-export interface Container {}
+export interface Container {
+	stores: StoreRegistry;
+}
 
 /**
  * The injected variables that will be accessible to any place. To add an extra property, simply add a property with a
@@ -77,4 +81,6 @@ export interface Container {}
  * }
  * ```
  */
-export const container: Container = {};
+export const container: Container = {
+	stores: new StoreRegistry()
+};
