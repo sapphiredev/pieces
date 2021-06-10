@@ -23,7 +23,7 @@ export interface Container {
  * @example
  * ```typescript
  * // Add a reference to the Client:
- * import { container } from '(at)sapphire/pieces';
+ * import { container } from '@sapphire/pieces';
  *
  * export class SapphireClient extends Client {
  *   constructor(options) {
@@ -35,7 +35,7 @@ export interface Container {
  *
  * // Can be placed anywhere in a TypeScript file, for JavaScript projects,
  * // you can create an `augments.d.ts` and place the code there.
- * declare module '(at)sapphire/pieces' {
+ * declare module '@sapphire/pieces' {
  *   interface Container {
  *     client: SapphireClient;
  *   }
@@ -64,7 +64,7 @@ export interface Container {
  *   }
  * }
  *
- * declare module '(at)sapphire/pieces' {
+ * declare module '@sapphire/pieces' {
  *   interface Container {
  *     server: Server;
  *   }

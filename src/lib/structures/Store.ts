@@ -45,7 +45,7 @@ export interface StoreLogger {
 }
 
 /**
- * The store class which contains [[Piece]]s.
+ * The store class which contains {@link Piece}s.
  */
 export class Store<T extends Piece> extends Collection<string, T> {
 	public readonly Constructor: Constructor<T>;
@@ -129,7 +129,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * Loads all pieces from all directories specified by [[paths]].
+	 * Loads all pieces from all directories specified by {@link paths}.
 	 */
 	public async loadAll(): Promise<void> {
 		const pieces: T[] = [];
@@ -209,8 +209,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * Constructs a [[Piece]] instance.
-	 * @param Ctor The [[Piece]]'s constructor used to build the instance.
+	 * Constructs a {@link Piece} instance.
+	 * @param Ctor The {@link Piece}'s constructor used to build the instance.
 	 * @param data The module's information
 	 * @return An instance of the constructed piece.
 	 */
@@ -263,7 +263,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
-	 * The default strategy, defaults to [[LoaderStrategy]], which is constructed on demand when a store is constructed,
+	 * The default strategy, defaults to {@link LoaderStrategy}, which is constructed on demand when a store is constructed,
 	 * when none was set beforehand.
 	 */
 	public static defaultStrategy: ILoaderStrategy<any> = new LoaderStrategy();
