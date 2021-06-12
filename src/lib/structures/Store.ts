@@ -1,9 +1,10 @@
 import Collection from '@discordjs/collection';
+import type { Constructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { container, Container } from '../shared/Container';
-import type { Constructor, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
+import type { ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
 

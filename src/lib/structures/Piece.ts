@@ -1,5 +1,5 @@
+import type { Awaited } from '@sapphire/utilities';
 import { container, Container } from '../shared/Container';
-import type { Awaited } from '../strategies/ILoaderStrategy';
 import type { Store } from './Store';
 
 /**

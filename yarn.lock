@@ -465,6 +465,11 @@
     tslib "^2.2.0"
     typescript "^4.3.2"
 
+"@sapphire/utilities@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@sapphire/utilities/-/utilities-1.5.3.tgz#d83991aa833057f81c137932c3c89bb5a2486a4f"
+  integrity sha512-fwsnjtKaXHapR9umm1F8gSwRz5guA37heAoq8AF+TY84Ykw8xWHrPReL1Yh5gNfLTss3L1QsnUmb5zueJHkMDA==
+
 "@types/hast@^2.0.0":
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/@types/hast/-/hast-2.3.1.tgz#b16872f2a6144c7025f296fb9636a667ebb79cd9"

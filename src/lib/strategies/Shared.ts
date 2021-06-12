@@ -1,14 +1,4 @@
-/**
- * A readonly array of any values.
- * @private
- */
-export type Arr = readonly any[];
-
-/**
- * A generic constructor.
- * @private
- */
-export type Ctor<A extends Arr = readonly any[], R = any> = new (...args: A) => R;
+import type { Ctor } from '@sapphire/utilities';
 
 /**
  * Determines whether or not a value is a class.
