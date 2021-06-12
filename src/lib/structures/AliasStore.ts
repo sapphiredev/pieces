@@ -3,7 +3,7 @@ import type { AliasPiece } from './AliasPiece';
 import { Store } from './Store';
 
 /**
- * The store class which contains [[AliasPiece]]s.
+ * The store class which contains {@link AliasPiece}s.
  */
 export class AliasStore<T extends AliasPiece> extends Store<T> {
 	/**

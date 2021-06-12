@@ -24,7 +24,7 @@ export interface PieceContext {
 }
 
 /**
- * The options for the [[Piece]].
+ * The options for the {@link Piece}.
  */
 export interface PieceOptions {
 	/**
@@ -41,7 +41,7 @@ export interface PieceOptions {
 }
 
 /**
- * The piece to be stored in [[Store]] instances.
+ * The piece to be stored in {@link Store} instances.
  */
 export class Piece {
 	/**

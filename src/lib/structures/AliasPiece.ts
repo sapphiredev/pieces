@@ -9,7 +9,7 @@ export interface AliasPieceOptions extends PieceOptions {
 }
 
 /**
- * The piece to be stored in [[AliasStore]] instances.
+ * The piece to be stored in {@link AliasStore} instances.
  */
 export class AliasPiece extends Piece {
 	/**

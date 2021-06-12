@@ -31,22 +31,22 @@ export interface ModuleData {
 export type FilterResult = ModuleData | null;
 
 /**
- * Represents the return data from [[ILoaderStrategy.preload]]
+ * Represents the return data from {@link ILoaderStrategy.preload}
  */
 export type PreloadResult<T extends Piece> = Awaited<Constructor<T> & Record<PropertyKey, unknown>>;
 
 /**
- * Represents the return data from [[ILoaderStrategy.preload]]
+ * Represents the return data from {@link ILoaderStrategy.preload}
  */
 export type AsyncPreloadResult<T extends Piece> = Promise<Constructor<T> & Record<PropertyKey, unknown>>;
 
 /**
- * Represents an entry from [[ILoaderResult]].
+ * Represents an entry from {@link ILoaderResult}.
  */
 export type ILoaderResultEntry<T extends Piece> = Ctor<ConstructorParameters<typeof Piece>, T>;
 
 /**
- * Represents the return data from [[ILoaderStrategy.load]].
+ * Represents the return data from {@link ILoaderStrategy.load}.
  */
 export type ILoaderResult<T extends Piece> = AsyncIterableIterator<ILoaderResultEntry<T>>;
 
@@ -57,7 +57,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	/**
 	 * Retrieves the name and the extension of the specified file path.
 	 * @param path The path of the file to be processed.
-	 * @return A [[ModuleData]] on success, otherwise `null` to stop the store from processing the path.
+	 * @return A {@link ModuleData} on success, otherwise `null` to stop the store from processing the path.
 	 * @example
 	 * ```typescript
 	 * // ts-node support
@@ -110,7 +110,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	load(store: Store<T>, file: ModuleData): ILoaderResult<T>;
 
 	/**
-	 * Called after a piece has been loaded, but before [[Piece.onLoad]] and [[Store.set]].
+	 * Called after a piece has been loaded, but before {@link Piece.onLoad} and {@link Store.set}.
 	 * @param store The store that holds the piece.
 	 * @param piece The piece that was loaded.
 	 */

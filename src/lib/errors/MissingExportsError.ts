@@ -1,7 +1,7 @@
 import { LoaderError, LoaderErrorType } from './LoaderError';
 
 /**
- * Describes a [[LoaderErrorType.EmptyModule]] loader error and adds a path for easy identification.
+ * Describes a {@link LoaderErrorType.EmptyModule} loader error and adds a path for easy identification.
  */
 export class MissingExportsError extends LoaderError {
 	/**
