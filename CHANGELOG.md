@@ -2,18 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [2.0.0](https://github.com/sapphiredev/pieces/compare/v1.2.5...v2.0.0) (2021-05-08)
+## [2.1.0](https://github.com/sapphiredev/pieces/compare/v2.0.0...v2.1.0) (2021-06-19)
 
+### Features
+
+-   **types:** remove Constructor, Awaited, Ctor and Arr types - use @sapphire/utilities instead ([#84](https://github.com/sapphiredev/pieces/issues/84)) ([538dbb5](https://github.com/sapphiredev/pieces/commit/538dbb5c69a05fbb5fdeb2c07bf08d9f7a9445ac))
+-   added StoreRegistry ([#76](https://github.com/sapphiredev/pieces/issues/76)) ([b9f7198](https://github.com/sapphiredev/pieces/commit/b9f71987711f0336c231774f9ea9d95827fa4dfb))
+
+### Bug Fixes
+
+-   **docs:** update-tsdoc-for-vscode-may-2021 ([#83](https://github.com/sapphiredev/pieces/issues/83)) ([74aae8f](https://github.com/sapphiredev/pieces/commit/74aae8fa43923345cfd4d878a3f5fc65cb3a7bb2))
+-   these files are EXECUTABLE MOM ([97a7cb7](https://github.com/sapphiredev/pieces/commit/97a7cb7c06fa63fa6c5d42572dbde36a596bc63f))
+
+## [2.0.0](https://github.com/sapphiredev/pieces/compare/v1.2.5...v2.0.0) (2021-05-08)
 
 ### ⚠ BREAKING CHANGES
 
-* Renamed `PieceContextExtras` to `Container`, usage and augmentation is the same.
-* Removed `Store.injectedContext`, use globally exported `container`
-variable instead.
-* Renamed `Store#context` to `Store#container`.
-* Renamed `Piece#context` to `Piece#container`.
+-   Renamed `PieceContextExtras` to `Container`, usage and augmentation is the same.
+-   Removed `Store.injectedContext`, use globally exported `container`
+    variable instead.
+-   Renamed `Store#context` to `Store#container`.
+-   Renamed `Piece#context` to `Piece#container`.
 
-* minor naming changes for consistency with ecosystem ([40f85d6](https://github.com/sapphiredev/pieces/commit/40f85d635fc482d747f461c88380c7a3783a2c1b))
+-   minor naming changes for consistency with ecosystem ([40f85d6](https://github.com/sapphiredev/pieces/commit/40f85d635fc482d747f461c88380c7a3783a2c1b))
 
 ### [1.2.5](https://github.com/sapphiredev/pieces/compare/v1.2.4...v1.2.5) (2021-05-02)
 

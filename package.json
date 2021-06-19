@@ -1,6 +1,6 @@
 {
 	"name": "@sapphire/pieces",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Sapphire's piece loader.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
 		"build:mjs-import": "node scripts/make-import.mjs",
 		"build:rollup": "rollup -c rollup.config.ts",
 		"build:clean-extraneous-types": "node scripts/clean-extraneous-types.mjs",
-		"clean": "tsc -b src --clean",
+		"clean": "node scripts/clean-dist.mjs",
 		"watch": "tsc -b src -w",
 		"sversion": "standard-version",
 		"commit": "git-cz",
