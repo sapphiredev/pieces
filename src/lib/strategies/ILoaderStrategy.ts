@@ -1,9 +1,6 @@
+import type { Awaited, Constructor, Ctor } from '@sapphire/utilities';
 import type { Piece } from '../structures/Piece';
 import type { Store } from '../structures/Store';
-import type { Ctor } from './Shared';
-
-export type Constructor<T> = new (...args: any[]) => T;
-export type Awaited<T> = PromiseLike<T> | T;
 
 /**
  * The module data information.
