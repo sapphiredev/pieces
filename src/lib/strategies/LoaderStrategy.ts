@@ -13,8 +13,22 @@ import { classExtends, isClass } from './Shared';
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
-	private readonly clientUsesESModules: boolean = getRootData().type === 'ESM';
-	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs'];
+	public clientUsesESModules = getRootData().type === 'ESM';
+	public supportedExtensions = ['.js', '.cjs', '.mjs'];
+
+	public constructor() {
+		/**
+		 * If {@linkplain https://github.com/TypeStrong/ts-node ts-node} is being used
+		 * we conditionally need to register files ending in the `.ts` file extension.
+		 *
+		 * This is because `ts-node` builds files into memory, so we have to scan the
+		 * source `.ts` files, rather than files emitted with any of the JavaScript
+		 * extensions.
+		 */
+		if (Reflect.has(process, Symbol.for('ts-node.register.instance'))) {
+			this.supportedExtensions.push('.ts');
+		}
+	}
 
 	public filter(path: string): FilterResult {
 		// Retrieve the file extension.
