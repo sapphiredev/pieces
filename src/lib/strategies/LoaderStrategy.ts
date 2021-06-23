@@ -18,7 +18,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 
 	public constructor() {
 		/**
-		 * if {@linkplain https://github.com/TypeStrong/ts-node ts-node} is being used
+		 * If {@linkplain https://github.com/TypeStrong/ts-node ts-node} is being used
 		 * we conditionally need to register files ending in the `.ts` file extension.
 		 *
 		 * This is because `ts-node` builds files into memory, so we have to scan the
