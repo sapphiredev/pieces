@@ -13,8 +13,8 @@ import { classExtends, isClass } from './Shared';
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
-	public clientUsesESModules: boolean = getRootData().type === 'ESM';
-	public supportedExtensions: string[] = ['.js', '.cjs', '.mjs'];
+	public clientUsesESModules = getRootData().type === 'ESM';
+	public supportedExtensions = ['.js', '.cjs', '.mjs'];
 
 	public constructor() {
 		if (Reflect.has(process, Symbol.for('ts-node.register.instance'))) {
