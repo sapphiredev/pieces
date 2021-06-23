@@ -17,6 +17,12 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public supportedExtensions = ['.js', '.cjs', '.mjs'];
 
 	public constructor() {
+		/**
+		 * if {@linkplain https://github.com/TypeStrong/ts-node ts-node} is being used
+		 * we conditionally need to register files ending in the `.ts` file extension.
+		 * This is because `ts-node` builds files in-place rather than outputting
+		 * to some "`dist`" directory.
+		 */
 		if (Reflect.has(process, Symbol.for('ts-node.register.instance'))) {
 			this.supportedExtensions.push('.ts');
 		}
