@@ -13,8 +13,14 @@ import { classExtends, isClass } from './Shared';
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
-	private readonly clientUsesESModules: boolean = getRootData().type === 'ESM';
-	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs', '.ts'];
+	public clientUsesESModules: boolean = getRootData().type === 'ESM';
+	public supportedExtensions: string[] = ['.js', '.cjs', '.mjs'];
+
+	public constructor() {
+		if (Object.getOwnPropertySymbols(process).includes(Symbol.for('ts-node.register.instance'))) {
+			this.supportedExtensions.push('.ts');
+		}
+	}
 
 	public filter(path: string): FilterResult {
 		// Retrieve the file extension.
