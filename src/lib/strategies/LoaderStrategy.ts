@@ -14,7 +14,7 @@ import { classExtends, isClass } from './Shared';
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	private readonly clientUsesESModules: boolean = getRootData().type === 'ESM';
-	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs'];
+	private readonly supportedExtensions: readonly string[] = ['.js', '.cjs', '.mjs', '.ts'];
 
 	public filter(path: string): FilterResult {
 		// Retrieve the file extension.
