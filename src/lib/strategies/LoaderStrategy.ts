@@ -17,7 +17,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public supportedExtensions: string[] = ['.js', '.cjs', '.mjs'];
 
 	public constructor() {
-		if (Object.getOwnPropertySymbols(process).includes(Symbol.for('ts-node.register.instance'))) {
+		if (Reflect.has(process, Symbol.for('ts-node.register.instance'))) {
 			this.supportedExtensions.push('.ts');
 		}
 	}
