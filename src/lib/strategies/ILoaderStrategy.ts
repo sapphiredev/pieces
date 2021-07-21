@@ -127,6 +127,12 @@ export interface ILoaderStrategy<T extends Piece> {
 	onUnload(store: Store<T>, piece: T): Awaited<unknown>;
 
 	/**
+	 * Called after all pieces have been unloaded.
+	 * @param store The store that unloaded all pieces.
+	 */
+	onUnloadAll(store: Store<T>): Awaited<unknown>;
+
+	/**
 	 * @param error The error that was thrown.
 	 * @param path The path of the file that caused the error to be thrown.
 	 */
