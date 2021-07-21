@@ -92,6 +92,10 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		return undefined;
 	}
 
+	public onUnloadAll(): unknown {
+		return undefined;
+	}
+
 	public onError(error: Error, path: string): void {
 		console.error(`Error when loading '${path}':`, error);
 	}

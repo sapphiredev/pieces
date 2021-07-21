@@ -93,7 +93,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	/**
 	 * Loads one or more pieces from a path.
 	 * @param path The path of the file to load.
-	 * @return An async iterator that yields each one of the loaded pieces.
+	 * @return All the loaded pieces.
 	 */
 	public async load(path: string): Promise<T[]> {
 		const data = this.strategy.filter(path);
@@ -130,6 +130,22 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	}
 
 	/**
+	 * Unloads all pieces from the store.
+	 */
+	public async unloadAll(): Promise<T[]> {
+		const promises = [];
+		for (const piece of this.values()) {
+			promises.push(this.unload(piece));
+		}
+
+		const results = await Promise.all(promises);
+
+		this.strategy.onUnloadAll(this);
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD-ALL] Removed all pieces.`);
+		return results;
+	}
+
+	/**
 	 * Loads all pieces from all directories specified by {@link paths}.
 	 */
 	public async loadAll(): Promise<void> {
@@ -144,7 +160,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		Store.logger?.(`[STORE => ${this.name}] [LOAD-ALL] Found '${pieces.length}' pieces.`);
 
 		// Clear the store before inserting the new pieces:
-		this.clear();
+		await this.unloadAll();
 		Store.logger?.(`[STORE => ${this.name}] [LOAD-ALL] Cleared all pieces.`);
 
 		// Load each piece:
