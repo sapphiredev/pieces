@@ -37,7 +37,7 @@
 		"@sapphire/eslint-config": "^3.2.3",
 		"@sapphire/prettier-config": "^1.1.6",
 		"@sapphire/ts-config": "^2.3.2",
-		"@types/node": "^16.4.10",
+		"@types/node": "^16.4.13",
 		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^7.0.1",
 		"lint-staged": "^11.0.1",
