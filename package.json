@@ -36,7 +36,7 @@
 		"@favware/rollup-type-bundler": "^1.0.3",
 		"@sapphire/eslint-config": "^3.2.3",
 		"@sapphire/prettier-config": "^1.1.6",
-		"@sapphire/ts-config": "^2.3.2",
+		"@sapphire/ts-config": "^3.0.0",
 		"@types/node": "^16.6.1",
 		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^7.0.1",
