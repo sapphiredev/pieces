@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/sapphiredev/pieces/compare/v2.1.0...v2.2.0) (2021-08-26)
+
+### Features
+
+-   **store:** add `unloadAll` ([#91](https://github.com/sapphiredev/pieces/issues/91)) ([3909c51](https://github.com/sapphiredev/pieces/commit/3909c51734852b60f7161e931db56b94e41a4099))
+
+### Bug Fixes
+
+-   **LoaderStrategy:** add `.ts` to allow for ts-node usage ([#87](https://github.com/sapphiredev/pieces/issues/87)) ([193abcd](https://github.com/sapphiredev/pieces/commit/193abcda91f8efa4474db120de634e0a0a8224cf)), closes [#86](https://github.com/sapphiredev/pieces/issues/86)
+
 ## [2.1.0](https://github.com/sapphiredev/pieces/compare/v2.0.0...v2.1.0) (2021-06-19)
 
 ### Features
