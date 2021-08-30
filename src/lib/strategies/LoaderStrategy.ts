@@ -1,3 +1,4 @@
+import { isNullish } from '@sapphire/utilities';
 import { basename, extname } from 'path';
 import { pathToFileURL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
@@ -25,7 +26,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		 * source `.ts` files, rather than files emitted with any of the JavaScript
 		 * extensions.
 		 */
-		if (Reflect.has(process, Symbol.for('ts-node.register.instance'))) {
+		if (Reflect.has(process, Symbol.for('ts-node.register.instance')) || !isNullish(process.env.TS_NODE_DEV)) {
 			this.supportedExtensions.push('.ts');
 		}
 	}
