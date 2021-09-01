@@ -1,4 +1,4 @@
-import { Piece, PieceContext, PieceOptions } from './Piece';
+import { Piece, PieceContext, PieceJSON, PieceOptions } from './Piece';
 
 export interface AliasPieceOptions extends PieceOptions {
 	/**
@@ -25,10 +25,17 @@ export class AliasPiece extends Piece {
 	/**
 	 * Defines the `JSON.stringify` behavior of this alias piece.
 	 */
-	public toJSON(): Record<string, any> {
+	public toJSON(): AliasPieceJSON {
 		return {
 			...super.toJSON(),
 			aliases: this.aliases.slice()
 		};
 	}
+}
+
+/**
+ * The return type of {@link AliasPiece.toJSON}.
+ */
+export interface AliasPieceJSON extends PieceJSON {
+	aliases: string[];
 }
