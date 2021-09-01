@@ -23,6 +23,16 @@ export interface ModuleData {
 }
 
 /**
+ * The hydrated module data.
+ */
+export interface HydratedModuleData extends ModuleData {
+	/**
+	 * The directory the module was loaded from.
+	 */
+	root: string;
+}
+
+/**
  * The result from the filter.
  */
 export type FilterResult = ModuleData | null;
@@ -104,7 +114,7 @@ export interface ILoaderStrategy<T extends Piece> {
 	 * }
 	 * ```
 	 */
-	load(store: Store<T>, file: ModuleData): ILoaderResult<T>;
+	load(store: Store<T>, file: HydratedModuleData): ILoaderResult<T>;
 
 	/**
 	 * Called after a piece has been loaded, but before {@link Piece.onLoad} and {@link Store.set}.

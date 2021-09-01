@@ -1,5 +1,6 @@
 import type { Awaited } from '@sapphire/utilities';
 import { container, Container } from '../shared/Container';
+import { PieceLocation, PieceLocationJSON } from './PieceLocation';
 import type { Store } from './Store';
 
 /**
@@ -8,7 +9,12 @@ import type { Store } from './Store';
  */
 export interface PieceContext {
 	/**
-	 * The path the module was loaded from.
+	 * The root directory the piece was loaded from.
+	 */
+	readonly root: string;
+
+	/**
+	 * The path the module was loaded from, relative to {@link PieceContext.root}.
 	 */
 	readonly path: string;
 
@@ -50,9 +56,9 @@ export class Piece {
 	public readonly store: Store<Piece>;
 
 	/**
-	 * The path to the piece's file.
+	 * The location metadata for the piece's file.
 	 */
-	public readonly path: string;
+	public readonly location: PieceLocation;
 
 	/**
 	 * The name of the piece.
@@ -66,7 +72,7 @@ export class Piece {
 
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
 		this.store = context.store;
-		this.path = context.path;
+		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
 		this.enabled = options.enabled ?? true;
 	}
@@ -107,17 +113,26 @@ export class Piece {
 	 * Reloads the piece by loading the same path in the store.
 	 */
 	public async reload() {
-		await this.store.load(this.path);
+		await this.store.load(this.location.root, this.location.relative);
 	}
 
 	/**
 	 * Defines the `JSON.stringify` behavior of this piece.
 	 */
-	public toJSON(): Record<string, any> {
+	public toJSON(): PieceJSON {
 		return {
-			path: this.path,
+			location: this.location.toJSON(),
 			name: this.name,
 			enabled: this.enabled
 		};
 	}
+}
+
+/**
+ * The return type of {@link Piece.toJSON}.
+ */
+export interface PieceJSON {
+	location: PieceLocationJSON;
+	name: string;
+	enabled: boolean;
 }

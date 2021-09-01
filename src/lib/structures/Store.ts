@@ -4,7 +4,7 @@ import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { container, Container } from '../shared/Container';
-import type { ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
+import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
 
@@ -92,19 +92,22 @@ export class Store<T extends Piece> extends Collection<string, T> {
 
 	/**
 	 * Loads one or more pieces from a path.
-	 * @param path The path of the file to load.
+	 * @param root The root directory the file is from.
+	 * @param path The path of the file to load, relative to the `root`.
 	 * @return All the loaded pieces.
 	 */
-	public async load(path: string): Promise<T[]> {
-		const data = this.strategy.filter(path);
+	public async load(root: string, path: string): Promise<T[]> {
+		const full = join(root, path);
+		const data = this.strategy.filter(full);
 		if (data === null) {
-			Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${path}' as 'LoaderStrategy#filter' returned 'null'.`);
+			Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${full}' as 'LoaderStrategy#filter' returned 'null'.`);
 			return [];
 		}
 
 		const promises: Promise<T>[] = [];
-		for await (const Ctor of this.strategy.load(this, data)) {
-			promises.push(this.insert(this.construct(Ctor, data)));
+		const finishedData = this.hydrateModuleData(root, data);
+		for await (const Ctor of this.strategy.load(this, finishedData)) {
+			promises.push(this.insert(this.construct(Ctor, finishedData)));
 		}
 
 		return Promise.all(promises);
@@ -231,26 +234,37 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param data The module's information
 	 * @return An instance of the constructed piece.
 	 */
-	public construct(Ctor: ILoaderResultEntry<T>, data: ModuleData): T {
-		return new Ctor({ store: this, path: data.path, name: data.name }, { name: data.name, enabled: true });
+	public construct(Ctor: ILoaderResultEntry<T>, data: HydratedModuleData): T {
+		return new Ctor({ store: this, root: data.root, path: data.path, name: data.name }, { name: data.name, enabled: true });
+	}
+
+	/**
+	 * Adds the final module data properties.
+	 * @param root The root directory to add.
+	 * @param data The module data returned from {@link ILoaderStrategy.filter}.
+	 * @returns The finished module data.
+	 */
+	private hydrateModuleData(root: string, data: ModuleData): HydratedModuleData {
+		return { root, ...data };
 	}
 
 	/**
 	 * Loads a directory into the store.
-	 * @param directory The directory to load the pieces from.
+	 * @param root The directory to load the pieces from.
 	 * @return An async iterator that yields the pieces to be loaded into the store.
 	 */
-	private async *loadPath(directory: string): AsyncIterableIterator<T> {
-		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${directory}'.`);
-		for await (const child of this.walk(directory)) {
+	private async *loadPath(root: string): AsyncIterableIterator<T> {
+		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${root}'.`);
+		for await (const child of this.walk(root)) {
 			const data = this.strategy.filter(child);
 			if (data === null) {
 				Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${child}' as 'LoaderStrategy#filter' returned 'null'.`);
 				continue;
 			}
 			try {
-				for await (const Ctor of this.strategy.load(this, data)) {
-					yield this.construct(Ctor, data);
+				const finishedData = this.hydrateModuleData(root, data);
+				for await (const Ctor of this.strategy.load(this, finishedData)) {
+					yield this.construct(Ctor, finishedData);
 				}
 			} catch (error) {
 				this.strategy.onError(error, data.path);
