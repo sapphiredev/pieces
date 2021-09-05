@@ -267,7 +267,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 					yield this.construct(Ctor, finishedData);
 				}
 			} catch (error) {
-				this.strategy.onError(error, data.path);
+				this.strategy.onError(error as Error, data.path);
 			}
 		}
 	}
@@ -289,7 +289,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 			// Specifically ignore ENOENT, which is commonly raised by fs operations
 			// to indicate that a component of the specified pathname does not exist.
 			// No entity (file or directory) could be found by the given path.
-			if (error.code !== 'ENOENT') this.strategy.onError(error, path);
+			if ((error as ErrorWithCode).code !== 'ENOENT') this.strategy.onError(error as Error, path);
 		}
 	}
 
@@ -304,3 +304,5 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 */
 	public static logger: StoreLogger | null = null;
 }
+
+type ErrorWithCode = Error & { code: string };
