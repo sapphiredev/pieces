@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/sapphiredev/pieces/compare/v2.2.0...v3.0.0) (2021-09-09)
+
+### ⚠ BREAKING CHANGES
+
+-   Changed `Store#load` to take `root` and `path`
+-   Make `ILoaderStrategy#load` take `HydratedModuleData`
+-   Remove `Piece#path`, use `#location` instead
+
+### Features
+
+-   **AliasPiece:** strict type `toJSON()` ([4aead0d](https://github.com/sapphiredev/pieces/commit/4aead0d309497e14b30b58ba064572ea21d0171e))
+-   **ILoaderStrategy:** Added `HydratedModuleData` type ([8ea5303](https://github.com/sapphiredev/pieces/commit/8ea5303381483a9e4969bbe6f554428621c4470f))
+-   **Piece:** added `location` property, containing the file's metadata ([27a5488](https://github.com/sapphiredev/pieces/commit/27a5488abf3983b992806bed346328df2d38713c))
+-   **Piece:** strict type `toJSON()` ([6f9f0a6](https://github.com/sapphiredev/pieces/commit/6f9f0a610c9e9f0b0395b582703f31c77c165b1b))
+-   added `PieceLocation` ([e1c1ff9](https://github.com/sapphiredev/pieces/commit/e1c1ff95a61bfab8e467f5fd1dbda3f40fefa173))
+-   update to V3 ([7dc4b70](https://github.com/sapphiredev/pieces/commit/7dc4b704962da0504e4126c1c8e415677cd84f4c))
+-   **ts-node-dev-support:** check if env variable is set ([#102](https://github.com/sapphiredev/pieces/issues/102)) ([4d8bbc8](https://github.com/sapphiredev/pieces/commit/4d8bbc8022e492714b8c8fc1ee98432777cae525))
+
 ## [2.2.0](https://github.com/sapphiredev/pieces/compare/v2.1.0...v2.2.0) (2021-08-26)
 
 ### Features
