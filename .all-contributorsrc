@@ -23,7 +23,7 @@
 			"contributions": ["code", "userTesting"]
 		},
 		{
-			"login": "favna",
+			"login": "Favna",
 			"name": "Jeroen Claassens",
 			"avatar_url": "https://avatars3.githubusercontent.com/u/4019718?v=4",
 			"profile": "https://favware.tech",
@@ -41,6 +41,13 @@
 			"name": "Henning Blomqvist",
 			"avatar_url": "https://avatars.githubusercontent.com/u/74746184?v=4",
 			"profile": "https://github.com/hblomqvist",
+			"contributions": ["code"]
+		},
+		{
+			"login": "Stitch07",
+			"name": "Stitch07",
+			"avatar_url": "https://avatars.githubusercontent.com/u/29275227?v=4",
+			"profile": "https://github.com/Stitch07",
 			"contributions": ["code"]
 		}
 	],
