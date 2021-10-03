@@ -50,6 +50,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://leonard.sh"><img src="https://avatars.githubusercontent.com/u/35312043?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Narcis B.</b></sub></a><br /><a href="https://github.com/sapphiredev/pieces/commits?author=LeonardSSH" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/hblomqvist"><img src="https://avatars.githubusercontent.com/u/74746184?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Henning Blomqvist</b></sub></a><br /><a href="https://github.com/sapphiredev/pieces/commits?author=hblomqvist" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Stitch07"><img src="https://avatars.githubusercontent.com/u/29275227?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Stitch07</b></sub></a><br /><a href="https://github.com/sapphiredev/pieces/commits?author=Stitch07" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/vladfrangu"><img src="https://avatars.githubusercontent.com/u/17960496?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vlad Frangu</b></sub></a><br /><a href="https://github.com/sapphiredev/pieces/commits?author=vladfrangu" title="Code">💻</a></td>
   </tr>
 </table>
 
