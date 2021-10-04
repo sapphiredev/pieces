@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/sapphiredev/pieces/compare/v3.0.0...v3.0.1) (2021-10-04)
+
+### Bug Fixes
+
+-   change `Awaited` to `Awaitable` ([f1f9c1b](https://github.com/sapphiredev/pieces/commit/f1f9c1bbdee697eb9ee0abf8438fc011f1e218ad))
+-   resolve incorrect ESM bundle exports ([44f6b5f](https://github.com/sapphiredev/pieces/commit/44f6b5f0c51d738b11935ff8a4a1df4b361996ff))
+-   set dependencies to latest versions ([e34af9f](https://github.com/sapphiredev/pieces/commit/e34af9f5ecebe8b773808a233c1263809447a7c8))
+
 ## [3.0.0](https://github.com/sapphiredev/pieces/compare/v2.2.0...v3.0.0) (2021-09-09)
 
 ### ⚠ BREAKING CHANGES
