@@ -1,4 +1,4 @@
-import type { Awaited, Constructor, Ctor } from '@sapphire/utilities';
+import type { Awaitable, Constructor, Ctor } from '@sapphire/utilities';
 import type { Piece } from '../structures/Piece';
 import type { Store } from '../structures/Store';
 
@@ -40,7 +40,7 @@ export type FilterResult = ModuleData | null;
 /**
  * Represents the return data from {@link ILoaderStrategy.preload}
  */
-export type PreloadResult<T extends Piece> = Awaited<Constructor<T> & Record<PropertyKey, unknown>>;
+export type PreloadResult<T extends Piece> = Awaitable<Constructor<T> & Record<PropertyKey, unknown>>;
 
 /**
  * Represents the return data from {@link ILoaderStrategy.preload}
@@ -121,26 +121,26 @@ export interface ILoaderStrategy<T extends Piece> {
 	 * @param store The store that holds the piece.
 	 * @param piece The piece that was loaded.
 	 */
-	onLoad(store: Store<T>, piece: T): Awaited<unknown>;
+	onLoad(store: Store<T>, piece: T): Awaitable<unknown>;
 
 	/**
 	 * Called after all pieces have been loaded.
 	 * @param store The store that loaded all pieces.
 	 */
-	onLoadAll(store: Store<T>): Awaited<unknown>;
+	onLoadAll(store: Store<T>): Awaitable<unknown>;
 
 	/**
 	 * Called after a piece has been unloaded or overwritten by a newly loaded piece.
 	 * @param store The store that held the piece.
 	 * @param piece The piece that was unloaded.
 	 */
-	onUnload(store: Store<T>, piece: T): Awaited<unknown>;
+	onUnload(store: Store<T>, piece: T): Awaitable<unknown>;
 
 	/**
 	 * Called after all pieces have been unloaded.
 	 * @param store The store that unloaded all pieces.
 	 */
-	onUnloadAll(store: Store<T>): Awaited<unknown>;
+	onUnloadAll(store: Store<T>): Awaitable<unknown>;
 
 	/**
 	 * @param error The error that was thrown.

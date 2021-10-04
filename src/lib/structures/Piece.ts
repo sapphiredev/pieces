@@ -1,4 +1,4 @@
-import type { Awaited } from '@sapphire/utilities';
+import type { Awaitable } from '@sapphire/utilities';
 import { container, Container } from '../shared/Container';
 import { PieceLocation, PieceLocationJSON } from './PieceLocation';
 import type { Store } from './Store';
@@ -89,7 +89,7 @@ export class Piece {
 	 * Per-piece listener that is called when the piece is loaded into the store.
 	 * Useful to set-up asynchronous initialization tasks.
 	 */
-	public onLoad(): Awaited<unknown> {
+	public onLoad(): Awaitable<unknown> {
 		return undefined;
 	}
 
@@ -97,7 +97,7 @@ export class Piece {
 	 * Per-piece listener that is called when the piece is unloaded from the store.
 	 * Useful to set-up clean-up tasks.
 	 */
-	public onUnload(): Awaited<unknown> {
+	public onUnload(): Awaitable<unknown> {
 		return undefined;
 	}
 
