@@ -11,21 +11,15 @@ export interface AliasPieceOptions extends PieceOptions {
 /**
  * The piece to be stored in {@link AliasStore} instances.
  */
-export class AliasPiece extends Piece {
+export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends Piece<O> {
 	/**
 	 * The aliases for the piece.
 	 */
 	public aliases: readonly string[];
 
-	/**
-	 * The raw options passed to this {@link AliasPiece}
-	 */
-	public readonly options: AliasPieceOptions;
-
 	public constructor(context: PieceContext, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
-		this.options = options;
 	}
 
 	/**

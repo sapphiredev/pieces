@@ -49,7 +49,7 @@ export interface PieceOptions {
 /**
  * The piece to be stored in {@link Store} instances.
  */
-export class Piece {
+export class Piece<O extends PieceOptions = PieceOptions> {
 	/**
 	 * The store that contains the piece.
 	 */
@@ -73,14 +73,14 @@ export class Piece {
 	/**
 	 * The raw options passed to this {@link Piece}
 	 */
-	public readonly options: PieceOptions;
+	public readonly options: O;
 
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
 		this.store = context.store;
 		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
 		this.enabled = options.enabled ?? true;
-		this.options = options;
+		this.options = options as O;
 	}
 
 	/**
