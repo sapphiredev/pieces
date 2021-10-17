@@ -11,7 +11,7 @@ export interface AliasPieceOptions extends PieceOptions {
 /**
  * The piece to be stored in {@link AliasStore} instances.
  */
-export class AliasPiece extends Piece {
+export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends Piece<O> {
 	/**
 	 * The aliases for the piece.
 	 */
@@ -38,4 +38,5 @@ export class AliasPiece extends Piece {
  */
 export interface AliasPieceJSON extends PieceJSON {
 	aliases: string[];
+	options: AliasPieceOptions;
 }
