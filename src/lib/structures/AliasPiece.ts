@@ -17,9 +17,15 @@ export class AliasPiece extends Piece {
 	 */
 	public aliases: readonly string[];
 
+	/**
+	 * The raw options passed to this {@link AliasPiece}
+	 */
+	public readonly options: AliasPieceOptions;
+
 	public constructor(context: PieceContext, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
+		this.options = options;
 	}
 
 	/**
@@ -38,4 +44,5 @@ export class AliasPiece extends Piece {
  */
 export interface AliasPieceJSON extends PieceJSON {
 	aliases: string[];
+	options: AliasPieceOptions;
 }

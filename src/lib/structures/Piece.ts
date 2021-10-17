@@ -70,11 +70,17 @@ export class Piece {
 	 */
 	public enabled: boolean;
 
+	/**
+	 * The raw options passed to this {@link Piece}
+	 */
+	public readonly options: PieceOptions;
+
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
 		this.store = context.store;
 		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
 		this.enabled = options.enabled ?? true;
+		this.options = options;
 	}
 
 	/**
@@ -123,7 +129,8 @@ export class Piece {
 		return {
 			location: this.location.toJSON(),
 			name: this.name,
-			enabled: this.enabled
+			enabled: this.enabled,
+			options: this.options
 		};
 	}
 }
@@ -135,4 +142,5 @@ export interface PieceJSON {
 	location: PieceLocationJSON;
 	name: string;
 	enabled: boolean;
+	options: PieceOptions;
 }
