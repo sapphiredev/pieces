@@ -38,10 +38,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		const extension = extname(path);
 		if (!this.supportedExtensions.includes(extension)) return null;
 
-		if (this.filterDtsFiles) {
-			const dtsFileExtension = path.slice(-5);
-			if (dtsFileExtension === '.d.ts') return null;
-		}
+		if (this.filterDtsFiles && path.endsWith('.d.ts')) return null;
 
 		// Retrieve the name of the file, return null if empty.
 		const name = basename(path, extension);
