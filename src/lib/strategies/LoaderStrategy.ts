@@ -16,6 +16,7 @@ import { classExtends, isClass } from './Shared';
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public clientUsesESModules = getRootData().type === 'ESM';
 	public supportedExtensions = ['.js', '.cjs', '.mjs'];
+	private readonly filterDtsFiles: boolean = false;
 
 	public constructor() {
 		/**
@@ -28,6 +29,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		 */
 		if (Reflect.has(process, Symbol.for('ts-node.register.instance')) || !isNullish(process.env.TS_NODE_DEV)) {
 			this.supportedExtensions.push('.ts');
+			this.filterDtsFiles = true;
 		}
 	}
 
@@ -36,7 +38,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		const extension = extname(path);
 		if (!this.supportedExtensions.includes(extension)) return null;
 
-		if (this.supportedExtensions.includes('.ts')) {
+		if (this.filterDtsFiles) {
 			const dtsFileExtension = path.slice(-5);
 			if (dtsFileExtension === '.d.ts') return null;
 		}
