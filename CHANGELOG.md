@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/sapphiredev/pieces/compare/v3.0.1...v3.1.0) (2021-10-17)
+
+### Features
+
+-   **piece:** add `options` field to read raw options ([#127](https://github.com/sapphiredev/pieces/issues/127)) ([e994d8c](https://github.com/sapphiredev/pieces/commit/e994d8cef03f1492411c82385bfe3a2f46468210))
+
+### Bug Fixes
+
+-   allow more node & npm versions in engines field ([8ce9b52](https://github.com/sapphiredev/pieces/commit/8ce9b52f0bf739a0420e32a86a8cf249d12d6b6f))
+-   filter `.d.ts` files from default loader strategy ([#128](https://github.com/sapphiredev/pieces/issues/128)) ([0a7c4ac](https://github.com/sapphiredev/pieces/commit/0a7c4ac0d3f8bc804a50d10ea1f1bffa72c4ac48))
+
 ### [3.0.1](https://github.com/sapphiredev/pieces/compare/v3.0.0...v3.0.1) (2021-10-04)
 
 ### Bug Fixes
