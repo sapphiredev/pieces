@@ -21,7 +21,7 @@
 		"sversion": "standard-version",
 		"commit": "git-cz",
 		"cz": "git-cz",
-		"prepublishOnly": "rollup-type-bundler",
+		"prepublishOnly": "rollup-type-bundler -v",
 		"prepare": "husky install .github/husky"
 	},
 	"dependencies": {
