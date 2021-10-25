@@ -406,7 +406,7 @@ __metadata:
     pretty-quick: ^3.1.1
     standard-version: ^9.3.2
     tslib: ^2.3.1
-    typedoc: ^0.22.6
+    typedoc: ^0.22.7
     typescript: ^4.4.4
   languageName: unknown
   linkType: soft
@@ -3223,12 +3223,12 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"marked@npm:^3.0.4":
-  version: 3.0.7
-  resolution: "marked@npm:3.0.7"
+"marked@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "marked@npm:3.0.8"
   bin:
     marked: bin/marked
-  checksum: f77260b835ec6707ad38e9e4774694bbd2322cc39bc6dc8b11eb7c8c5eef03ed19f50c0b32e5c85fb58491f91008ba8ecef5530489fbf8b0f6c57ef884f45402
+  checksum: 3cdeaa126bbeca5b1b8d2f91e9728018dcd63b250233f3607009a4d70bb6bd9df8c769f1bc52ce9856d1316c91c9dacb1d94d80696f76d094146b4fab126a4eb
   languageName: node
   linkType: hard
 
@@ -4325,7 +4325,7 @@ resolve@^1.10.0:
   languageName: node
   linkType: hard
 
-"shiki@npm:^0.9.11":
+"shiki@npm:^0.9.12":
   version: 0.9.12
   resolution: "shiki@npm:0.9.12"
   dependencies:
@@ -4886,20 +4886,20 @@ resolve@^1.10.0:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.22.6":
-  version: 0.22.6
-  resolution: "typedoc@npm:0.22.6"
+"typedoc@npm:^0.22.7":
+  version: 0.22.7
+  resolution: "typedoc@npm:0.22.7"
   dependencies:
     glob: ^7.2.0
     lunr: ^2.3.9
-    marked: ^3.0.4
+    marked: ^3.0.8
     minimatch: ^3.0.4
-    shiki: ^0.9.11
+    shiki: ^0.9.12
   peerDependencies:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: bdf099fffbe77bd173164ac9d3700ed88e4eb021ce402a255492065f6cbd03f8f420297743616791062f5d2c3e32b0fa061c52f360956f54306b3cd0719ec702
+  checksum: cff0fc67dd069eabbd161644172e7da66cd4ad772f98c511d5d87d2bcd35851a7f8c232a9a70fdfa55c3d3f5fbcff8a44f263f2bbedeedb4202b9f8cb057d3fa
   languageName: node
   linkType: hard
 
