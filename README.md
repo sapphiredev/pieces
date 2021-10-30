@@ -16,12 +16,6 @@
 
 Pieces make up the core of the [Sapphire Framework][]. In the design of [Sapphire Framework][] your commands, events, preconditions and more are "pieces". They are pieces of your code, that make up the whole.
 
-**Much of the code in this repository is based on the ideas in [klasa]. This project would not exist without it.**
-
-## API Documentation
-
-For the full API documentation please refer to the TypeDoc generated [documentation](https://sapphiredev.github.io/pieces).
-
 ## Buy us some doughnuts
 
 Sapphire Community is and always will be open source, even if we don't get donations. That being said, we know there are amazing people who may still want to donate just to show their appreciation. Thank you very much in advance!
