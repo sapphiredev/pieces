@@ -395,7 +395,7 @@ __metadata:
     "@sapphire/eslint-config": ^4.0.2
     "@sapphire/prettier-config": ^1.2.3
     "@sapphire/ts-config": ^3.1.3
-    "@sapphire/utilities": ^3.0.5
+    "@sapphire/utilities": ^3.0.6
     "@types/node": ^16.11.5
     cz-conventional-changelog: ^3.3.0
     eslint: ^8.1.0
@@ -437,10 +437,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "@sapphire/utilities@npm:3.0.5"
-  checksum: 198cc9e159ca4a6de666406a79de0c90f37469320eecd4a2b4fe471b4432281ff286f9b5387ea996b9386583edb77e9d6c33c82edf3c2cc63b29aaba8805517f
+"@sapphire/utilities@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "@sapphire/utilities@npm:3.0.6"
+  checksum: cfe4dd76ec27521cf85931a2a2fd4f8d82387667090ba61bbe985dd9a4ed55b0abd5767bf2538479d31a135ed2051b96f941732d7ef39ce23815e4f147c37037
   languageName: node
   linkType: hard
 
