@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^0.2.1",
-		"@sapphire/utilities": "^3.0.5",
+		"@sapphire/utilities": "^3.0.6",
 		"tslib": "^2.3.1"
 	},
 	"devDependencies": {
