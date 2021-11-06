@@ -47,6 +47,7 @@
 		"pretty-quick": "^3.1.1",
 		"standard-version": "^9.3.2",
 		"typedoc": "^0.22.7",
+		"typedoc-plugin-mdn-links": "^1.0.4",
 		"typescript": "^4.4.4"
 	},
 	"repository": {
