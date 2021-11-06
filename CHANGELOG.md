@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/sapphiredev/pieces/compare/v3.1.0...v3.1.1) (2021-11-06)
+
+### Bug Fixes
+
+-   **deps:** update all non-major dependencies ([#132](https://github.com/sapphiredev/pieces/issues/132)) ([7b19018](https://github.com/sapphiredev/pieces/commit/7b190185b31a4d892a0e8589667733993e3b570c))
+-   **deps:** update dependency @sapphire/utilities to ^3.0.6 ([#131](https://github.com/sapphiredev/pieces/issues/131)) ([b0b1bea](https://github.com/sapphiredev/pieces/commit/b0b1bea86ac6cc2071093b82016a6e372b482e7f))
+
 ## [3.1.0](https://github.com/sapphiredev/pieces/compare/v3.0.1...v3.1.0) (2021-10-17)
 
 ### Features
