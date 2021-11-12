@@ -147,7 +147,7 @@ export interface PieceJSON {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Piece {
-	type Options = PieceOptions;
-	type Context = PieceContext;
-	type JSON = PieceJSON;
+	export type Options = PieceOptions;
+	export type Context = PieceContext;
+	export type JSON = PieceJSON;
 }

@@ -43,7 +43,7 @@ export interface AliasPieceJSON extends PieceJSON {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace AliasPiece {
-	type Options = AliasPieceOptions;
-	type Context = PieceContext;
-	type JSON = AliasPieceJSON;
+	export type Options = AliasPieceOptions;
+	export type Context = PieceContext;
+	export type JSON = AliasPieceJSON;
 }
