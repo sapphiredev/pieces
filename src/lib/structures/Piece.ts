@@ -144,3 +144,9 @@ export interface PieceJSON {
 	enabled: boolean;
 	options: PieceOptions;
 }
+
+export namespace Piece {
+	type Options = PieceOptions;
+	type Context = PieceContext;
+	type JSON = PieceJSON;
+}
