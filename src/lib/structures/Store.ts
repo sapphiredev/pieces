@@ -6,6 +6,7 @@ import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { container, Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
+import type { StoreRegistry, StoreRegistryEntries } from './StoreRegistry';
 import type { Piece } from './Piece';
 
 /**
@@ -306,3 +307,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 }
 
 type ErrorWithCode = Error & { code: string };
+
+export namespace Store {
+	export type Options<T extends Piece> = StoreOptions;
+	export type Logger = StoreLogger;
+
+	export const Registry = StoreRegistry;
+	export type RegistryEntries = StoreRegistryEntries;
+}

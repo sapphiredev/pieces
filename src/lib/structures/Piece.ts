@@ -149,4 +149,7 @@ export namespace Piece {
 	export type Options = PieceOptions;
 	export type Context = PieceContext;
 	export type JSON = PieceJSON;
+
+	export const Location = PieceLocation;
+	export type LocationJSON = PieceLocationJSON;
 }
