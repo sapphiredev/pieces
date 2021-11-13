@@ -14,7 +14,7 @@
 		"lint": "eslint src scripts --ext mjs,ts --fix",
 		"format": "prettier --write {src,scripts}/**/*.ts",
 		"docs": "typedoc",
-		"update": "yarn upgrade-interactive --latest",
+		"update": "yarn upgrade-interactive",
 		"clean": "node scripts/clean-dist.mjs",
 		"build": "tsc -b src && node scripts/make-import.mjs && gen-esm-wrapper dist/index.js dist/index.mjs",
 		"watch": "tsc -b src -w",
