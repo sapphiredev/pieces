@@ -40,3 +40,9 @@ export interface AliasPieceJSON extends PieceJSON {
 	aliases: string[];
 	options: AliasPieceOptions;
 }
+
+export namespace AliasPiece {
+	export type Options = AliasPieceOptions;
+	export type Context = PieceContext;
+	export type JSON = AliasPieceJSON;
+}
