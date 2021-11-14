@@ -45,7 +45,7 @@ export namespace AliasPiece {
 	export type Options = AliasPieceOptions;
 	export type Context = Piece.Context;
 	export type JSON = AliasPieceJSON;
-	
-	export const Location = Piece.Location;
+
+	export const { Location } = Piece;
 	export type LocationJSON = Piece.LocationJSON;
 }
