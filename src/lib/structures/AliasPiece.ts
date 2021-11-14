@@ -1,6 +1,6 @@
-import { Piece, PieceContext, PieceJSON, PieceOptions } from './Piece';
+import { Piece } from './Piece';
 
-export interface AliasPieceOptions extends PieceOptions {
+export interface AliasPieceOptions extends Piece.Options {
 	/**
 	 * The aliases for the piece.
 	 * @default []
@@ -17,7 +17,7 @@ export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends
 	 */
 	public aliases: readonly string[];
 
-	public constructor(context: PieceContext, options: AliasPieceOptions = {}) {
+	public constructor(context: Piece.Context, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
 	}
@@ -36,13 +36,15 @@ export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends
 /**
  * The return type of {@link AliasPiece.toJSON}.
  */
-export interface AliasPieceJSON extends PieceJSON {
+export interface AliasPieceJSON extends Piece.JSON {
 	aliases: string[];
 	options: AliasPieceOptions;
 }
 
 export namespace AliasPiece {
+	export const { Location } = Piece;
 	export type Options = AliasPieceOptions;
-	export type Context = PieceContext;
+	export type Context = Piece.Context;
 	export type JSON = AliasPieceJSON;
+	export type LocationJSON = Piece.LocationJSON;
 }
