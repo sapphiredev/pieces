@@ -309,9 +309,8 @@ export class Store<T extends Piece> extends Collection<string, T> {
 type ErrorWithCode = Error & { code: string };
 
 export namespace Store {
+	export const Registry = StoreRegistry;
 	export type Options<T extends Piece> = StoreOptions<T>;
 	export type Logger = StoreLogger;
-
-	export const Registry = StoreRegistry;
 	export type RegistryEntries = StoreRegistryEntries;
 }

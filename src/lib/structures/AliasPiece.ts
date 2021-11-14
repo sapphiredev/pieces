@@ -42,10 +42,9 @@ export interface AliasPieceJSON extends Piece.JSON {
 }
 
 export namespace AliasPiece {
+	export const { Location } = Piece;
 	export type Options = AliasPieceOptions;
 	export type Context = Piece.Context;
 	export type JSON = AliasPieceJSON;
-
-	export const { Location } = Piece;
 	export type LocationJSON = Piece.LocationJSON;
 }
