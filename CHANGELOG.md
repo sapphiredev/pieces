@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/sapphiredev/pieces/compare/v3.1.1...v3.2.0) (2021-11-21)
+
+### Features
+
+-   add Piece and Store namespaces for easier importing types ([#138](https://github.com/sapphiredev/pieces/issues/138)) ([84e2d24](https://github.com/sapphiredev/pieces/commit/84e2d243622f76251c68ac26465b5f47571a857c))
+
+### Bug Fixes
+
+-   remove unsupported yarn flag ([#137](https://github.com/sapphiredev/pieces/issues/137)) ([b9a6d07](https://github.com/sapphiredev/pieces/commit/b9a6d079e1d2d9d2b567e3f59d7effb08fe84324))
+
 ### [3.1.1](https://github.com/sapphiredev/pieces/compare/v3.1.0...v3.1.1) (2021-11-06)
 
 ### Bug Fixes
