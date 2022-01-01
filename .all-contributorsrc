@@ -84,6 +84,13 @@
 			"avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
 			"profile": "https://github.com/apps/dependabot",
 			"contributions": ["maintenance"]
+		},
+		{
+			"login": "Lioness100",
+			"name": "Lioness100",
+			"avatar_url": "https://avatars.githubusercontent.com/u/65814829?v=4",
+			"profile": "https://github.com/Lioness100",
+			"contributions": ["code"]
 		}
 	],
 	"contributorsPerLine": 7,
