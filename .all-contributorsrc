@@ -23,7 +23,7 @@
 			"contributions": ["code", "userTesting"]
 		},
 		{
-			"login": "Favna",
+			"login": "favna",
 			"name": "Jeroen Claassens",
 			"avatar_url": "https://avatars3.githubusercontent.com/u/4019718?v=4",
 			"profile": "https://favware.tech",
@@ -56,6 +56,13 @@
 			"avatar_url": "https://avatars.githubusercontent.com/u/17960496?v=4",
 			"profile": "https://github.com/vladfrangu",
 			"contributions": ["code"]
+		},
+		{
+			"login": "depfu[bot]",
+			"name": "depfu[bot]",
+			"avatar_url": "https://avatars.githubusercontent.com/in/715?v=4",
+			"profile": "https://github.com/apps/depfu",
+			"contributions": ["maintenance"]
 		}
 	],
 	"contributorsPerLine": 7,
