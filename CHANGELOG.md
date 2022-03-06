@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/sapphiredev/pieces/compare/v3.2.0...v3.3.0) (2022-03-06)
+
+### Features
+
+-   allow module: NodeNext ([#170](https://github.com/sapphiredev/pieces/issues/170)) ([9677524](https://github.com/sapphiredev/pieces/commit/9677524519ec149744dd5df7c977a82c39049067))
+
+### Bug Fixes
+
+-   **deps:** update all non-major dependencies ([#151](https://github.com/sapphiredev/pieces/issues/151)) ([ef9c11f](https://github.com/sapphiredev/pieces/commit/ef9c11fd5ada72067ecdc7e2aa2df4a927e24d71))
+-   **deps:** update all non-major dependencies ([#161](https://github.com/sapphiredev/pieces/issues/161)) ([b69734d](https://github.com/sapphiredev/pieces/commit/b69734da03f40e4a4d59db464db945867cb0b6aa))
+
 ## [3.2.0](https://github.com/sapphiredev/pieces/compare/v3.1.1...v3.2.0) (2021-11-21)
 
 ### Features
