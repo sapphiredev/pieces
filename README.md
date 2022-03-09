@@ -62,5 +62,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-[sapphire framework]: https://github.com/sapphiredev/rk
+[sapphire framework]: https://github.com/sapphiredev/framework
 [klasa]: https://github.com/dirigeants/klasa
