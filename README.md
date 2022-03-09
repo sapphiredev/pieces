@@ -14,7 +14,7 @@
 
 ## Description
 
-Pieces make up the core of the [Sapphire Framework][]. In the design of [Sapphire Framework][] your commands, events, preconditions and more are "pieces". They are pieces of your code, that make up the whole.
+Pieces make up the core of the [Sapphire Framework](https://github.com/sapphiredev/framework). In the design of [Sapphire Framework](https://github.com/sapphiredev/framework) your commands, events, preconditions and more are "pieces". They are pieces of your code, that make up the whole.
 
 ## Buy us some doughnuts
 
