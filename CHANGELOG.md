@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/sapphiredev/pieces/compare/v3.3.0...v3.3.1) (2022-04-01)
+
+### Bug Fixes
+
+-   bump sapphire utilities dependency ([a36c8c8](https://github.com/sapphiredev/pieces/commit/a36c8c8a9e1e7cb12c0fa3c7c7399233c7f91b37))
+
 ## [3.3.0](https://github.com/sapphiredev/pieces/compare/v3.2.0...v3.3.0) (2022-03-06)
 
 ### Features
