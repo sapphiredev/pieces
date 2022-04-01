@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^0.5.0",
-		"@sapphire/utilities": "^3.6.1",
+		"@sapphire/utilities": "^3.6.2",
 		"tslib": "^2.3.1"
 	},
 	"devDependencies": {
@@ -35,12 +35,12 @@
 		"@commitlint/config-conventional": "^16.2.1",
 		"@favware/npm-deprecate": "^1.0.4",
 		"@favware/rollup-type-bundler": "^1.0.7",
-		"@sapphire/eslint-config": "^4.3.2",
-		"@sapphire/prettier-config": "^1.4.1",
-		"@sapphire/ts-config": "^3.3.3",
-		"@types/node": "^17.0.8",
-		"@typescript-eslint/eslint-plugin": "^5.16.0",
-		"@typescript-eslint/parser": "^5.16.0",
+		"@sapphire/eslint-config": "^4.3.3",
+		"@sapphire/prettier-config": "^1.4.2",
+		"@sapphire/ts-config": "^3.3.4",
+		"@types/node": "^17.0.23",
+		"@typescript-eslint/eslint-plugin": "^5.17.0",
+		"@typescript-eslint/parser": "^5.17.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.12.0",
 		"eslint-config-prettier": "^8.5.0",
