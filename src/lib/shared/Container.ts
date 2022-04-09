@@ -23,15 +23,9 @@ export interface Container {
  * @example
  * ```typescript
  * // Add a reference for the version:
- * import { container, SapphireClient } from '@sapphire/framework';
+ * import { container } from '@sapphire/framework';
  *
- * export class MyClient extends SapphireClient {
- *   constructor(options) {
- *     super(options);
- *
- *     container.version = '1.0.0';
- *   }
- * }
+ * container.version = '1.0.0';
  *
  * // Can be placed anywhere in a TypeScript file, for JavaScript projects,
  * // you can create an `augments.d.ts` and place the code there.
