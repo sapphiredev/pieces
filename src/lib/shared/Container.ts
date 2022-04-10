@@ -22,30 +22,24 @@ export interface Container {
  *
  * @example
  * ```typescript
- * // Add a reference to the Client:
+ * // Add a reference for the version:
  * import { container } from '@sapphire/pieces';
  *
- * export class SapphireClient extends Client {
- *   constructor(options) {
- *     super(options);
- *
- *     container.client = this;
- *   }
- * }
+ * container.version = '1.0.0';
  *
  * // Can be placed anywhere in a TypeScript file, for JavaScript projects,
  * // you can create an `augments.d.ts` and place the code there.
  * declare module '@sapphire/pieces' {
  *   interface Container {
- *     client: SapphireClient;
+ *     version: string;
  *   }
  * }
  *
  * // In any piece, core, plugin, or custom:
  * export class UserCommand extends Command {
  *   public run(message, args) {
- *     // The injected client is available here:
- *     const { client } = this.container;
+ *     // The injected version is available here:
+ *     const { version } = this.container;
  *
  *     // ...
  *   }
