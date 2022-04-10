@@ -23,7 +23,7 @@ export interface Container {
  * @example
  * ```typescript
  * // Add a reference for the version:
- * import { container } from '@sapphire/framework';
+ * import { container } from '@sapphire/pieces';
  *
  * container.version = '1.0.0';
  *
