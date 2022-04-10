@@ -137,7 +137,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * Unloads all pieces from the store.
 	 */
 	public async unloadAll(): Promise<T[]> {
-		const promises = [];
+		const promises: Promise<T>[] = [];
 		for (const piece of this.values()) {
 			promises.push(this.unload(piece));
 		}
