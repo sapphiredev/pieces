@@ -201,6 +201,15 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
+		// Do not load pieces that are already registered with the same name, this prevents overwriting of pieces:
+		if (super.get(piece.name)) {
+			Store.logger?.(
+				`[STORE => ${this.name}] [INSERT] Failed to load the piece ${piece.name} due to a conflict with an existing piece with the same name.`
+			);
+
+			return piece;
+		}
+
 		// Load piece:
 		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
