@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.3.3](https://github.com/sapphiredev/pieces/compare/v3.3.1...v3.3.3) - (2022-05-15)
+
+## 🏠 Refactor
+
+- Stricter types ([f9be533](https://github.com/sapphiredev/pieces/commit/f9be53361bd6fdf7039bd605c3ebcd177d196432))
+
+## 🐛 Bug Fixes
+
+- **deps:** Update all non-major dependencies (#190) ([299ffa9](https://github.com/sapphiredev/pieces/commit/299ffa9dfaa2178f57d8395b900fcf380e2240ff))
+
+## 📝 Documentation
+
+- Add @r-priyam as a contributor ([edf13b0](https://github.com/sapphiredev/pieces/commit/edf13b0563299fc461ff2c7419ca0c7c30e5da81))
+- Add @leonardssh as a contributor ([d6d9d00](https://github.com/sapphiredev/pieces/commit/d6d9d0016a2e2aad27595f4cc8f64eabb46c4024))
+
 # [3.3.2](https://github.com/sapphiredev/pieces/compare/v3.3.1...v3.3.2) - (2022-05-15)
 
 ## 🏠 Refactor
