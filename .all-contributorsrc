@@ -91,6 +91,13 @@
 			"avatar_url": "https://avatars.githubusercontent.com/u/65814829?v=4",
 			"profile": "https://github.com/Lioness100",
 			"contributions": ["code"]
+		},
+		{
+			"login": "r-priyam",
+			"name": "Priyam",
+			"avatar_url": "https://avatars.githubusercontent.com/u/50884372?v=4",
+			"profile": "https://github.com/r-priyam",
+			"contributions": ["doc"]
 		}
 	],
 	"contributorsPerLine": 7,
