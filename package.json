@@ -19,11 +19,10 @@
 		"clean": "node scripts/clean-dist.mjs",
 		"build": "tsc -b src && node scripts/make-import.mjs && gen-esm-wrapper dist/index.js dist/index.mjs",
 		"watch": "tsc -b src -w",
-		"prepublishOnly": "rollup-type-bundler -v",
 		"bump": "cliff-jumper",
 		"check-update": "cliff-jumper --dry-run",
 		"postinstall": "husky install .github/husky",
-		"prepack": "rollup-type-bundler -e node:util && pinst --disable",
+		"prepack": "rollup-type-bundler && pinst --disable",
 		"postpack": "pinst --enable"
 	},
 	"dependencies": {
