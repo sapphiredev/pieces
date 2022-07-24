@@ -1,4 +1,4 @@
-import Collection from '@discordjs/collection';
+import { Collection } from '@discordjs/collection';
 import type { AliasPiece } from './AliasPiece';
 import { Store } from './Store';
 

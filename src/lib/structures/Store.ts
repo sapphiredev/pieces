@@ -1,4 +1,4 @@
-import Collection from '@discordjs/collection';
+import { Collection } from '@discordjs/collection';
 import type { Constructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
@@ -6,8 +6,8 @@ import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { container, Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
-import { StoreRegistry, StoreRegistryEntries } from './StoreRegistry';
 import type { Piece } from './Piece';
+import { StoreRegistry, StoreRegistryEntries } from './StoreRegistry';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).

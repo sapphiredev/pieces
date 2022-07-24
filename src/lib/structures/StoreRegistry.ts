@@ -1,4 +1,4 @@
-import Collection from '@discordjs/collection';
+import { Collection } from '@discordjs/collection';
 import { join } from 'path';
 import { getRootData } from '../internal/RootScan';
 import type { Piece } from './Piece';
