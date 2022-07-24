@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.3.5](https://github.com/sapphiredev/pieces/compare/v3.3.4...v3.3.5) - (2022-07-24)
+
+## 🐛 Bug Fixes
+
+- Fixed imports of discordjs/colletion to resolve type issues ([cfc8a5c](https://github.com/sapphiredev/pieces/commit/cfc8a5c10744979b7660c3b63b07364c9bedd24d))
+- **deps:** Update dependency @sapphire/utilities to ^3.7.0 (#219) ([488afd3](https://github.com/sapphiredev/pieces/commit/488afd3689767505eb994759380125ae7b1b936d))
+
 # [3.3.3](https://github.com/sapphiredev/pieces/compare/v3.3.1...v3.3.3) - (2022-05-15)
 
 ## 🏠 Refactor
