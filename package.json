@@ -99,10 +99,10 @@
 		"access": "public"
 	},
 	"resolutions": {
-		"acorn": "^8.7.1",
+		"acorn": "^8.8.0",
 		"ansi-regex": "^5.0.1",
 		"minimist": "^1.2.6"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@3.2.1"
+	"packageManager": "yarn@3.2.2"
 }
