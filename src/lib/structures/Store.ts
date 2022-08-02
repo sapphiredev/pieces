@@ -3,6 +3,7 @@ import type { Constructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
+import { Path, resolvePath } from '../internal/Path';
 import { container, Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
@@ -85,9 +86,11 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 *   .registerPath(resolve('third-party', 'commands'));
 	 * ```
 	 */
-	public registerPath(path: string): this {
-		this.paths.add(path);
-		Store.logger?.(`[STORE => ${this.name}] [REGISTER] Registered path '${path}'.`);
+	public registerPath(path: Path): this {
+		const root = resolvePath(path);
+
+		this.paths.add(root);
+		Store.logger?.(`[STORE => ${this.name}] [REGISTER] Registered path '${root}'.`);
 		return this;
 	}
 

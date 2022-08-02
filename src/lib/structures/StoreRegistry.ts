@@ -1,5 +1,6 @@
 import { Collection } from '@discordjs/collection';
 import { join } from 'path';
+import { Path, resolvePath } from '../internal/Path';
 import { getRootData } from '../internal/RootScan';
 import type { Piece } from './Piece';
 import type { Store } from './Store';
@@ -65,9 +66,10 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * @since 2.1.0
 	 * @param rootDirectory The root directory to register pieces at.
 	 */
-	public registerPath(rootDirectory = getRootData().root) {
+	public registerPath(rootDirectory: Path = getRootData().root) {
+		const root = resolvePath(rootDirectory);
 		for (const store of this.values() as IterableIterator<Store<Piece>>) {
-			store.registerPath(join(rootDirectory, store.name));
+			store.registerPath(join(root, store.name));
 		}
 	}
 
