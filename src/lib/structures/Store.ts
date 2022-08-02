@@ -1,5 +1,5 @@
 import { Collection } from '@discordjs/collection';
-import type { Constructor } from '@sapphire/utilities';
+import type { AbstractConstructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
@@ -50,7 +50,7 @@ export interface StoreLogger {
  * The store class which contains {@link Piece}s.
  */
 export class Store<T extends Piece> extends Collection<string, T> {
-	public readonly Constructor: Constructor<T>;
+	public readonly Constructor: AbstractConstructor<T>;
 	public readonly name: string;
 	public readonly paths: Set<string>;
 	public readonly strategy: ILoaderStrategy<T>;
@@ -59,7 +59,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @param constructor The piece constructor this store loads.
 	 * @param options The options for the store.
 	 */
-	public constructor(constructor: Constructor<T>, options: StoreOptions<T>) {
+	public constructor(constructor: AbstractConstructor<T>, options: StoreOptions<T>) {
 		super();
 		this.Constructor = constructor;
 		this.name = options.name;
