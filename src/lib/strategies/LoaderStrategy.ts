@@ -6,7 +6,7 @@ import { mjsImport } from '../internal/internal';
 import { getRootData } from '../internal/RootScan';
 import type { Piece } from '../structures/Piece';
 import type { Store } from '../structures/Store';
-import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
+import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderResultEntry, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
 import { classExtends, isClass } from './Shared';
 
 /**
@@ -75,7 +75,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		// Support any other export:
 		for (const value of Object.values(result)) {
 			if (isClass(value) && classExtends(value, store.Constructor)) {
-				yield value;
+				yield value as ILoaderResultEntry<T>;
 				yielded = true;
 			}
 		}
