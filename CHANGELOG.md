@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.4.1](https://github.com/sapphiredev/pieces/compare/v3.4.0...v3.4.1) - (2022-08-04)
+
+## 🐛 Bug Fixes
+
+- **deps:** Update dependency @sapphire/utilities to ^3.9.0 ([41bc4a9](https://github.com/sapphiredev/pieces/commit/41bc4a9bc358aca895923867434c1a335a667b31))
+
 # [3.4.0](https://github.com/sapphiredev/pieces/compare/v3.3.5...v3.4.0) - (2022-08-04)
 
 ## 🐛 Bug Fixes
