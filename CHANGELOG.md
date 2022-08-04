@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.4.0](https://github.com/sapphiredev/pieces/compare/v3.3.5...v3.4.0) - (2022-08-04)
+
+## 🐛 Bug Fixes
+
+- **store:** Support abstract classes (#230) ([f83a05d](https://github.com/sapphiredev/pieces/commit/f83a05d616f223548951b9b3db6b44301dd5d65a))
+- **deps:** Update dependency @sapphire/utilities to ^3.8.0 (#229) ([388cc37](https://github.com/sapphiredev/pieces/commit/388cc37d80670b6a64529b4dc2422dfbfc8bae6b))
+- **deps:** Update all non-major dependencies (#228) ([ca39767](https://github.com/sapphiredev/pieces/commit/ca3976790d06e74ef17eba6adde6c1f903b0a8dc))
+
+## 🚀 Features
+
+- Add URL support for register methods (#231) ([3d2d1be](https://github.com/sapphiredev/pieces/commit/3d2d1befd99ec0ccaaf3ea5ce6b03568b0ec5d2c))
+
 # [3.3.5](https://github.com/sapphiredev/pieces/compare/v3.3.4...v3.3.5) - (2022-07-24)
 
 ## 🐛 Bug Fixes
