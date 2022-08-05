@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.5.0](https://github.com/sapphiredev/pieces/compare/v3.4.1...v3.5.0) - (2022-08-05)
+
+## 🚀 Features
+
+- **esm:** Add more qs parameters (#232) ([5c44377](https://github.com/sapphiredev/pieces/commit/5c4437734dcd2e421434505d1fddb6d8dd3816a2))
+
 # [3.4.1](https://github.com/sapphiredev/pieces/compare/v3.4.0...v3.4.1) - (2022-08-04)
 
 ## 🐛 Bug Fixes
