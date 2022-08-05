@@ -53,6 +53,8 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		if (mjs) {
 			const url = pathToFileURL(file.path);
 			url.searchParams.append('d', Date.now().toString());
+			url.searchParams.append('name', file.name);
+			url.searchParams.append('extension', file.extension);
 			return mjsImport(url);
 		}
 
