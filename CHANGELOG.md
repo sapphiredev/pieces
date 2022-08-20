@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.5.1](https://github.com/sapphiredev/pieces/compare/v3.5.0...v3.5.1) - (2022-08-20)
+
+## 🐛 Bug Fixes
+
+- Update dependencies ([7707d0a](https://github.com/sapphiredev/pieces/commit/7707d0ae880a99249d4fafde435c0b2529c67349))
+- Bump dependencies ([e4fced2](https://github.com/sapphiredev/pieces/commit/e4fced2ef28acd4d3a14b63efd5c85c5067416ce))
+
+## 📝 Documentation
+
+- Add @leonardssh as a contributor ([65787a1](https://github.com/sapphiredev/pieces/commit/65787a187822962afed3a412f1eb9ce3a7575318))
+
 # [3.5.0](https://github.com/sapphiredev/pieces/compare/v3.4.1...v3.5.0) - (2022-08-05)
 
 ## 🚀 Features
