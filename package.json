@@ -14,7 +14,7 @@
 	"scripts": {
 		"lint": "eslint src scripts --ext mjs,ts --fix",
 		"format": "prettier --write {src,scripts}/**/*.ts",
-		"docs": "typedoc",
+		"docs": "typedoc-json-parser",
 		"update": "yarn upgrade-interactive",
 		"clean": "node scripts/clean-dist.mjs",
 		"build": "tsc -b src && node scripts/make-import.mjs && gen-esm-wrapper dist/index.js dist/index.mjs",
@@ -53,7 +53,7 @@
 		"prettier": "^2.7.1",
 		"pretty-quick": "^3.1.3",
 		"typedoc": "^0.23.11",
-		"typedoc-plugin-mdn-links": "^2.0.0",
+		"typedoc-json-parser": "^2.3.2",
 		"typescript": "^4.8.2"
 	},
 	"repository": {
