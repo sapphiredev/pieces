@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.5.2](https://github.com/sapphiredev/pieces/compare/v3.5.1...v3.5.2) - (2022-10-02)
+
+## 🐛 Bug Fixes
+
+- Update @sapphire/utilities dependency ([e326143](https://github.com/sapphiredev/pieces/commit/e3261436adb2d895b1327b9510842f081a7530b9))
+- **deps:** Update dependency @sapphire/utilities to ^3.9.3 (#243) ([0315d4e](https://github.com/sapphiredev/pieces/commit/0315d4e8a7865442a36b1caee7748ee948894a63))
+
+## 📝 Documentation
+
+- Add RealShadowNova as a contributor for tool (#239) ([44e767d](https://github.com/sapphiredev/pieces/commit/44e767d3dc833cb815086fdb96435ed347eeee9e))
+
 # [3.5.1](https://github.com/sapphiredev/pieces/compare/v3.5.0...v3.5.1) - (2022-08-20)
 
 ## 🐛 Bug Fixes
