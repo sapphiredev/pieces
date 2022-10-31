@@ -28,7 +28,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		 * extensions.
 		 */
 		if (Reflect.has(process, Symbol.for('ts-node.register.instance')) || !isNullish(process.env.TS_NODE_DEV)) {
-			this.supportedExtensions.push('.ts');
+			this.supportedExtensions.push('.ts', '.cts', '.mts');
 			this.filterDtsFiles = true;
 		}
 	}
@@ -49,7 +49,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	}
 
 	public async preload(file: ModuleData): AsyncPreloadResult<T> {
-		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientUsesESModules);
+		const mjs = ['.mjs', '.mts'].includes(file.extension) || (['.js', '.ts'].includes(file.extension) && this.clientUsesESModules);
 		if (mjs) {
 			const url = pathToFileURL(file.path);
 			url.searchParams.append('d', Date.now().toString());
