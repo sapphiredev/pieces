@@ -49,7 +49,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	}
 
 	public async preload(file: ModuleData): AsyncPreloadResult<T> {
-		const mjs = file.extension === '.mjs' || (file.extension === '.js' && this.clientUsesESModules);
+		const mjs = file.extension === '.mjs' || (['.js', '.ts'].includes(file.extension) && this.clientUsesESModules);
 		if (mjs) {
 			const url = pathToFileURL(file.path);
 			url.searchParams.append('d', Date.now().toString());
