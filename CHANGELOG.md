@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.0](https://github.com/sapphiredev/pieces/compare/v3.5.2...v3.6.0) - (2022-10-31)
+
+## 🐛 Bug Fixes
+
+- **deps:** Update all non-major dependencies (#257) ([cd043b8](https://github.com/sapphiredev/pieces/commit/cd043b8808b9649ee4b8f4079d89acbc287c4009))
+- **deps:** Update dependency @sapphire/utilities to ^3.11.0 (#258) ([ab31a5e](https://github.com/sapphiredev/pieces/commit/ab31a5e7336e2e2163c1a9d2c04a7df365886f5f))
+
+## 📝 Documentation
+
+- Add qyurila as a contributor for code (#271) ([4a30034](https://github.com/sapphiredev/pieces/commit/4a30034ab8a27eebedfc48d5e4cad7b99fd3df50))
+
+## 🚀 Features
+
+- Support loading ESModule TS files when using ts-node (#270) ([bf58baa](https://github.com/sapphiredev/pieces/commit/bf58baadc3684ea05da4a10bea228f46ab44738d))
+
 # [3.5.2](https://github.com/sapphiredev/pieces/compare/v3.5.1...v3.5.2) - (2022-10-02)
 
 ## 🐛 Bug Fixes
