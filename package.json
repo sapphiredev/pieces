@@ -40,8 +40,8 @@
 		"@sapphire/prettier-config": "^1.4.4",
 		"@sapphire/ts-config": "^3.3.4",
 		"@types/node": "^18.11.17",
-		"@typescript-eslint/eslint-plugin": "^5.46.1",
-		"@typescript-eslint/parser": "^5.46.1",
+		"@typescript-eslint/eslint-plugin": "^5.47.0",
+		"@typescript-eslint/parser": "^5.47.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.30.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -104,5 +104,5 @@
 		"minimist": "^1.2.7"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@3.3.0"
+	"packageManager": "yarn@3.3.1"
 }
