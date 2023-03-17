@@ -1,11 +1,11 @@
-export const enum LoaderErrorType {
+export enum LoaderErrorType {
 	EmptyModule = 'EMPTY_MODULE',
 	UnloadedPiece = 'UNLOADED_PIECE',
 	IncorrectType = 'INCORRECT_TYPE'
 }
 
 /**
- * Describes a loader error with a type for easy indentification.
+ * Describes a loader error with a type for easy identification.
  */
 export class LoaderError extends Error {
 	/**
