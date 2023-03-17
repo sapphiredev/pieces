@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.1](https://github.com/sapphiredev/pieces/compare/v3.6.0...v3.6.1) - (2023-03-17)
+
+## 🐛 Bug Fixes
+
+- **LoaderError:** Changed `LoaderErrorType` from `const enum` to just `enum` ([7e23deb](https://github.com/sapphiredev/pieces/commit/7e23deb5188aca1db3fcf38c373d424119711ccf))
+- **deps:** Update all non-major dependencies (#276) ([5b3b7b6](https://github.com/sapphiredev/pieces/commit/5b3b7b6036b2afa0d91500bf255d04cea8997b48))
+
 # [3.6.0](https://github.com/sapphiredev/pieces/compare/v3.5.2...v3.6.0) - (2022-10-31)
 
 ## 🐛 Bug Fixes
