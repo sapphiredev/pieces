@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.2](https://github.com/sapphiredev/pieces/compare/v3.6.1...v3.6.2) - (2023-04-10)
+
+## 🐛 Bug Fixes
+
+- Explicitly import tslib ([c433c5b](https://github.com/sapphiredev/pieces/commit/c433c5ba8bbb2d549ac7943a5438dc672e6ef873))
+- Use TypeScript v5 ([2bea7b4](https://github.com/sapphiredev/pieces/commit/2bea7b42cf837b7cb19d59bec559b95913cf5009))
+
 # [3.6.1](https://github.com/sapphiredev/pieces/compare/v3.6.0...v3.6.1) - (2023-03-17)
 
 ## 🐛 Bug Fixes
