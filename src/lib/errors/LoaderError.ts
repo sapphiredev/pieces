@@ -18,7 +18,7 @@ export class LoaderError extends Error {
 		this.type = type;
 	}
 
-	public get name() {
+	public override get name() {
 		return `${super.name} [${this.type}]`;
 	}
 }

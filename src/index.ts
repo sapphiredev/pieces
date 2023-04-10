@@ -1,3 +1,5 @@
+import 'tslib';
+
 export * from './lib/errors/LoaderError';
 export * from './lib/errors/MissingExportsError';
 export * from './lib/internal/RootScan';

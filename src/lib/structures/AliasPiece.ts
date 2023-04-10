@@ -25,7 +25,7 @@ export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends
 	/**
 	 * Defines the `JSON.stringify` behavior of this alias piece.
 	 */
-	public toJSON(): AliasPieceJSON {
+	public override toJSON(): AliasPieceJSON {
 		return {
 			...super.toJSON(),
 			aliases: this.aliases.slice()

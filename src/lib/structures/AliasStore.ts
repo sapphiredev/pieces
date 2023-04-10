@@ -15,7 +15,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * Looks up the name by the store, falling back to an alias lookup.
 	 * @param key The key to look for.
 	 */
-	public get(key: string): T | undefined {
+	public override get(key: string): T | undefined {
 		return super.get(key) ?? this.aliases.get(key);
 	}
 
@@ -23,7 +23,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * Checks whether a key is in the store, or is an alias
 	 * @param key The key to check
 	 */
-	public has(key: string): boolean {
+	public override has(key: string): boolean {
 		return super.has(key) || this.aliases.has(key);
 	}
 
@@ -32,7 +32,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public unload(name: string | T): Promise<T> {
+	public override unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload all aliases for the given piece:
@@ -50,7 +50,7 @@ export class AliasStore<T extends AliasPiece> extends Store<T> {
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
-	public async insert(piece: T) {
+	public override async insert(piece: T) {
 		for (const key of piece.aliases) {
 			this.aliases.set(key, piece);
 		}
