@@ -1,6 +1,6 @@
 import { Collection } from '@discordjs/collection';
 import { join } from 'path';
-import { Path, resolvePath } from '../internal/Path';
+import { resolvePath, type Path } from '../internal/Path';
 import { getRootData } from '../internal/RootScan';
 import type { Piece } from './Piece';
 import type { Store } from './Store';

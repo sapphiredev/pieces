@@ -3,12 +3,12 @@ import type { AbstractConstructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
-import { Path, resolvePath } from '../internal/Path';
-import { container, Container } from '../shared/Container';
+import { resolvePath, type Path } from '../internal/Path';
+import { container, type Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
-import { StoreRegistry, StoreRegistryEntries } from './StoreRegistry';
+import { StoreRegistry, type StoreRegistryEntries } from './StoreRegistry';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).

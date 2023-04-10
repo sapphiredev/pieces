@@ -1,6 +1,6 @@
 import type { Awaitable } from '@sapphire/utilities';
-import { container, Container } from '../shared/Container';
-import { PieceLocation, PieceLocationJSON } from './PieceLocation';
+import { container, type Container } from '../shared/Container';
+import { PieceLocation, type PieceLocationJSON } from './PieceLocation';
 import type { Store } from './Store';
 
 /**
