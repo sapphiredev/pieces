@@ -31,12 +31,12 @@
 		"tslib": "^2.5.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.5.1",
-		"@commitlint/config-conventional": "^17.4.4",
+		"@commitlint/cli": "^17.6.1",
+		"@commitlint/config-conventional": "^17.6.1",
 		"@favware/cliff-jumper": "^2.0.0",
 		"@favware/npm-deprecate": "^1.0.7",
 		"@favware/rollup-type-bundler": "^2.0.0",
-		"@sapphire/eslint-config": "^4.4.0",
+		"@sapphire/eslint-config": "^4.4.1",
 		"@sapphire/prettier-config": "^1.4.5",
 		"@sapphire/ts-config": "^4.0.0",
 		"@types/node": "^18.15.11",
