@@ -535,7 +535,7 @@ __metadata:
     pretty-quick: ^3.1.3
     tslib: ^2.5.0
     typedoc: ^0.24.6
-    typedoc-json-parser: ^7.4.0
+    typedoc-json-parser: ^8.0.1
     typescript: ^5.0.4
   languageName: unknown
   linkType: soft
@@ -4779,9 +4779,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-json-parser@npm:^7.4.0":
-  version: 7.4.0
-  resolution: "typedoc-json-parser@npm:7.4.0"
+"typedoc-json-parser@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "typedoc-json-parser@npm:8.0.1"
   dependencies:
     "@favware/colorette-spinner": ^1.0.1
     "@sapphire/node-utilities": ^1.0.0
@@ -4789,16 +4789,16 @@ __metadata:
     commander: ^10.0.1
     js-yaml: ^4.1.0
     tslib: ^2.5.0
-    typedoc: ^0.24.4
+    typedoc: ^0.24.7
   bin:
     typedoc-json-parser: ./dist/bin/index.js
-  checksum: 642e50ae51e4c7347d7320552cf9d4ea39322a66d13a4ea71f60c4607745457ee2c16e90101783b3930daeb8a38d2397e36631d9afcd5cf13994c14e6c196b6e
+  checksum: 897708ec88191702c00abdde78140cf1f71c8b46202be0b8d8b4d4bd10674afa9933a40b4c2515aaac83bba70c337af6068c7b6a3bac71f1fcd497ab06287fd6
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.24.4, typedoc@npm:^0.24.6":
-  version: 0.24.6
-  resolution: "typedoc@npm:0.24.6"
+"typedoc@npm:^0.24.6, typedoc@npm:^0.24.7":
+  version: 0.24.7
+  resolution: "typedoc@npm:0.24.7"
   dependencies:
     lunr: ^2.3.9
     marked: ^4.3.0
@@ -4808,7 +4808,7 @@ __metadata:
     typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
   bin:
     typedoc: bin/typedoc
-  checksum: 3911ef6a7736ce6655a4b22fabc5be6df8812412e209d730fd168bfa7797847897f05fed797bc16558f11ce647b20746453748ff8afe85b1375c3efe2d7b57df
+  checksum: 9ae433566cb02b96deb9eb2a9f5b23d1b199f5aeb61ca8c7e2653ff5d339fbfb4d526e024febab4f3278332978814aaa0885f1d5925ba21a441d93a611510ac3
   languageName: node
   linkType: hard
 
