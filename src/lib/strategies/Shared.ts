@@ -18,7 +18,7 @@ export function isClass(value: unknown): value is AbstractCtor {
 export function classExtends<T extends AbstractCtor>(value: AbstractCtor, base: T): value is T {
 	let ctor: AbstractCtor | null = value;
 	while (ctor !== null) {
-		if (ctor.constructor === base.constructor) return true;
+		if (ctor === base) return true;
 		ctor = Object.getPrototypeOf(ctor);
 	}
 
