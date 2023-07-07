@@ -42,7 +42,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 
 		// Retrieve the name of the file, return null if empty.
 		const name = basename(path, extension);
-		if (name === '') return null;
+		if (name === '' || name.startsWith('_')) return null;
 
 		// Return the name and extension.
 		return { extension, path, name };
