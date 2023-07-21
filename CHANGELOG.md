@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.7.0](https://github.com/sapphiredev/pieces/compare/v3.6.3...v3.7.0) - (2023-07-21)
+
+## 🐛 Bug Fixes
+
+- Update sapphire utilities to v3.13.0 ([21e9e6d](https://github.com/sapphiredev/pieces/commit/21e9e6da00642d114f3cc1cbd188719027c8537b))
+- Resolve issue with class extends utility (#314) ([1501fc1](https://github.com/sapphiredev/pieces/commit/1501fc1cde72d434b4a64f47d34b5903dde4171e))
+- **deps:** Update all non-major dependencies (#303) ([cb6ddde](https://github.com/sapphiredev/pieces/commit/cb6ddde1aeb7867b9fcf9c321f80d1f2812b5cd0))
+
+## 🚀 Features
+
+- Omit files starting with `_` from loading (#289) ([b8a2688](https://github.com/sapphiredev/pieces/commit/b8a2688bcbbe7abb23a53522a94f91e32e3eee61))
+
 # [3.6.2](https://github.com/sapphiredev/pieces/compare/v3.6.1...v3.6.2) - (2023-04-10)
 
 ## 🐛 Bug Fixes
