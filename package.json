@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^17.7.1",
 		"@commitlint/config-conventional": "^17.7.0",
-		"@favware/cliff-jumper": "^2.1.2",
+		"@favware/cliff-jumper": "^2.1.3",
 		"@favware/npm-deprecate": "^1.0.7",
 		"@favware/rollup-type-bundler": "^2.0.0",
 		"@sapphire/eslint-config": "^5.0.2",
