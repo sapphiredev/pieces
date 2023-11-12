@@ -1,12 +1,20 @@
-import { isNullish } from '@sapphire/utilities';
+import { isNullish, type Awaitable } from '@sapphire/utilities';
 import { basename, extname } from 'path';
 import { pathToFileURL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
-import { mjsImport } from '../internal/internal';
 import { getRootData } from '../internal/RootScan';
+import { mjsImport } from '../internal/internal';
 import type { Piece } from '../structures/Piece';
 import type { Store } from '../structures/Store';
-import type { AsyncPreloadResult, FilterResult, ILoaderResult, ILoaderResultEntry, ILoaderStrategy, ModuleData } from './ILoaderStrategy';
+import type {
+	AsyncPreloadResult,
+	FilterResult,
+	HydratedModuleData,
+	ILoaderResult,
+	ILoaderResultEntry,
+	ILoaderStrategy,
+	ModuleData
+} from './ILoaderStrategy';
 import { classExtends, isClass } from './Shared';
 
 /**
@@ -64,7 +72,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		return mod;
 	}
 
-	public async *load(store: Store<T>, file: ModuleData): ILoaderResult<T> {
+	public async *load(store: Store<T>, file: HydratedModuleData): ILoaderResult<T> {
 		let yielded = false;
 		const result = await this.preload(file);
 
@@ -87,18 +95,22 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 		}
 	}
 
+	public onLoad(store: Store<T>, piece: T): Awaitable<unknown>;
 	public onLoad(): unknown {
 		return undefined;
 	}
 
+	public onLoadAll(store: Store<T>): Awaitable<unknown>;
 	public onLoadAll(): unknown {
 		return undefined;
 	}
 
+	public onUnload(store: Store<T>, piece: T): Awaitable<unknown>;
 	public onUnload(): unknown {
 		return undefined;
 	}
 
+	public onUnloadAll(store: Store<T>): Awaitable<unknown>;
 	public onUnloadAll(): unknown {
 		return undefined;
 	}
