@@ -1,7 +1,9 @@
 export enum LoaderErrorType {
 	EmptyModule = 'EMPTY_MODULE',
+	VirtualPiece = 'VIRTUAL_PIECE',
 	UnloadedPiece = 'UNLOADED_PIECE',
-	IncorrectType = 'INCORRECT_TYPE'
+	IncorrectType = 'INCORRECT_TYPE',
+	UnknownStore = 'UNKNOWN_STORE'
 }
 
 /**

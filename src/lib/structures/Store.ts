@@ -9,6 +9,7 @@ import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleDat
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
 import { StoreRegistry, type StoreRegistryEntries } from './StoreRegistry';
+import { VirtualPath } from '../internal/constants';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
@@ -101,6 +102,10 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * @return All the loaded pieces.
 	 */
 	public async load(root: string, path: string): Promise<T[]> {
+		if (root === VirtualPath) {
+			throw new LoaderError(LoaderErrorType.VirtualPiece, `Cannot load a virtual file.`);
+		}
+
 		const full = join(root, path);
 		const data = this.strategy.filter(full);
 		if (data === null) {
