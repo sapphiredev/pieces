@@ -126,7 +126,8 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 *
 	 * - Pieces loaded this way will have their {@linkcode Piece.Context.root root} and
 	 *   {@linkcode Piece.Context.path path} set to {@linkcode VirtualPath}, and as such, cannot be reloaded.
-	 * - This method is useful in environments where FS access is limited or unavailable, such as serverless.
+	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
+	 * 	 {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
 	 * - The loaded method will throw a {@linkcode LoaderError} if:
 	 *   - The store does not exist.
 	 *   - The piece does not extend the {@linkcode Store.Constructor store's piece constructor}.
