@@ -1,15 +1,15 @@
 import { Collection } from '@discordjs/collection';
-import type { AbstractConstructor } from '@sapphire/utilities';
+import { Constructor, classExtends, isClass, type AbstractConstructor } from '@sapphire/utilities';
 import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
+import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constants';
 import { container, type Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
 import { StoreRegistry, type StoreRegistryEntries } from './StoreRegistry';
-import { VirtualPath } from '../internal/constants';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
@@ -51,11 +51,21 @@ export interface StoreLogger {
 /**
  * The store class which contains {@link Piece}s.
  */
-export class Store<T extends Piece> extends Collection<string, T> {
+export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> extends Collection<string, T> {
 	public readonly Constructor: AbstractConstructor<T>;
-	public readonly name: string;
+	public readonly name: keyof StoreRegistryEntries;
 	public readonly paths: Set<string>;
 	public readonly strategy: ILoaderStrategy<T>;
+
+	/**
+	 * The queue of manually registered pieces to load.
+	 */
+	private readonly [ManuallyRegisteredPiecesSymbol]: StoreManuallyRegisteredPiece<StoreName>[] = [];
+
+	/**
+	 * Whether or not the store has called `loadAll` at least once.
+	 */
+	#calledLoadAll = false;
 
 	/**
 	 * @param constructor The piece constructor this store loads.
@@ -64,7 +74,7 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	public constructor(constructor: AbstractConstructor<T>, options: StoreOptions<T>) {
 		super();
 		this.Constructor = constructor;
-		this.name = options.name;
+		this.name = options.name as keyof StoreRegistryEntries;
 		this.paths = new Set(options.paths ?? []);
 		this.strategy = options.strategy ?? Store.defaultStrategy;
 	}
@@ -93,6 +103,63 @@ export class Store<T extends Piece> extends Collection<string, T> {
 		this.paths.add(root);
 		Store.logger?.(`[STORE => ${this.name}] [REGISTER] Registered path '${root}'.`);
 		return this;
+	}
+
+	/**
+	 * Adds a piece into the store's list of manually registered pieces. If {@linkcode Store.loadAll()} was called, the
+	 * piece will be loaded immediately, otherwise it will be queued until {@linkcode Store.loadAll()} is called.
+	 *
+	 * All manually registered pieces will be kept even after they are loaded to ensure they can be loaded again if
+	 * {@linkcode Store.loadAll()} is called again.
+	 *
+	 * @remarks
+	 *
+	 * - Pieces loaded this way will have their {@linkcode Piece.Context.root root} and
+	 *   {@linkcode Piece.Context.path path} set to {@linkcode VirtualPath}, and as such, cannot be reloaded.
+	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
+	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
+	 * - This method will always throw a {@link TypeError} if `entry.piece` is not a class.
+	 * - This method will always throw a {@linkcode LoaderError} if the piece does not extend the
+	 *   {@linkcode Store#Constructor store's piece constructor}.
+	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
+	 *
+	 * @seealso {@linkcode StoreRegistry.loadPiece()}
+	 * @since 3.8.0
+	 * @param entry The entry to load.
+	 * @example
+	 * ```typescript
+	 * import { container } from '@sapphire/pieces';
+	 *
+	 * class PingCommand extends Command {
+	 *   // ...
+	 * }
+	 *
+	 * container.stores.get('commands').loadPiece({
+	 *   name: 'ping',
+	 *   piece: PingCommand
+	 * });
+	 * ```
+	 */
+	public async loadPiece(entry: StoreManuallyRegisteredPiece<StoreName>) {
+		if (!isClass(entry.piece)) {
+			throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
+		}
+
+		// If the piece does not extend the store's Piece class, throw an error:
+		if (!classExtends(entry.piece, this.Constructor as Constructor<T>)) {
+			throw new LoaderError(LoaderErrorType.IncorrectType, `The piece ${entry.name} does not extend ${this.name}`);
+		}
+
+		this[ManuallyRegisteredPiecesSymbol].push(entry);
+		if (this.#calledLoadAll) {
+			const piece = this.construct(entry.piece as unknown as Constructor<T>, {
+				name: entry.name,
+				root: VirtualPath,
+				path: VirtualPath,
+				extension: VirtualPath
+			});
+			await this.insert(piece);
+		}
 	}
 
 	/**
@@ -161,7 +228,18 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * Loads all pieces from all directories specified by {@link paths}.
 	 */
 	public async loadAll(): Promise<void> {
+		this.#calledLoadAll = true;
+
 		const pieces: T[] = [];
+		for (const entry of this[ManuallyRegisteredPiecesSymbol]) {
+			const piece = this.construct(entry.piece as unknown as Constructor<T>, {
+				name: entry.name,
+				root: VirtualPath,
+				path: VirtualPath,
+				extension: VirtualPath
+			});
+			pieces.push(piece);
+		}
 
 		for (const path of this.paths) {
 			for await (const piece of this.loadPath(path)) {
@@ -312,6 +390,15 @@ export class Store<T extends Piece> extends Collection<string, T> {
 	 * The default logger, defaults to `null`.
 	 */
 	public static logger: StoreLogger | null = null;
+}
+
+/**
+ * An entry for a manually registered piece using {@linkcode Store.loadPiece()}.
+ * @since 3.8.0
+ */
+export interface StoreManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> {
+	name: string;
+	piece: StoreRegistryEntries[StoreName] extends Store<infer Piece> ? Constructor<Piece> : never;
 }
 
 type ErrorWithCode = Error & { code: string };

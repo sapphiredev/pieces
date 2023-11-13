@@ -1,12 +1,12 @@
 import { Collection } from '@discordjs/collection';
-import { Constructor, classExtends, isClass } from '@sapphire/utilities';
 import { join } from 'path';
-import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
+import { LoaderError } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
 import { getRootData } from '../internal/RootScan';
-import { VirtualPath } from '../internal/constants';
+import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constants';
 import type { Piece } from './Piece';
-import type { Store } from './Store';
+import type { Store, StoreManuallyRegisteredPiece } from './Store';
+import { isClass } from '@sapphire/utilities';
 
 type Key = keyof StoreRegistryEntries;
 type Value = StoreRegistryEntries[Key];
@@ -35,28 +35,17 @@ export class StoreRegistry extends Collection<Key, Value> {
 	/**
 	 * The queue of pieces to load.
 	 */
-	readonly #loadQueue: StoreLoadPieceQueueEntry<keyof StoreRegistryEntries>[] = [];
-	/**
-	 * Whether or not the registry is loaded.
-	 */
-	#calledLoad = false;
+	readonly #pendingManuallyRegisteredPieces = new Collection<
+		keyof StoreRegistryEntries,
+		StoreManuallyRegisteredPiece<keyof StoreRegistryEntries>[]
+	>();
 
 	/**
 	 * Loads all the registered stores.
 	 * @since 2.1.0
 	 */
 	public async load() {
-		this.#calledLoad = true;
-
 		const promises: Promise<unknown>[] = [];
-
-		// Load the queue first
-		for (const entry of this.#loadQueue) {
-			promises.push(this.#loadQueueEntry(entry));
-		}
-		this.#loadQueue.length = 0;
-
-		// Load from FS
 		for (const store of this.values() as IterableIterator<Store<Piece>>) {
 			promises.push(store.loadAll());
 		}
@@ -97,11 +86,38 @@ export class StoreRegistry extends Collection<Key, Value> {
 
 	/**
 	 * Registers a store.
+	 *
+	 * @remarks
+	 *
+	 * - This method will allow {@linkcode StoreRegistry} to manage the store, meaning:
+	 *   - {@linkcode StoreRegistry.registerPath()} will call the store's
+	 *     {@linkcode Store.registerPath() registerPath()} method on call.
+	 *   - {@linkcode StoreRegistry.load()} will call the store's {@linkcode Store.load() load()} method on call.
+	 *   - {@linkcode StoreRegistry.loadPiece()} will call the store's {@linkcode Store.loadPiece() loadPiece()} method
+	 *     on call.
+	 * - This will also add all the manually registered pieces by {@linkcode StoreRegistry.loadPiece()} in the store.
+	 *
+	 * It is generally recommended to register a store as early as possible, before any of the aforementioned methods
+	 * are called, otherwise you will have to manually call the aforementioned methods for the store to work properly.
+	 *
+	 * If there were manually registered pieces for this store with {@linkcode StoreRegistry.loadPiece()}, this method
+	 * will add them to the store and delete the queue. Note, however, that this method will not call the store's
+	 * {@linkcode Store.loadPiece() loadPiece()} method, and as such, the pieces will not be loaded until
+	 * {@linkcode Store.loadAll()} is called.
+	 *
 	 * @since 2.1.0
 	 * @param store The store to register.
 	 */
 	public register<T extends Piece>(store: Store<T>): this {
 		this.set(store.name as Key, store as unknown as Value);
+
+		// If there was a queue for this store, add it to the store and delete the queue:
+		const queue = this.#pendingManuallyRegisteredPieces.get(store.name);
+		if (queue) {
+			store[ManuallyRegisteredPiecesSymbol].push(...queue);
+			this.#pendingManuallyRegisteredPieces.delete(store.name);
+		}
+
 		return this;
 	}
 
@@ -116,9 +132,8 @@ export class StoreRegistry extends Collection<Key, Value> {
 	}
 
 	/**
-	 * If the registry's {@linkcode StoreRegistry.load()} method wasn't called yet, this method validates whether or not
-	 * `entry.piece` is a class, throwing a {@link TypeError} if it isn't, otherwise it will queue the entry for later
-	 * when {@linkcode StoreRegistry.load()} is called.
+	 * If the store was {@link StoreRegistry.register registered}, this method will call the store's
+	 * {@linkcode Store.loadPiece() loadPiece()} method.
 	 *
 	 * If it was called, the entry will be loaded immediately without queueing.
 	 *
@@ -127,12 +142,15 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * - Pieces loaded this way will have their {@linkcode Piece.Context.root root} and
 	 *   {@linkcode Piece.Context.path path} set to {@linkcode VirtualPath}, and as such, cannot be reloaded.
 	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
-	 * 	 {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
-	 * - The loaded method will throw a {@linkcode LoaderError} if:
-	 *   - The store does not exist.
-	 *   - The piece does not extend the {@linkcode Store.Constructor store's piece constructor}.
+	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
+	 * - This method will not throw an error if a store with the given name does not exist, it will simply be queued
+	 *   until it's registered.
+	 * - This method will always throw a {@link TypeError} if `entry.piece` is not a class.
+	 * - If the store is registered, this method will always throw a {@linkcode LoaderError} if the piece does not
+	 *   extend the registered {@linkcode Store.Constructor store's piece constructor}.
 	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
 	 *
+	 * @seealso {@linkcode Store.loadPiece()}
 	 * @since 3.8.0
 	 * @param entry The entry to load.
 	 * @example
@@ -150,38 +168,18 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * });
 	 * ```
 	 */
-	public async loadPiece<StoreName extends keyof StoreRegistryEntries>(entry: StoreLoadPieceQueueEntry<StoreName>) {
-		if (!isClass(entry.piece)) {
-			throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
-		}
+	public async loadPiece<StoreName extends keyof StoreRegistryEntries>(entry: StoreManagerManuallyRegisteredPiece<StoreName>) {
+		const store = this.get(entry.store) as Store<Piece, StoreName> | undefined;
 
-		if (this.#calledLoad) {
-			await this.#loadQueueEntry(entry);
+		if (store) {
+			await store.loadPiece(entry);
 		} else {
-			this.#loadQueue.push(entry);
+			if (!isClass(entry.piece)) {
+				throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
+			}
+
+			this.#pendingManuallyRegisteredPieces.ensure(entry.store, () => []).push({ name: entry.name, piece: entry.piece });
 		}
-	}
-
-	/**
-	 * Loads a {@link StoreLoadPieceQueueEntry}.
-	 * @param entry The entry to load.
-	 * @returns The loaded piece.
-	 */
-	#loadQueueEntry<StoreName extends keyof StoreRegistryEntries>(entry: StoreLoadPieceQueueEntry<StoreName>) {
-		const store = this.get(entry.store) as Store<Piece> | undefined;
-
-		// If the store does not exist, throw an error:
-		if (!store) {
-			throw new LoaderError(LoaderErrorType.UnknownStore, `The store ${entry.store} does not exist.`);
-		}
-
-		// If the piece does not extend the store's Piece class, throw an error:
-		if (!classExtends(entry.piece, store.Constructor as Constructor<Piece>)) {
-			throw new LoaderError(LoaderErrorType.IncorrectType, `The piece ${entry.name} does not extend ${store.name}`);
-		}
-
-		const piece = store.construct(entry.piece, { name: entry.name, root: VirtualPath, path: VirtualPath, extension: VirtualPath });
-		return store.insert(piece);
 	}
 }
 
@@ -199,12 +197,10 @@ export interface StoreRegistry {
 export interface StoreRegistryEntries {}
 
 /**
- * The {@link StoreRegistry}'s load entry, use module augmentation against this interface when adding new stores.
+ * An entry for a manually registered piece using {@linkcode StoreRegistry.loadPiece()}.
  * @seealso {@linkcode StoreRegistry.loadPiece()}
  * @since 3.8.0
  */
-export interface StoreLoadPieceQueueEntry<StoreName extends keyof StoreRegistryEntries> {
+export interface StoreManagerManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> extends StoreManuallyRegisteredPiece<StoreName> {
 	store: StoreName;
-	name: string;
-	piece: StoreRegistryEntries[StoreName] extends Store<infer Piece> ? Constructor<Piece> : never;
 }
