@@ -14,95 +14,95 @@ All notable changes to this project will be documented in this file.
 
 ## 🐛 Bug Fixes
 
-- Update sapphire utilities to v3.13.0 ([21e9e6d](https://github.com/sapphiredev/pieces/commit/21e9e6da00642d114f3cc1cbd188719027c8537b))
-- Resolve issue with class extends utility (#314) ([1501fc1](https://github.com/sapphiredev/pieces/commit/1501fc1cde72d434b4a64f47d34b5903dde4171e))
-- **deps:** Update all non-major dependencies (#303) ([cb6ddde](https://github.com/sapphiredev/pieces/commit/cb6ddde1aeb7867b9fcf9c321f80d1f2812b5cd0))
+-   Update sapphire utilities to v3.13.0 ([21e9e6d](https://github.com/sapphiredev/pieces/commit/21e9e6da00642d114f3cc1cbd188719027c8537b))
+-   Resolve issue with class extends utility (#314) ([1501fc1](https://github.com/sapphiredev/pieces/commit/1501fc1cde72d434b4a64f47d34b5903dde4171e))
+-   **deps:** Update all non-major dependencies (#303) ([cb6ddde](https://github.com/sapphiredev/pieces/commit/cb6ddde1aeb7867b9fcf9c321f80d1f2812b5cd0))
 
 ## 🚀 Features
 
-- Omit files starting with `_` from loading (#289) ([b8a2688](https://github.com/sapphiredev/pieces/commit/b8a2688bcbbe7abb23a53522a94f91e32e3eee61))
+-   Omit files starting with `_` from loading (#289) ([b8a2688](https://github.com/sapphiredev/pieces/commit/b8a2688bcbbe7abb23a53522a94f91e32e3eee61))
 
 # [3.6.2](https://github.com/sapphiredev/pieces/compare/v3.6.1...v3.6.2) - (2023-04-10)
 
 ## 🐛 Bug Fixes
 
-- Explicitly import tslib ([c433c5b](https://github.com/sapphiredev/pieces/commit/c433c5ba8bbb2d549ac7943a5438dc672e6ef873))
-- Use TypeScript v5 ([2bea7b4](https://github.com/sapphiredev/pieces/commit/2bea7b42cf837b7cb19d59bec559b95913cf5009))
+-   Explicitly import tslib ([c433c5b](https://github.com/sapphiredev/pieces/commit/c433c5ba8bbb2d549ac7943a5438dc672e6ef873))
+-   Use TypeScript v5 ([2bea7b4](https://github.com/sapphiredev/pieces/commit/2bea7b42cf837b7cb19d59bec559b95913cf5009))
 
 # [3.6.1](https://github.com/sapphiredev/pieces/compare/v3.6.0...v3.6.1) - (2023-03-17)
 
 ## 🐛 Bug Fixes
 
-- **LoaderError:** Changed `LoaderErrorType` from `const enum` to just `enum` ([7e23deb](https://github.com/sapphiredev/pieces/commit/7e23deb5188aca1db3fcf38c373d424119711ccf))
-- **deps:** Update all non-major dependencies (#276) ([5b3b7b6](https://github.com/sapphiredev/pieces/commit/5b3b7b6036b2afa0d91500bf255d04cea8997b48))
+-   **LoaderError:** Changed `LoaderErrorType` from `const enum` to just `enum` ([7e23deb](https://github.com/sapphiredev/pieces/commit/7e23deb5188aca1db3fcf38c373d424119711ccf))
+-   **deps:** Update all non-major dependencies (#276) ([5b3b7b6](https://github.com/sapphiredev/pieces/commit/5b3b7b6036b2afa0d91500bf255d04cea8997b48))
 
 # [3.6.0](https://github.com/sapphiredev/pieces/compare/v3.5.2...v3.6.0) - (2022-10-31)
 
 ## 🐛 Bug Fixes
 
-- **deps:** Update all non-major dependencies (#257) ([cd043b8](https://github.com/sapphiredev/pieces/commit/cd043b8808b9649ee4b8f4079d89acbc287c4009))
-- **deps:** Update dependency @sapphire/utilities to ^3.11.0 (#258) ([ab31a5e](https://github.com/sapphiredev/pieces/commit/ab31a5e7336e2e2163c1a9d2c04a7df365886f5f))
+-   **deps:** Update all non-major dependencies (#257) ([cd043b8](https://github.com/sapphiredev/pieces/commit/cd043b8808b9649ee4b8f4079d89acbc287c4009))
+-   **deps:** Update dependency @sapphire/utilities to ^3.11.0 (#258) ([ab31a5e](https://github.com/sapphiredev/pieces/commit/ab31a5e7336e2e2163c1a9d2c04a7df365886f5f))
 
 ## 📝 Documentation
 
-- Add qyurila as a contributor for code (#271) ([4a30034](https://github.com/sapphiredev/pieces/commit/4a30034ab8a27eebedfc48d5e4cad7b99fd3df50))
+-   Add qyurila as a contributor for code (#271) ([4a30034](https://github.com/sapphiredev/pieces/commit/4a30034ab8a27eebedfc48d5e4cad7b99fd3df50))
 
 ## 🚀 Features
 
-- Support loading ESModule TS files when using ts-node (#270) ([bf58baa](https://github.com/sapphiredev/pieces/commit/bf58baadc3684ea05da4a10bea228f46ab44738d))
+-   Support loading ESModule TS files when using ts-node (#270) ([bf58baa](https://github.com/sapphiredev/pieces/commit/bf58baadc3684ea05da4a10bea228f46ab44738d))
 
 # [3.5.2](https://github.com/sapphiredev/pieces/compare/v3.5.1...v3.5.2) - (2022-10-02)
 
 ## 🐛 Bug Fixes
 
-- Update @sapphire/utilities dependency ([e326143](https://github.com/sapphiredev/pieces/commit/e3261436adb2d895b1327b9510842f081a7530b9))
-- **deps:** Update dependency @sapphire/utilities to ^3.9.3 (#243) ([0315d4e](https://github.com/sapphiredev/pieces/commit/0315d4e8a7865442a36b1caee7748ee948894a63))
+-   Update @sapphire/utilities dependency ([e326143](https://github.com/sapphiredev/pieces/commit/e3261436adb2d895b1327b9510842f081a7530b9))
+-   **deps:** Update dependency @sapphire/utilities to ^3.9.3 (#243) ([0315d4e](https://github.com/sapphiredev/pieces/commit/0315d4e8a7865442a36b1caee7748ee948894a63))
 
 ## 📝 Documentation
 
-- Add RealShadowNova as a contributor for tool (#239) ([44e767d](https://github.com/sapphiredev/pieces/commit/44e767d3dc833cb815086fdb96435ed347eeee9e))
+-   Add RealShadowNova as a contributor for tool (#239) ([44e767d](https://github.com/sapphiredev/pieces/commit/44e767d3dc833cb815086fdb96435ed347eeee9e))
 
 # [3.5.1](https://github.com/sapphiredev/pieces/compare/v3.5.0...v3.5.1) - (2022-08-20)
 
 ## 🐛 Bug Fixes
 
-- Update dependencies ([7707d0a](https://github.com/sapphiredev/pieces/commit/7707d0ae880a99249d4fafde435c0b2529c67349))
-- Bump dependencies ([e4fced2](https://github.com/sapphiredev/pieces/commit/e4fced2ef28acd4d3a14b63efd5c85c5067416ce))
+-   Update dependencies ([7707d0a](https://github.com/sapphiredev/pieces/commit/7707d0ae880a99249d4fafde435c0b2529c67349))
+-   Bump dependencies ([e4fced2](https://github.com/sapphiredev/pieces/commit/e4fced2ef28acd4d3a14b63efd5c85c5067416ce))
 
 ## 📝 Documentation
 
-- Add @leonardssh as a contributor ([65787a1](https://github.com/sapphiredev/pieces/commit/65787a187822962afed3a412f1eb9ce3a7575318))
+-   Add @leonardssh as a contributor ([65787a1](https://github.com/sapphiredev/pieces/commit/65787a187822962afed3a412f1eb9ce3a7575318))
 
 # [3.5.0](https://github.com/sapphiredev/pieces/compare/v3.4.1...v3.5.0) - (2022-08-05)
 
 ## 🚀 Features
 
-- **esm:** Add more qs parameters (#232) ([5c44377](https://github.com/sapphiredev/pieces/commit/5c4437734dcd2e421434505d1fddb6d8dd3816a2))
+-   **esm:** Add more qs parameters (#232) ([5c44377](https://github.com/sapphiredev/pieces/commit/5c4437734dcd2e421434505d1fddb6d8dd3816a2))
 
 # [3.4.1](https://github.com/sapphiredev/pieces/compare/v3.4.0...v3.4.1) - (2022-08-04)
 
 ## 🐛 Bug Fixes
 
-- **deps:** Update dependency @sapphire/utilities to ^3.9.0 ([41bc4a9](https://github.com/sapphiredev/pieces/commit/41bc4a9bc358aca895923867434c1a335a667b31))
+-   **deps:** Update dependency @sapphire/utilities to ^3.9.0 ([41bc4a9](https://github.com/sapphiredev/pieces/commit/41bc4a9bc358aca895923867434c1a335a667b31))
 
 # [3.4.0](https://github.com/sapphiredev/pieces/compare/v3.3.5...v3.4.0) - (2022-08-04)
 
 ## 🐛 Bug Fixes
 
-- **store:** Support abstract classes (#230) ([f83a05d](https://github.com/sapphiredev/pieces/commit/f83a05d616f223548951b9b3db6b44301dd5d65a))
-- **deps:** Update dependency @sapphire/utilities to ^3.8.0 (#229) ([388cc37](https://github.com/sapphiredev/pieces/commit/388cc37d80670b6a64529b4dc2422dfbfc8bae6b))
-- **deps:** Update all non-major dependencies (#228) ([ca39767](https://github.com/sapphiredev/pieces/commit/ca3976790d06e74ef17eba6adde6c1f903b0a8dc))
+-   **store:** Support abstract classes (#230) ([f83a05d](https://github.com/sapphiredev/pieces/commit/f83a05d616f223548951b9b3db6b44301dd5d65a))
+-   **deps:** Update dependency @sapphire/utilities to ^3.8.0 (#229) ([388cc37](https://github.com/sapphiredev/pieces/commit/388cc37d80670b6a64529b4dc2422dfbfc8bae6b))
+-   **deps:** Update all non-major dependencies (#228) ([ca39767](https://github.com/sapphiredev/pieces/commit/ca3976790d06e74ef17eba6adde6c1f903b0a8dc))
 
 ## 🚀 Features
 
-- Add URL support for register methods (#231) ([3d2d1be](https://github.com/sapphiredev/pieces/commit/3d2d1befd99ec0ccaaf3ea5ce6b03568b0ec5d2c))
+-   Add URL support for register methods (#231) ([3d2d1be](https://github.com/sapphiredev/pieces/commit/3d2d1befd99ec0ccaaf3ea5ce6b03568b0ec5d2c))
 
 # [3.3.5](https://github.com/sapphiredev/pieces/compare/v3.3.4...v3.3.5) - (2022-07-24)
 
 ## 🐛 Bug Fixes
 
-- Fixed imports of discordjs/colletion to resolve type issues ([cfc8a5c](https://github.com/sapphiredev/pieces/commit/cfc8a5c10744979b7660c3b63b07364c9bedd24d))
-- **deps:** Update dependency @sapphire/utilities to ^3.7.0 (#219) ([488afd3](https://github.com/sapphiredev/pieces/commit/488afd3689767505eb994759380125ae7b1b936d))
+-   Fixed imports of discordjs/colletion to resolve type issues ([cfc8a5c](https://github.com/sapphiredev/pieces/commit/cfc8a5c10744979b7660c3b63b07364c9bedd24d))
+-   **deps:** Update dependency @sapphire/utilities to ^3.7.0 (#219) ([488afd3](https://github.com/sapphiredev/pieces/commit/488afd3689767505eb994759380125ae7b1b936d))
 
 # [3.3.3](https://github.com/sapphiredev/pieces/compare/v3.3.1...v3.3.3) - (2022-05-15)
 
