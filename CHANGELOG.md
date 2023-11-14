@@ -6,9 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ## 🐛 Bug Fixes
 
-- **LoaderStrategy:** Overload empty methods for extensions (#345) ([2a971d8](https://github.com/sapphiredev/pieces/commit/2a971d8105f5215cf334cc55f9ddc894959f3907))
-- **deps:** Update all non-major dependencies (#325) ([df91def](https://github.com/sapphiredev/pieces/commit/df91def34495165af80d0f07881c2876860e4f22))
-- **deps:** Update all non-major dependencies (#321) ([9106543](https://github.com/sapphiredev/pieces/commit/9106543e78c695a8d1d14de369875ac7baba3f6f))
+-   **LoaderStrategy:** Overload empty methods for extensions (#345) ([2a971d8](https://github.com/sapphiredev/pieces/commit/2a971d8105f5215cf334cc55f9ddc894959f3907))
+-   **deps:** Update all non-major dependencies (#325) ([df91def](https://github.com/sapphiredev/pieces/commit/df91def34495165af80d0f07881c2876860e4f22))
+-   **deps:** Update all non-major dependencies (#321) ([9106543](https://github.com/sapphiredev/pieces/commit/9106543e78c695a8d1d14de369875ac7baba3f6f))
 
 # [3.7.0](https://github.com/sapphiredev/pieces/compare/v3.6.3...v3.7.0) - (2023-07-21)
 
