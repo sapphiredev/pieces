@@ -1,4 +1,5 @@
 import { basename, relative, sep } from 'path';
+import { VirtualPath } from '../internal/constants';
 
 /**
  * The metadata class used for {@link Piece}s.
@@ -24,6 +25,13 @@ export class PieceLocation {
 	}
 
 	/**
+	 * Whether the file is virtual or not.
+	 */
+	public get virtual() {
+		return this.full === VirtualPath;
+	}
+
+	/**
 	 * The relative path between {@link PieceLocation.root} and {@link PieceLocation.full}.
 	 * @example
 	 * ```typescript
@@ -37,7 +45,7 @@ export class PieceLocation {
 	 * ```
 	 */
 	public get relative(): string {
-		return relative(this.root, this.full);
+		return this.virtual ? VirtualPath : relative(this.root, this.full);
 	}
 
 	/**
@@ -54,7 +62,7 @@ export class PieceLocation {
 	 * ```
 	 */
 	public get directories(): string[] {
-		return this.relative.split(sep).slice(0, -1);
+		return this.virtual ? [] : this.relative.split(sep).slice(0, -1);
 	}
 
 	/**
@@ -71,7 +79,7 @@ export class PieceLocation {
 	 * ```
 	 */
 	public get name(): string {
-		return basename(this.full);
+		return this.virtual ? VirtualPath : basename(this.full);
 	}
 
 	/**

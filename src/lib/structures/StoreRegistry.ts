@@ -1,9 +1,12 @@
 import { Collection } from '@discordjs/collection';
 import { join } from 'path';
+import { LoaderError } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
 import { getRootData } from '../internal/RootScan';
+import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constants';
 import type { Piece } from './Piece';
-import type { Store } from './Store';
+import type { Store, StoreManuallyRegisteredPiece } from './Store';
+import { isClass } from '@sapphire/utilities';
 
 type Key = keyof StoreRegistryEntries;
 type Value = StoreRegistryEntries[Key];
@@ -30,11 +33,19 @@ type Value = StoreRegistryEntries[Key];
  */
 export class StoreRegistry extends Collection<Key, Value> {
 	/**
+	 * The queue of pieces to load.
+	 */
+	readonly #pendingManuallyRegisteredPieces = new Collection<
+		keyof StoreRegistryEntries,
+		StoreManuallyRegisteredPiece<keyof StoreRegistryEntries>[]
+	>();
+
+	/**
 	 * Loads all the registered stores.
 	 * @since 2.1.0
 	 */
 	public async load() {
-		const promises: Promise<void>[] = [];
+		const promises: Promise<unknown>[] = [];
 		for (const store of this.values() as IterableIterator<Store<Piece>>) {
 			promises.push(store.loadAll());
 		}
@@ -75,11 +86,38 @@ export class StoreRegistry extends Collection<Key, Value> {
 
 	/**
 	 * Registers a store.
+	 *
+	 * @remarks
+	 *
+	 * - This method will allow {@linkcode StoreRegistry} to manage the store, meaning:
+	 *   - {@linkcode StoreRegistry.registerPath()} will call the store's
+	 *     {@linkcode Store.registerPath() registerPath()} method on call.
+	 *   - {@linkcode StoreRegistry.load()} will call the store's {@linkcode Store.load() load()} method on call.
+	 *   - {@linkcode StoreRegistry.loadPiece()} will call the store's {@linkcode Store.loadPiece() loadPiece()} method
+	 *     on call.
+	 * - This will also add all the manually registered pieces by {@linkcode StoreRegistry.loadPiece()} in the store.
+	 *
+	 * It is generally recommended to register a store as early as possible, before any of the aforementioned methods
+	 * are called, otherwise you will have to manually call the aforementioned methods for the store to work properly.
+	 *
+	 * If there were manually registered pieces for this store with {@linkcode StoreRegistry.loadPiece()}, this method
+	 * will add them to the store and delete the queue. Note, however, that this method will not call the store's
+	 * {@linkcode Store.loadPiece() loadPiece()} method, and as such, the pieces will not be loaded until
+	 * {@linkcode Store.loadAll()} is called.
+	 *
 	 * @since 2.1.0
 	 * @param store The store to register.
 	 */
 	public register<T extends Piece>(store: Store<T>): this {
 		this.set(store.name as Key, store as unknown as Value);
+
+		// If there was a queue for this store, add it to the store and delete the queue:
+		const queue = this.#pendingManuallyRegisteredPieces.get(store.name);
+		if (queue) {
+			store[ManuallyRegisteredPiecesSymbol].push(...queue);
+			this.#pendingManuallyRegisteredPieces.delete(store.name);
+		}
+
 		return this;
 	}
 
@@ -91,6 +129,57 @@ export class StoreRegistry extends Collection<Key, Value> {
 	public deregister<T extends Piece>(store: Store<T>): this {
 		this.delete(store.name as Key);
 		return this;
+	}
+
+	/**
+	 * If the store was {@link StoreRegistry.register registered}, this method will call the store's
+	 * {@linkcode Store.loadPiece() loadPiece()} method.
+	 *
+	 * If it was called, the entry will be loaded immediately without queueing.
+	 *
+	 * @remarks
+	 *
+	 * - Pieces loaded this way will have their {@linkcode Piece.Context.root root} and
+	 *   {@linkcode Piece.Context.path path} set to {@linkcode VirtualPath}, and as such, cannot be reloaded.
+	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
+	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
+	 * - This method will not throw an error if a store with the given name does not exist, it will simply be queued
+	 *   until it's registered.
+	 * - This method will always throw a {@link TypeError} if `entry.piece` is not a class.
+	 * - If the store is registered, this method will always throw a {@linkcode LoaderError} if the piece does not
+	 *   extend the registered {@linkcode Store.Constructor store's piece constructor}.
+	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
+	 *
+	 * @seealso {@linkcode Store.loadPiece()}
+	 * @since 3.8.0
+	 * @param entry The entry to load.
+	 * @example
+	 * ```typescript
+	 * import { container } from '@sapphire/pieces';
+	 *
+	 * class PingCommand extends Command {
+	 *   // ...
+	 * }
+	 *
+	 * container.stores.loadPiece({
+	 *   store: 'commands',
+	 *   name: 'ping',
+	 *   piece: PingCommand
+	 * });
+	 * ```
+	 */
+	public async loadPiece<StoreName extends keyof StoreRegistryEntries>(entry: StoreManagerManuallyRegisteredPiece<StoreName>) {
+		const store = this.get(entry.store) as Store<Piece, StoreName> | undefined;
+
+		if (store) {
+			await store.loadPiece(entry);
+		} else {
+			if (!isClass(entry.piece)) {
+				throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
+			}
+
+			this.#pendingManuallyRegisteredPieces.ensure(entry.store, () => []).push({ name: entry.name, piece: entry.piece });
+		}
 	}
 }
 
@@ -106,3 +195,12 @@ export interface StoreRegistry {
  * @since 2.1.0
  */
 export interface StoreRegistryEntries {}
+
+/**
+ * An entry for a manually registered piece using {@linkcode StoreRegistry.loadPiece()}.
+ * @seealso {@linkcode StoreRegistry.loadPiece()}
+ * @since 3.8.0
+ */
+export interface StoreManagerManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> extends StoreManuallyRegisteredPiece<StoreName> {
+	store: StoreName;
+}
