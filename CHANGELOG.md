@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.9.0](https://github.com/sapphiredev/pieces/compare/v3.9.0...v3.9.0) - (2023-11-15)
+
+## 🚀 Features
+
+- Revert 12be6ba006d549ba2250546b4fb3c35a9e5d25f2 "add symbol support for piece names (#346)" ([9424c20](https://github.com/sapphiredev/pieces/commit/9424c2020ab4a37c4db97d382f90e1bb8890b19f))
+
 # [3.8.0](https://github.com/sapphiredev/pieces/compare/v3.8.0...v3.8.0) - (2023-11-15)
 
 ## 🐛 Bug Fixes
