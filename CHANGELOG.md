@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.8.0](https://github.com/sapphiredev/pieces/compare/v3.8.0...v3.8.0) - (2023-11-15)
+
+## 🐛 Bug Fixes
+
+- **AliasStore:** Pass `StoreName` type parameter to `Store` (#347) ([9a3492c](https://github.com/sapphiredev/pieces/commit/9a3492c963311296b4eb82119ef926c89e277cca))
+
+## 🚀 Features
+
+- Add symbol support for piece names (#346) ([12be6ba](https://github.com/sapphiredev/pieces/commit/12be6ba006d549ba2250546b4fb3c35a9e5d25f2))
+- **StoreRegistry:** Add queue and virtual file support (#344) ([b7c0839](https://github.com/sapphiredev/pieces/commit/b7c0839cd8d562d9762bf4f13af080eb52db99de))
+
 # [3.7.1](https://github.com/sapphiredev/pieces/compare/v3.7.1...v3.7.1) - (2023-11-13)
 
 ## 🐛 Bug Fixes
