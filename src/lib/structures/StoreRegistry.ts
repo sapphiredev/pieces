@@ -175,7 +175,7 @@ export class StoreRegistry extends Collection<Key, Value> {
 			await store.loadPiece(entry);
 		} else {
 			if (!isClass(entry.piece)) {
-				throw new TypeError(`The piece ${String(entry.name)} is not a Class. ${String(entry.piece)}`);
+				throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
 			}
 
 			this.#pendingManuallyRegisteredPieces.ensure(entry.store, () => []).push({ name: entry.name, piece: entry.piece });

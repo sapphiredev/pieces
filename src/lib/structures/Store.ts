@@ -51,10 +51,7 @@ export interface StoreLogger {
 /**
  * The store class which contains {@link Piece}s.
  */
-export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> extends Collection<
-	string | symbol,
-	T
-> {
+export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> extends Collection<string, T> {
 	public readonly Constructor: AbstractConstructor<T>;
 	public readonly name: keyof StoreRegistryEntries;
 	public readonly paths: Set<string>;
@@ -145,12 +142,12 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 	 */
 	public async loadPiece(entry: StoreManuallyRegisteredPiece<StoreName>) {
 		if (!isClass(entry.piece)) {
-			throw new TypeError(`The piece ${String(entry.name)} is not a Class. ${String(entry.piece)}`);
+			throw new TypeError(`The piece ${entry.name} is not a Class. ${String(entry.piece)}`);
 		}
 
 		// If the piece does not extend the store's Piece class, throw an error:
 		if (!classExtends(entry.piece, this.Constructor as Constructor<T>)) {
-			throw new LoaderError(LoaderErrorType.IncorrectType, `The piece ${String(entry.name)} does not extend ${this.name}`);
+			throw new LoaderError(LoaderErrorType.IncorrectType, `The piece ${entry.name} does not extend ${this.name}`);
 		}
 
 		this[ManuallyRegisteredPiecesSymbol].push(entry);
@@ -197,17 +194,17 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public async unload(name: string | symbol | T): Promise<T> {
+	public async unload(name: string | T): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload piece:
 		this.strategy.onUnload(this, piece);
 		await piece.onUnload();
-		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Unloaded piece '${String(piece.name)}'.`);
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Unloaded piece '${piece.name}'.`);
 
 		// Remove from cache and return it:
 		this.delete(piece.name);
-		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Removed piece '${String(piece.name)}'.`);
+		Store.logger?.(`[STORE => ${this.name}] [UNLOAD] Removed piece '${piece.name}'.`);
 		return piece;
 	}
 
@@ -271,15 +268,15 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 	 * @param name The name of the piece or the instance itself.
 	 * @return The resolved piece.
 	 */
-	public resolve(name: string | symbol | T): T {
-		if (typeof name === 'string' || typeof name === 'symbol') {
+	public resolve(name: string | T): T {
+		if (typeof name === 'string') {
 			const result = this.get(name);
-			if (typeof result === 'undefined') throw new LoaderError(LoaderErrorType.UnloadedPiece, `The piece '${String(name)}' does not exist.`);
+			if (typeof result === 'undefined') throw new LoaderError(LoaderErrorType.UnloadedPiece, `The piece '${name}' does not exist.`);
 			return result;
 		}
 
 		if (name instanceof this.Constructor) return name;
-		throw new LoaderError(LoaderErrorType.IncorrectType, `The piece '${String(name.name)}' is not an instance of '${this.Constructor.name}'.`);
+		throw new LoaderError(LoaderErrorType.IncorrectType, `The piece '${name.name}' is not an instance of '${this.Constructor.name}'.`);
 	}
 
 	/**
@@ -293,14 +290,14 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 		// Load piece:
 		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
-		Store.logger?.(`[STORE => ${this.name}] [INSERT] Loaded new piece '${String(piece.name)}'.`);
+		Store.logger?.(`[STORE => ${this.name}] [INSERT] Loaded new piece '${piece.name}'.`);
 
 		// If the onLoad disabled the piece, call unload and return it:
 		if (!piece.enabled) {
 			// Unload piece:
 			this.strategy.onUnload(this, piece);
 			await piece.onUnload();
-			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded new piece '${String(piece.name)}' due to 'enabled' being 'false'.`);
+			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded new piece '${piece.name}' due to 'enabled' being 'false'.`);
 
 			return piece;
 		}
@@ -309,12 +306,12 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 		const previous = super.get(piece.name);
 		if (previous) {
 			await this.unload(previous);
-			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded existing piece '${String(piece.name)}' due to conflicting 'name'.`);
+			Store.logger?.(`[STORE => ${this.name}] [INSERT] Unloaded existing piece '${piece.name}' due to conflicting 'name'.`);
 		}
 
 		// Set the new piece and return it:
 		this.set(piece.name, piece);
-		Store.logger?.(`[STORE => ${this.name}] [INSERT] Inserted new piece '${String(piece.name)}'.`);
+		Store.logger?.(`[STORE => ${this.name}] [INSERT] Inserted new piece '${piece.name}'.`);
 		return piece;
 	}
 
@@ -400,7 +397,7 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
  * @since 3.8.0
  */
 export interface StoreManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> {
-	name: string | symbol;
+	name: string;
 	piece: StoreRegistryEntries[StoreName] extends Store<infer Piece> ? Constructor<Piece> : never;
 }
 
