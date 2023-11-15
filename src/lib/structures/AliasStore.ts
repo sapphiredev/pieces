@@ -10,13 +10,13 @@ export class AliasStore<T extends AliasPiece, StoreName extends keyof StoreRegis
 	/**
 	 * The aliases referencing to pieces.
 	 */
-	public readonly aliases = new Collection<string, T>();
+	public readonly aliases = new Collection<string | symbol, T>();
 
 	/**
 	 * Looks up the name by the store, falling back to an alias lookup.
 	 * @param key The key to look for.
 	 */
-	public override get(key: string): T | undefined {
+	public override get(key: string | symbol): T | undefined {
 		return super.get(key) ?? this.aliases.get(key);
 	}
 
@@ -24,7 +24,7 @@ export class AliasStore<T extends AliasPiece, StoreName extends keyof StoreRegis
 	 * Checks whether a key is in the store, or is an alias
 	 * @param key The key to check
 	 */
-	public override has(key: string): boolean {
+	public override has(key: string | symbol): boolean {
 		return super.has(key) || this.aliases.has(key);
 	}
 
@@ -33,7 +33,7 @@ export class AliasStore<T extends AliasPiece, StoreName extends keyof StoreRegis
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public override unload(name: string | T): Promise<T> {
+	public override unload(name: string | symbol | T): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload all aliases for the given piece:
