@@ -1,4 +1,5 @@
 import { Collection } from '@discordjs/collection';
+import { isClass } from '@sapphire/utilities';
 import { join } from 'path';
 import { LoaderError } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
@@ -6,7 +7,6 @@ import { getRootData } from '../internal/RootScan';
 import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constants';
 import type { Piece } from './Piece';
 import type { Store, StoreManuallyRegisteredPiece } from './Store';
-import { isClass } from '@sapphire/utilities';
 
 type Key = keyof StoreRegistryEntries;
 type Value = StoreRegistryEntries[Key];
@@ -204,3 +204,19 @@ export interface StoreRegistryEntries {}
 export interface StoreManagerManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> extends StoreManuallyRegisteredPiece<StoreName> {
 	store: StoreName;
 }
+
+/**
+ * Type utility to get the {@linkcode Store} given its name.
+ */
+export type StoreOf<StoreName extends keyof StoreRegistryEntries> = keyof StoreRegistryEntries extends never
+	? Store<Piece<Piece.Options, StoreName>>
+	: StoreRegistryEntries[StoreName];
+
+/**
+ * Type utility to get the {@linkcode Piece} given its {@linkcode Store}'s name.
+ */
+export type PieceOf<StoreName extends keyof StoreRegistryEntries> = keyof StoreRegistryEntries extends never
+	? Piece<Piece.Options, StoreName>
+	: StoreRegistryEntries[StoreName] extends Store<infer PieceType>
+	  ? PieceType
+	  : Piece<Piece.Options, StoreName>;
