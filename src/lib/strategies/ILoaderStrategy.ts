@@ -9,7 +9,7 @@ export interface ModuleData {
 	/**
 	 * The name of the module.
 	 */
-	name: string;
+	name: string | symbol;
 
 	/**
 	 * The absolute path to the module.

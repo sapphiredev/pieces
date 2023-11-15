@@ -21,7 +21,7 @@ export interface PieceContext {
 	/**
 	 * The module's name extracted from the path.
 	 */
-	readonly name: string;
+	readonly name: string | symbol;
 
 	/**
 	 * The store that loaded the piece.
@@ -37,7 +37,7 @@ export interface PieceOptions {
 	 * The name for the piece.
 	 * @default ''
 	 */
-	readonly name?: string;
+	readonly name?: string | symbol;
 
 	/**
 	 * Whether or not the piece should be enabled. If set to false, the piece will be unloaded.
@@ -63,7 +63,7 @@ export class Piece<O extends PieceOptions = PieceOptions> {
 	/**
 	 * The name of the piece.
 	 */
-	public readonly name: string;
+	public readonly name: string | symbol;
 
 	/**
 	 * Whether or not the piece is enabled.
@@ -128,7 +128,7 @@ export class Piece<O extends PieceOptions = PieceOptions> {
 	public toJSON(): PieceJSON {
 		return {
 			location: this.location.toJSON(),
-			name: this.name,
+			name: String(this.name),
 			enabled: this.enabled,
 			options: this.options
 		};
