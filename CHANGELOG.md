@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.10.0](https://github.com/sapphiredev/pieces/compare/v3.10.0...v3.10.0) - (2023-11-16)
+
+## 🏠 Refactor
+
+- Rename `Piece.Context` to `Piece.LoaderContext` (#351) ([f5bb225](https://github.com/sapphiredev/pieces/commit/f5bb22508850e1aead0b7fadc802ac13e462dca4))
+
+## 🚀 Features
+
+- Use `StoreName` for improved type experience (#350) ([3c722ef](https://github.com/sapphiredev/pieces/commit/3c722ef2d57bc292920491a990cd91dddefc37bd))
+- **StoreRegistry:** Add `StoreOf` and `PieceOf` (#349) ([7b0ae1d](https://github.com/sapphiredev/pieces/commit/7b0ae1dba0e51084d35c3801e8c25c6d1dc3a54f))
+
 # [3.9.0](https://github.com/sapphiredev/pieces/compare/v3.9.0...v3.9.0) - (2023-11-15)
 
 ## 🚀 Features
