@@ -1,4 +1,5 @@
 import { Piece } from './Piece';
+import type { StoreRegistryEntries } from './StoreRegistry';
 
 export interface AliasPieceOptions extends Piece.Options {
 	/**
@@ -11,7 +12,10 @@ export interface AliasPieceOptions extends Piece.Options {
 /**
  * The piece to be stored in {@link AliasStore} instances.
  */
-export class AliasPiece<O extends AliasPieceOptions = AliasPieceOptions> extends Piece<O> {
+export class AliasPiece<
+	Options extends AliasPieceOptions = AliasPieceOptions,
+	StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries
+> extends Piece<Options, StoreName> {
 	/**
 	 * The aliases for the piece.
 	 */

@@ -2,6 +2,7 @@ import type { Awaitable } from '@sapphire/utilities';
 import { container, type Container } from '../shared/Container';
 import { PieceLocation, type PieceLocationJSON } from './PieceLocation';
 import type { Store } from './Store';
+import type { StoreOf, StoreRegistryEntries } from './StoreRegistry';
 
 /**
  * The context for the piece, contains extra information from the store,
@@ -49,11 +50,11 @@ export interface PieceOptions {
 /**
  * The piece to be stored in {@link Store} instances.
  */
-export class Piece<O extends PieceOptions = PieceOptions> {
+export class Piece<Options extends PieceOptions = PieceOptions, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> {
 	/**
 	 * The store that contains the piece.
 	 */
-	public readonly store: Store<Piece>;
+	public readonly store: StoreOf<StoreName>;
 
 	/**
 	 * The location metadata for the piece's file.
@@ -73,14 +74,14 @@ export class Piece<O extends PieceOptions = PieceOptions> {
 	/**
 	 * The raw options passed to this {@link Piece}
 	 */
-	public readonly options: O;
+	public readonly options: Options;
 
 	public constructor(context: PieceContext, options: PieceOptions = {}) {
 		this.store = context.store;
 		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
 		this.enabled = options.enabled ?? true;
-		this.options = options as O;
+		this.options = options as Options;
 	}
 
 	/**
