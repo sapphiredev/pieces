@@ -9,16 +9,16 @@ import { container, type Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
-import { StoreRegistry, type StoreRegistryEntries } from './StoreRegistry';
+import { StoreRegistry, StoreRegistryKey, type StoreRegistryEntries } from './StoreRegistry';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
  */
-export interface StoreOptions<T extends Piece> {
+export interface StoreOptions<T extends Piece, StoreName extends StoreRegistryKey = StoreRegistryKey> {
 	/**
 	 * The name for this store.
 	 */
-	readonly name: string;
+	readonly name: StoreName;
 
 	/**
 	 * The paths to load pieces from, should be absolute.
@@ -51,9 +51,9 @@ export interface StoreLogger {
 /**
  * The store class which contains {@link Piece}s.
  */
-export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> extends Collection<string, T> {
+export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRegistryKey> extends Collection<string, T> {
 	public readonly Constructor: AbstractConstructor<T>;
-	public readonly name: keyof StoreRegistryEntries;
+	public readonly name: StoreName;
 	public readonly paths: Set<string>;
 	public readonly strategy: ILoaderStrategy<T>;
 
@@ -71,10 +71,10 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
 	 * @param constructor The piece constructor this store loads.
 	 * @param options The options for the store.
 	 */
-	public constructor(constructor: AbstractConstructor<T>, options: StoreOptions<T>) {
+	public constructor(constructor: AbstractConstructor<T>, options: StoreOptions<T, StoreName>) {
 		super();
 		this.Constructor = constructor;
-		this.name = options.name as keyof StoreRegistryEntries;
+		this.name = options.name as StoreRegistryKey;
 		this.paths = new Set(options.paths ?? []);
 		this.strategy = options.strategy ?? Store.defaultStrategy;
 	}
@@ -396,7 +396,7 @@ export class Store<T extends Piece, StoreName extends keyof StoreRegistryEntries
  * An entry for a manually registered piece using {@linkcode Store.loadPiece()}.
  * @since 3.8.0
  */
-export interface StoreManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> {
+export interface StoreManuallyRegisteredPiece<StoreName extends StoreRegistryKey> {
 	name: string;
 	piece: StoreRegistryEntries[StoreName] extends Store<infer Piece> ? Constructor<Piece> : never;
 }

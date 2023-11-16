@@ -1,5 +1,5 @@
 import { Piece } from './Piece';
-import type { StoreRegistryEntries } from './StoreRegistry';
+import type { StoreRegistryKey } from './StoreRegistry';
 
 export interface AliasPieceOptions extends Piece.Options {
 	/**
@@ -12,16 +12,16 @@ export interface AliasPieceOptions extends Piece.Options {
 /**
  * The piece to be stored in {@link AliasStore} instances.
  */
-export class AliasPiece<
-	Options extends AliasPieceOptions = AliasPieceOptions,
-	StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries
-> extends Piece<Options, StoreName> {
+export class AliasPiece<Options extends AliasPieceOptions = AliasPieceOptions, StoreName extends StoreRegistryKey = StoreRegistryKey> extends Piece<
+	Options,
+	StoreName
+> {
 	/**
 	 * The aliases for the piece.
 	 */
 	public aliases: readonly string[];
 
-	public constructor(context: Piece.Context, options: AliasPieceOptions = {}) {
+	public constructor(context: AliasPiece.Context, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
 	}
@@ -29,7 +29,7 @@ export class AliasPiece<
 	/**
 	 * Defines the `JSON.stringify` behavior of this alias piece.
 	 */
-	public override toJSON(): AliasPieceJSON {
+	public override toJSON(): AliasPiece.JSON {
 		return {
 			...super.toJSON(),
 			aliases: this.aliases.slice()
@@ -48,7 +48,7 @@ export interface AliasPieceJSON extends Piece.JSON {
 export namespace AliasPiece {
 	export const { Location } = Piece;
 	export type Options = AliasPieceOptions;
-	export type Context = Piece.Context;
+	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.Context<StoreName>;
 	export type JSON = AliasPieceJSON;
 	export type LocationJSON = Piece.LocationJSON;
 }
