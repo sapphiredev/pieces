@@ -1,12 +1,12 @@
 import { Collection } from '@discordjs/collection';
 import type { AliasPiece } from './AliasPiece';
 import { Store } from './Store';
-import type { StoreRegistryEntries } from './StoreRegistry';
+import type { StoreRegistryKey } from './StoreRegistry';
 
 /**
  * The store class which contains {@link AliasPiece}s.
  */
-export class AliasStore<T extends AliasPiece, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> extends Store<T, StoreName> {
+export class AliasStore<T extends AliasPiece, StoreName extends StoreRegistryKey = StoreRegistryKey> extends Store<T, StoreName> {
 	/**
 	 * The aliases referencing to pieces.
 	 */

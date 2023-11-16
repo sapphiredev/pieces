@@ -2,13 +2,13 @@ import type { Awaitable } from '@sapphire/utilities';
 import { container, type Container } from '../shared/Container';
 import { PieceLocation, type PieceLocationJSON } from './PieceLocation';
 import type { Store } from './Store';
-import type { StoreOf, StoreRegistryEntries } from './StoreRegistry';
+import type { StoreOf, StoreRegistryKey } from './StoreRegistry';
 
 /**
  * The context for the piece, contains extra information from the store,
  * the piece's path, and the store that loaded it.
  */
-export interface PieceContext {
+export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> {
 	/**
 	 * The root directory the piece was loaded from.
 	 */
@@ -27,7 +27,7 @@ export interface PieceContext {
 	/**
 	 * The store that loaded the piece.
 	 */
-	readonly store: Store<Piece>;
+	readonly store: StoreOf<StoreName>;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface PieceOptions {
 /**
  * The piece to be stored in {@link Store} instances.
  */
-export class Piece<Options extends PieceOptions = PieceOptions, StoreName extends keyof StoreRegistryEntries = keyof StoreRegistryEntries> {
+export class Piece<Options extends PieceOptions = PieceOptions, StoreName extends StoreRegistryKey = StoreRegistryKey> {
 	/**
 	 * The store that contains the piece.
 	 */
@@ -76,7 +76,7 @@ export class Piece<Options extends PieceOptions = PieceOptions, StoreName extend
 	 */
 	public readonly options: Options;
 
-	public constructor(context: PieceContext, options: PieceOptions = {}) {
+	public constructor(context: PieceContext<StoreName>, options: PieceOptions = {}) {
 		this.store = context.store;
 		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
@@ -149,7 +149,7 @@ export interface PieceJSON {
 export namespace Piece {
 	export const Location = PieceLocation;
 	export type Options = PieceOptions;
-	export type Context = PieceContext;
+	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = PieceContext<StoreName>;
 	export type JSON = PieceJSON;
 	export type LocationJSON = PieceLocationJSON;
 }

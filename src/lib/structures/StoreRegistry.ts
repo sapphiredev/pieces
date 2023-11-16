@@ -8,9 +8,6 @@ import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constan
 import type { Piece } from './Piece';
 import type { Store, StoreManuallyRegisteredPiece } from './Store';
 
-type Key = keyof StoreRegistryEntries;
-type Value = StoreRegistryEntries[Key];
-
 /**
  * A strict-typed store registry. This is available in {@link container}.
  * @since 2.1.0
@@ -31,14 +28,11 @@ type Value = StoreRegistryEntries[Key];
  * }
  * ```
  */
-export class StoreRegistry extends Collection<Key, Value> {
+export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryValue> {
 	/**
 	 * The queue of pieces to load.
 	 */
-	readonly #pendingManuallyRegisteredPieces = new Collection<
-		keyof StoreRegistryEntries,
-		StoreManuallyRegisteredPiece<keyof StoreRegistryEntries>[]
-	>();
+	readonly #pendingManuallyRegisteredPieces = new Collection<StoreRegistryKey, StoreManuallyRegisteredPiece<StoreRegistryKey>[]>();
 
 	/**
 	 * Loads all the registered stores.
@@ -109,7 +103,7 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * @param store The store to register.
 	 */
 	public register<T extends Piece>(store: Store<T>): this {
-		this.set(store.name as Key, store as unknown as Value);
+		this.set(store.name as StoreRegistryKey, store as unknown as StoreRegistryValue);
 
 		// If there was a queue for this store, add it to the store and delete the queue:
 		const queue = this.#pendingManuallyRegisteredPieces.get(store.name);
@@ -127,7 +121,7 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * @param store The store to deregister.
 	 */
 	public deregister<T extends Piece>(store: Store<T>): this {
-		this.delete(store.name as Key);
+		this.delete(store.name as StoreRegistryKey);
 		return this;
 	}
 
@@ -168,7 +162,7 @@ export class StoreRegistry extends Collection<Key, Value> {
 	 * });
 	 * ```
 	 */
-	public async loadPiece<StoreName extends keyof StoreRegistryEntries>(entry: StoreManagerManuallyRegisteredPiece<StoreName>) {
+	public async loadPiece<StoreName extends StoreRegistryKey>(entry: StoreManagerManuallyRegisteredPiece<StoreName>) {
 		const store = this.get(entry.store) as Store<Piece, StoreName> | undefined;
 
 		if (store) {
@@ -184,11 +178,23 @@ export class StoreRegistry extends Collection<Key, Value> {
 }
 
 export interface StoreRegistry {
-	get<K extends Key>(key: K): StoreRegistryEntries[K];
+	get<K extends StoreRegistryKey>(key: K): StoreRegistryEntries[K];
 	get(key: string): undefined;
-	has(key: Key): true;
+	has(key: StoreRegistryKey): true;
 	has(key: string): false;
 }
+
+/**
+ * A type utility to get the keys of {@linkcode StoreRegistryEntries}.
+ * @since 3.10.0
+ */
+export type StoreRegistryKey = keyof StoreRegistryEntries;
+
+/**
+ * A type utility to get the values of {@linkcode StoreRegistryEntries}.
+ * @since 3.10.0
+ */
+export type StoreRegistryValue = StoreRegistryEntries[StoreRegistryKey];
 
 /**
  * The {@link StoreRegistry}'s registry, use module augmentation against this interface when adding new stores.
@@ -201,21 +207,23 @@ export interface StoreRegistryEntries {}
  * @seealso {@linkcode StoreRegistry.loadPiece()}
  * @since 3.8.0
  */
-export interface StoreManagerManuallyRegisteredPiece<StoreName extends keyof StoreRegistryEntries> extends StoreManuallyRegisteredPiece<StoreName> {
+export interface StoreManagerManuallyRegisteredPiece<StoreName extends StoreRegistryKey> extends StoreManuallyRegisteredPiece<StoreName> {
 	store: StoreName;
 }
 
 /**
  * Type utility to get the {@linkcode Store} given its name.
+ * @since 3.10.0
  */
-export type StoreOf<StoreName extends keyof StoreRegistryEntries> = keyof StoreRegistryEntries extends never
+export type StoreOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
 	? Store<Piece<Piece.Options, StoreName>>
 	: StoreRegistryEntries[StoreName];
 
 /**
  * Type utility to get the {@linkcode Piece} given its {@linkcode Store}'s name.
+ * @since 3.10.0
  */
-export type PieceOf<StoreName extends keyof StoreRegistryEntries> = keyof StoreRegistryEntries extends never
+export type PieceOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
 	? Piece<Piece.Options, StoreName>
 	: StoreRegistryEntries[StoreName] extends Store<infer PieceType>
 	  ? PieceType
