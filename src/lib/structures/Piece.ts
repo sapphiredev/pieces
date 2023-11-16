@@ -8,14 +8,14 @@ import type { StoreOf, StoreRegistryKey } from './StoreRegistry';
  * The context for the piece, contains extra information from the store,
  * the piece's path, and the store that loaded it.
  */
-export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> {
+export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> {
 	/**
 	 * The root directory the piece was loaded from.
 	 */
 	readonly root: string;
 
 	/**
-	 * The path the module was loaded from, relative to {@link PieceContext.root}.
+	 * The path the module was loaded from, relative to {@link LoaderPieceContext.root}.
 	 */
 	readonly path: string;
 
@@ -29,6 +29,9 @@ export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistry
 	 */
 	readonly store: StoreOf<StoreName>;
 }
+
+/** @deprecated Use {@linkcode LoaderPieceContext} instead. */
+export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> extends LoaderPieceContext<StoreName> {}
 
 /**
  * The options for the {@link Piece}.
@@ -76,7 +79,7 @@ export class Piece<Options extends PieceOptions = PieceOptions, StoreName extend
 	 */
 	public readonly options: Options;
 
-	public constructor(context: PieceContext<StoreName>, options: PieceOptions = {}) {
+	public constructor(context: Piece.LoaderContext<StoreName>, options: PieceOptions = {}) {
 		this.store = context.store;
 		this.location = new PieceLocation(context.path, context.root);
 		this.name = options.name ?? context.name;
@@ -149,7 +152,9 @@ export interface PieceJSON {
 export namespace Piece {
 	export const Location = PieceLocation;
 	export type Options = PieceOptions;
-	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = PieceContext<StoreName>;
+	/** @deprecated Use {@linkcode LoaderContext} instead. */
+	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
+	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type JSON = PieceJSON;
 	export type LocationJSON = PieceLocationJSON;
 }

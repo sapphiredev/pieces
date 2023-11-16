@@ -21,7 +21,7 @@ export class AliasPiece<Options extends AliasPieceOptions = AliasPieceOptions, S
 	 */
 	public aliases: readonly string[];
 
-	public constructor(context: AliasPiece.Context, options: AliasPieceOptions = {}) {
+	public constructor(context: AliasPiece.LoaderContext<StoreName>, options: AliasPieceOptions = {}) {
 		super(context, options);
 		this.aliases = options.aliases ?? [];
 	}
@@ -48,7 +48,9 @@ export interface AliasPieceJSON extends Piece.JSON {
 export namespace AliasPiece {
 	export const { Location } = Piece;
 	export type Options = AliasPieceOptions;
-	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.Context<StoreName>;
+	/** @deprecated Use {@linkcode LoaderContext} instead. */
+	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
+	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
 	export type JSON = AliasPieceJSON;
 	export type LocationJSON = Piece.LocationJSON;
 }
