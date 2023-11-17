@@ -69,6 +69,11 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	#calledLoadAll = false;
 
 	/**
+	 * The walk function for the store.
+	 */
+	#walk: LoaderStrategy<T>['walk'];
+
+	/**
 	 * @param constructor The piece constructor this store loads.
 	 * @param options The options for the store.
 	 */
@@ -78,6 +83,11 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 		this.name = options.name as StoreRegistryKey;
 		this.paths = new Set(options.paths ?? []);
 		this.strategy = options.strategy ?? Store.defaultStrategy;
+
+		this.#walk =
+			typeof this.strategy.walk === 'function' //
+				? this.strategy.walk.bind(this.strategy)
+				: defaultStrategy.walk.bind(defaultStrategy);
 	}
 
 	/**
@@ -343,7 +353,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	 */
 	private async *loadPath(root: string): AsyncIterableIterator<T> {
 		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${root}'.`);
-		for await (const child of (this.strategy.walk ?? defaultStrategy.walk)(this, root, Store.logger)) {
+		for await (const child of this.#walk(this, root, Store.logger)) {
 			const data = this.strategy.filter(child);
 			if (data === null) {
 				Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${child}' as 'LoaderStrategy#filter' returned 'null'.`);
