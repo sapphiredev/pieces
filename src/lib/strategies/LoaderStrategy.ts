@@ -1,11 +1,12 @@
 import { isNullish, type Awaitable } from '@sapphire/utilities';
-import { basename, extname } from 'path';
+import { opendir } from 'fs/promises';
+import { basename, extname, join } from 'path';
 import { pathToFileURL } from 'url';
 import { MissingExportsError } from '../errors/MissingExportsError';
 import { getRootData } from '../internal/RootScan';
 import { mjsImport } from '../internal/internal';
 import type { Piece } from '../structures/Piece';
-import type { Store } from '../structures/Store';
+import type { Store, StoreLogger } from '../structures/Store';
 import type {
 	AsyncPreloadResult,
 	FilterResult,
@@ -118,4 +119,22 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public onError(error: Error, path: string): void {
 		console.error(`Error when loading '${path}':`, error);
 	}
+
+	public async *walk(store: Store<T>, path: string, logger?: StoreLogger | null): AsyncIterableIterator<string> {
+		logger?.(`[STORE => ${store.name}] [WALK] Loading all pieces from '${path}'.`);
+		try {
+			const dir = await opendir(path);
+			for await (const item of dir) {
+				if (item.isFile()) yield join(dir.path, item.name);
+				else if (item.isDirectory()) yield* this.walk(store, join(dir.path, item.name), logger);
+			}
+		} catch (error) {
+			// Specifically ignore ENOENT, which is commonly raised by fs operations
+			// to indicate that a component of the specified pathname does not exist.
+			// No entity (file or directory) could be found by the given path.
+			if ((error as ErrorWithCode).code !== 'ENOENT') this.onError(error as Error, path);
+		}
+	}
 }
+
+type ErrorWithCode = Error & { code: string };

@@ -1,6 +1,5 @@
 import { Collection } from '@discordjs/collection';
 import { Constructor, classExtends, isClass, type AbstractConstructor } from '@sapphire/utilities';
-import { promises as fsp } from 'fs';
 import { join } from 'path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
@@ -47,6 +46,8 @@ export interface StoreLogger {
 	 */
 	(value: string): void;
 }
+
+const defaultStrategy = new LoaderStrategy();
 
 /**
  * The store class which contains {@link Piece}s.
@@ -342,7 +343,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	 */
 	private async *loadPath(root: string): AsyncIterableIterator<T> {
 		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${root}'.`);
-		for await (const child of this.walk(root)) {
+		for await (const child of (this.strategy.walk ?? defaultStrategy.walk)(this, root, Store.logger)) {
 			const data = this.strategy.filter(child);
 			if (data === null) {
 				Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${child}' as 'LoaderStrategy#filter' returned 'null'.`);
@@ -360,31 +361,10 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	}
 
 	/**
-	 * Retrieves all possible pieces.
-	 * @param path The directory to load the pieces from.
-	 * @return An async iterator that yields the modules to be processed and loaded into the store.
-	 */
-	private async *walk(path: string): AsyncIterableIterator<string> {
-		Store.logger?.(`[STORE => ${this.name}] [WALK] Loading all pieces from '${path}'.`);
-		try {
-			const dir = await fsp.opendir(path);
-			for await (const item of dir) {
-				if (item.isFile()) yield join(dir.path, item.name);
-				else if (item.isDirectory()) yield* this.walk(join(dir.path, item.name));
-			}
-		} catch (error) {
-			// Specifically ignore ENOENT, which is commonly raised by fs operations
-			// to indicate that a component of the specified pathname does not exist.
-			// No entity (file or directory) could be found by the given path.
-			if ((error as ErrorWithCode).code !== 'ENOENT') this.strategy.onError(error as Error, path);
-		}
-	}
-
-	/**
 	 * The default strategy, defaults to {@link LoaderStrategy}, which is constructed on demand when a store is constructed,
 	 * when none was set beforehand.
 	 */
-	public static defaultStrategy: ILoaderStrategy<any> = new LoaderStrategy();
+	public static defaultStrategy: ILoaderStrategy<any> = defaultStrategy;
 
 	/**
 	 * The default logger, defaults to `null`.
@@ -400,8 +380,6 @@ export interface StoreManuallyRegisteredPiece<StoreName extends StoreRegistryKey
 	name: string;
 	piece: StoreRegistryEntries[StoreName] extends Store<infer Piece> ? Constructor<Piece> : never;
 }
-
-type ErrorWithCode = Error & { code: string };
 
 export namespace Store {
 	export const Registry = StoreRegistry;
