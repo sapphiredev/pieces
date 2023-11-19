@@ -1,6 +1,6 @@
 import type { Awaitable, Constructor, Ctor } from '@sapphire/utilities';
 import type { Piece } from '../structures/Piece';
-import type { Store } from '../structures/Store';
+import type { Store, StoreLogger } from '../structures/Store';
 
 /**
  * The module data information.
@@ -147,4 +147,12 @@ export interface ILoaderStrategy<T extends Piece> {
 	 * @param path The path of the file that caused the error to be thrown.
 	 */
 	onError(error: Error, path: string): void;
+
+	/**
+	 * Walks the specified path and returns an async iterator of all the files' paths.
+	 * @param store The store that is walking the path.
+	 * @param path The path to recursively walk.
+	 * @param logger The logger to use when walking the path, if any.
+	 */
+	walk?(store: Store<T>, path: string, logger?: StoreLogger | null): AsyncIterableIterator<string>;
 }
