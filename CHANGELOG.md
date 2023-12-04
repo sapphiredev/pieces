@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.0.0](https://github.com/sapphiredev/pieces/compare/v4.0.0...v4.0.0) - (2023-12-04)
+
+## 🏠 Refactor
+
+- Move `walk` to `ILoaderStrategy` (#352) ([540ac88](https://github.com/sapphiredev/pieces/commit/540ac884632b8c72d17aa4b422dfeb372ce743ed))
+
+## 🐛 Bug Fixes
+
+- Properly split CJS and ESM ([41e8cec](https://github.com/sapphiredev/pieces/commit/41e8cec3c3b9ce1f91009d932a2a59fe0b42a6ac))
+  - 💥 **BREAKING CHANGE:** This ensures that Pieces will properly load the files
+from the appropiate folder and we properly bundle CJS and ESM.
+To use this version of @sapphire/pieces you have to use @sapphire/framework
+v5.x or higher, or update your own usage of @sapphire/pieces to also
+properly split ESM and CJS.
+
 # [3.10.0](https://github.com/sapphiredev/pieces/compare/v3.10.0...v3.10.0) - (2023-11-16)
 
 ## 🏠 Refactor
