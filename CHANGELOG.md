@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.0.1](https://github.com/sapphiredev/pieces/compare/v4.0.1...v4.0.1) - (2023-12-05)
+
+## 🐛 Bug Fixes
+
+- Bump transitive dependencies ([1da0283](https://github.com/sapphiredev/pieces/commit/1da0283459b0be9b2fa4ef5773dfa5616a95aec6))
+
 # [4.0.0](https://github.com/sapphiredev/pieces/compare/v4.0.0...v4.0.0) - (2023-12-04)
 
 ## 🏠 Refactor
