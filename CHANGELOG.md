@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.0.2](https://github.com/sapphiredev/pieces/compare/v4.0.2...v4.0.2) - (2023-12-05)
+
+## 🐛 Bug Fixes
+
+- Properly package all files in dist for npm ([2faab8a](https://github.com/sapphiredev/pieces/commit/2faab8af9c604a6062ab078a34e4aba8ac92cc80))
+
 # [4.0.1](https://github.com/sapphiredev/pieces/compare/v4.0.1...v4.0.1) - (2023-12-05)
 
 ## 🐛 Bug Fixes
