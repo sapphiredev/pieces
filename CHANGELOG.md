@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.1.0](https://github.com/sapphiredev/pieces/compare/v4.1.0...v4.1.0) - (2023-12-09)
+
+## 🚀 Features
+
+- Bun (#359) ([2f862f4](https://github.com/sapphiredev/pieces/commit/2f862f4d4d9a7c569118795db7d432fc3971a939))
+
 # [4.0.2](https://github.com/sapphiredev/pieces/compare/v4.0.2...v4.0.2) - (2023-12-05)
 
 ## 🐛 Bug Fixes
