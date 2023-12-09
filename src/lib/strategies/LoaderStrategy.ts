@@ -29,14 +29,14 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 
 	public constructor() {
 		/**
-		 * If {@linkplain https://github.com/TypeStrong/ts-node ts-node} or {@linkplain https://bun.sh bun}
-		 * is being used we conditionally need to register files ending in the `.ts` file extension.
+		 * If either {@linkplain https://github.com/TypeStrong/ts-node ts-node} or {@linkplain https://bun.sh bun}
+		 * are being used we conditionally need to register files ending in the `.ts` file extension.
 		 *
-		 * This is because `ts-node` builds files into memory, so we have to scan the
+		 * For `ts-node` this is because it loads files into memory, so we have to scan the
 		 * source `.ts` files, rather than files emitted with any of the JavaScript
 		 * extensions.
 		 *
-		 * For `bun`, it natively supports TypeScript, so we also want to check TypeScript files.
+		 * For `bun` this is because it natively supports TypeScript, so we also want to check TypeScript files.
 		 */
 		if (Reflect.has(process, Symbol.for('ts-node.register.instance')) || !isNullish(process.env.TS_NODE_DEV) || 'bun' in process.versions) {
 			this.supportedExtensions.push('.ts', '.cts', '.mts');
