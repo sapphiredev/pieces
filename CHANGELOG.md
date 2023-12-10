@@ -6,62 +6,62 @@ All notable changes to this project will be documented in this file.
 
 ## 🚀 Features
 
-- Bun (#359) ([2f862f4](https://github.com/sapphiredev/pieces/commit/2f862f4d4d9a7c569118795db7d432fc3971a939))
+-   Bun (#359) ([2f862f4](https://github.com/sapphiredev/pieces/commit/2f862f4d4d9a7c569118795db7d432fc3971a939))
 
 # [4.0.2](https://github.com/sapphiredev/pieces/compare/v4.0.2...v4.0.2) - (2023-12-05)
 
 ## 🐛 Bug Fixes
 
-- Properly package all files in dist for npm ([2faab8a](https://github.com/sapphiredev/pieces/commit/2faab8af9c604a6062ab078a34e4aba8ac92cc80))
+-   Properly package all files in dist for npm ([2faab8a](https://github.com/sapphiredev/pieces/commit/2faab8af9c604a6062ab078a34e4aba8ac92cc80))
 
 # [4.0.1](https://github.com/sapphiredev/pieces/compare/v4.0.1...v4.0.1) - (2023-12-05)
 
 ## 🐛 Bug Fixes
 
-- Bump transitive dependencies ([1da0283](https://github.com/sapphiredev/pieces/commit/1da0283459b0be9b2fa4ef5773dfa5616a95aec6))
+-   Bump transitive dependencies ([1da0283](https://github.com/sapphiredev/pieces/commit/1da0283459b0be9b2fa4ef5773dfa5616a95aec6))
 
 # [4.0.0](https://github.com/sapphiredev/pieces/compare/v4.0.0...v4.0.0) - (2023-12-04)
 
 ## 🏠 Refactor
 
-- Move `walk` to `ILoaderStrategy` (#352) ([540ac88](https://github.com/sapphiredev/pieces/commit/540ac884632b8c72d17aa4b422dfeb372ce743ed))
+-   Move `walk` to `ILoaderStrategy` (#352) ([540ac88](https://github.com/sapphiredev/pieces/commit/540ac884632b8c72d17aa4b422dfeb372ce743ed))
 
 ## 🐛 Bug Fixes
 
-- Properly split CJS and ESM ([41e8cec](https://github.com/sapphiredev/pieces/commit/41e8cec3c3b9ce1f91009d932a2a59fe0b42a6ac))
-  - 💥 **BREAKING CHANGE:** This ensures that Pieces will properly load the files
-from the appropiate folder and we properly bundle CJS and ESM.
-To use this version of @sapphire/pieces you have to use @sapphire/framework
-v5.x or higher, or update your own usage of @sapphire/pieces to also
-properly split ESM and CJS.
+-   Properly split CJS and ESM ([41e8cec](https://github.com/sapphiredev/pieces/commit/41e8cec3c3b9ce1f91009d932a2a59fe0b42a6ac))
+    -   💥 **BREAKING CHANGE:** This ensures that Pieces will properly load the files
+        from the appropiate folder and we properly bundle CJS and ESM.
+        To use this version of @sapphire/pieces you have to use @sapphire/framework
+        v5.x or higher, or update your own usage of @sapphire/pieces to also
+        properly split ESM and CJS.
 
 # [3.10.0](https://github.com/sapphiredev/pieces/compare/v3.10.0...v3.10.0) - (2023-11-16)
 
 ## 🏠 Refactor
 
-- Rename `Piece.Context` to `Piece.LoaderContext` (#351) ([f5bb225](https://github.com/sapphiredev/pieces/commit/f5bb22508850e1aead0b7fadc802ac13e462dca4))
+-   Rename `Piece.Context` to `Piece.LoaderContext` (#351) ([f5bb225](https://github.com/sapphiredev/pieces/commit/f5bb22508850e1aead0b7fadc802ac13e462dca4))
 
 ## 🚀 Features
 
-- Use `StoreName` for improved type experience (#350) ([3c722ef](https://github.com/sapphiredev/pieces/commit/3c722ef2d57bc292920491a990cd91dddefc37bd))
-- **StoreRegistry:** Add `StoreOf` and `PieceOf` (#349) ([7b0ae1d](https://github.com/sapphiredev/pieces/commit/7b0ae1dba0e51084d35c3801e8c25c6d1dc3a54f))
+-   Use `StoreName` for improved type experience (#350) ([3c722ef](https://github.com/sapphiredev/pieces/commit/3c722ef2d57bc292920491a990cd91dddefc37bd))
+-   **StoreRegistry:** Add `StoreOf` and `PieceOf` (#349) ([7b0ae1d](https://github.com/sapphiredev/pieces/commit/7b0ae1dba0e51084d35c3801e8c25c6d1dc3a54f))
 
 # [3.9.0](https://github.com/sapphiredev/pieces/compare/v3.9.0...v3.9.0) - (2023-11-15)
 
 ## 🚀 Features
 
-- Revert 12be6ba006d549ba2250546b4fb3c35a9e5d25f2 "add symbol support for piece names (#346)" ([9424c20](https://github.com/sapphiredev/pieces/commit/9424c2020ab4a37c4db97d382f90e1bb8890b19f))
+-   Revert 12be6ba006d549ba2250546b4fb3c35a9e5d25f2 "add symbol support for piece names (#346)" ([9424c20](https://github.com/sapphiredev/pieces/commit/9424c2020ab4a37c4db97d382f90e1bb8890b19f))
 
 # [3.8.0](https://github.com/sapphiredev/pieces/compare/v3.8.0...v3.8.0) - (2023-11-15)
 
 ## 🐛 Bug Fixes
 
-- **AliasStore:** Pass `StoreName` type parameter to `Store` (#347) ([9a3492c](https://github.com/sapphiredev/pieces/commit/9a3492c963311296b4eb82119ef926c89e277cca))
+-   **AliasStore:** Pass `StoreName` type parameter to `Store` (#347) ([9a3492c](https://github.com/sapphiredev/pieces/commit/9a3492c963311296b4eb82119ef926c89e277cca))
 
 ## 🚀 Features
 
-- Add symbol support for piece names (#346) ([12be6ba](https://github.com/sapphiredev/pieces/commit/12be6ba006d549ba2250546b4fb3c35a9e5d25f2))
-- **StoreRegistry:** Add queue and virtual file support (#344) ([b7c0839](https://github.com/sapphiredev/pieces/commit/b7c0839cd8d562d9762bf4f13af080eb52db99de))
+-   Add symbol support for piece names (#346) ([12be6ba](https://github.com/sapphiredev/pieces/commit/12be6ba006d549ba2250546b4fb3c35a9e5d25f2))
+-   **StoreRegistry:** Add queue and virtual file support (#344) ([b7c0839](https://github.com/sapphiredev/pieces/commit/b7c0839cd8d562d9762bf4f13af080eb52db99de))
 
 # [3.7.1](https://github.com/sapphiredev/pieces/compare/v3.7.1...v3.7.1) - (2023-11-13)
 

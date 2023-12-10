@@ -226,5 +226,5 @@ export type StoreOf<StoreName extends StoreRegistryKey> = StoreRegistryKey exten
 export type PieceOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
 	? Piece<Piece.Options, StoreName>
 	: StoreRegistryEntries[StoreName] extends Store<infer PieceType>
-	  ? PieceType
-	  : Piece<Piece.Options, StoreName>;
+		? PieceType
+		: Piece<Piece.Options, StoreName>;

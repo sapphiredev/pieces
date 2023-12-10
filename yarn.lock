@@ -495,9 +495,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@favware/rollup-type-bundler@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@favware/rollup-type-bundler@npm:3.2.0"
+"@favware/rollup-type-bundler@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@favware/rollup-type-bundler@npm:3.2.1"
   dependencies:
     "@sapphire/node-utilities": "npm:^1.0.0"
     "@sapphire/utilities": "npm:^3.13.0"
@@ -510,7 +510,7 @@ __metadata:
   bin:
     rollup-type-bundler: ./dist/cli.js
     rtb: ./dist/cli.js
-  checksum: 04022f0f3d18e5627eefb44a8495a4e1d54f956a2384fa53cfb3ef1b6572b861fe1cb131a32ed65699125ea99f2ff347695d00992d04cca4082f289bbb4ba20d
+  checksum: e032d4cc962bbf0acbcb7df4fcb7606470b66c2db592f18d0962d62582fdd8e8fcb202103399f2b86ce66211ded896a919db495c5e0d6f16211c1386078da56c
   languageName: node
   linkType: hard
 
@@ -789,12 +789,12 @@ __metadata:
     "@discordjs/collection": "npm:^1.5.3"
     "@favware/cliff-jumper": "npm:^2.2.3"
     "@favware/npm-deprecate": "npm:^1.0.7"
-    "@favware/rollup-type-bundler": "npm:^3.2.0"
+    "@favware/rollup-type-bundler": "npm:^3.2.1"
     "@sapphire/eslint-config": "npm:^5.0.3"
     "@sapphire/prettier-config": "npm:^2.0.0"
     "@sapphire/ts-config": "npm:^5.0.0"
     "@sapphire/utilities": "npm:^3.14.0"
-    "@types/node": "npm:^20.10.3"
+    "@types/node": "npm:^20.10.4"
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
     "@typescript-eslint/parser": "npm:^6.13.2"
     concurrently: "npm:^8.2.2"
@@ -804,13 +804,13 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.0.1"
     lint-staged: "npm:^15.2.0"
-    prettier: "npm:^3.1.0"
+    prettier: "npm:^3.1.1"
     rimraf: "npm:^5.0.5"
     tslib: "npm:^2.6.2"
     tsup: "npm:^8.0.1"
     typedoc: "npm:^0.25.4"
     typedoc-json-parser: "npm:^9.0.1"
-    typescript: "npm:^5.3.2"
+    typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
 
@@ -884,12 +884,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.10.3":
-  version: 20.10.3
-  resolution: "@types/node@npm:20.10.3"
+"@types/node@npm:^20.10.4":
+  version: 20.10.4
+  resolution: "@types/node@npm:20.10.4"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 7cb506abb0d570bb5133bd06a47115109a813b507323c985c3b4aef2993eed79b6bb62b82194cb5c558b4d349de3d199ee2e8c693b913065a1cd7f526cc65a68
+  checksum: c10c1dd13f5c2341ad866777dc32946538a99e1ebd203ae127730814b8e5fa4aedfbcb01cb3e24a5466f1af64bcdfa16e7de6e745ff098fff0942aa779b7fe03
   languageName: node
   linkType: hard
 
@@ -4418,6 +4418,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "prettier@npm:3.1.1"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 26a249f321b97d26c04483f1bf2eeb22e082a76f4222a2c922bebdc60111691aad4ec3979610e83942e0b956058ec361d9e9c81c185172264eb6db9aa678082b
+  languageName: node
+  linkType: hard
+
 "proc-log@npm:^3.0.0":
   version: 3.0.0
   resolution: "proc-log@npm:3.0.0"
@@ -5418,6 +5427,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "typescript@npm:5.3.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 6e4e6a14a50c222b3d14d4ea2f729e79f972fa536ac1522b91202a9a65af3605c2928c4a790a4a50aa13694d461c479ba92cedaeb1e7b190aadaa4e4b96b8e18
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.3.2#optional!builtin<compat/typescript>":
   version: 5.3.2
   resolution: "typescript@patch:typescript@npm%3A5.3.2#optional!builtin<compat/typescript>::version=5.3.2&hash=e012d7"
@@ -5425,6 +5444,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 1b45cdfb577a78ae7a9a9d0b77a7b772142cb98ba05e4e5aefba7044a028ded885bcecef63166407a5986645cea816fe4986894336aacd5e791796ea79a6a7ed
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
+  version: 5.3.3
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: c93786fcc9a70718ba1e3819bab56064ead5817004d1b8186f8ca66165f3a2d0100fee91fa64c840dcd45f994ca5d615d8e1f566d39a7470fc1e014dbb4cf15d
   languageName: node
   linkType: hard
 
