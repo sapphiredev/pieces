@@ -58,19 +58,42 @@ export function getRootData(): RootData {
 	return data;
 }
 
+/**
+ * Returns the directory name of a given path by joining the current working directory (cwd) with the joinable path.
+ * @param cwd - The current working directory.
+ * @param joinablePath - The path to be joined with the cwd.
+ * @returns The directory name of the joined path.
+ */
 function dirnameWithPath(cwd: string, joinablePath: string) {
 	return dirname(join(cwd, joinablePath));
 }
 
+/**
+ * Resets the root data cache.
+ */
 export function resetRootDataCache() {
 	data = null;
 }
 
+/**
+ * Represents the root data.
+ */
 export interface RootData {
+	/**
+	 * The root directory.
+	 */
 	root: string;
+
+	/**
+	 * The type of the module system used.
+	 * It can be either 'ESM' or 'CommonJS'.
+	 */
 	type: 'ESM' | 'CommonJS';
 }
 
+/**
+ * Represents a partial package.json object.
+ */
 type PartialPackageJson = Partial<{
 	main: string;
 	module: string;
