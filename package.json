@@ -23,6 +23,7 @@
 		"docs": "typedoc-json-parser",
 		"update": "yarn upgrade-interactive",
 		"clean": "rimraf dist",
+		"test": "vitest run",
 		"build": "tsup && concurrently \"yarn:postbuild:*\"",
 		"postbuild:internal": "node scripts/make-import.mjs",
 		"postbuild:types:cjs": "rollup-type-bundler -d dist/cjs",
@@ -61,7 +62,8 @@
 		"tsup": "^8.0.1",
 		"typedoc": "^0.25.4",
 		"typedoc-json-parser": "^9.0.1",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"vitest": "^1.1.0"
 	},
 	"repository": {
 		"type": "git",

@@ -2,7 +2,7 @@ import 'tslib';
 
 export * from './lib/errors/LoaderError';
 export * from './lib/errors/MissingExportsError';
-export * from './lib/internal/RootScan';
+export { getRootData, type RootData } from './lib/internal/RootScan';
 export { VirtualPath } from './lib/internal/constants';
 export * from './lib/shared/Container';
 export * from './lib/strategies/ILoaderStrategy';
