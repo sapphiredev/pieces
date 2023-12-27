@@ -1,0 +1,4 @@
+{
+	"type": "commonjs",
+	"module": "dist/lib/index.js"
+}
