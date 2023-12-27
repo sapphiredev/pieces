@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.2.0](https://github.com/sapphiredev/pieces/compare/v4.2.0...v4.2.0) - (2023-12-27)
+
+## 🚀 Features
+
+- **RootScan:** Ensure RootScan also scans `module` fields in package.json (#369) ([7eb28a9](https://github.com/sapphiredev/pieces/commit/7eb28a976f9ddb3cd596805977cb78b0eacb394c))
+
 # [4.1.0](https://github.com/sapphiredev/pieces/compare/v4.1.0...v4.1.0) - (2023-12-09)
 
 ## 🚀 Features
