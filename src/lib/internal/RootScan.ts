@@ -1,7 +1,47 @@
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 
+/**
+ * Represents a partial package.json object.
+ */
+type PartialPackageJson = Partial<{
+	main: string;
+	module: string;
+	type: 'commonjs' | 'module';
+}>;
+
+/**
+ * Represents the root data.
+ */
+export interface RootData {
+	/**
+	 * The root directory.
+	 */
+	root: string;
+
+	/**
+	 * The type of the module system used.
+	 * It can be either 'ESM' or 'CommonJS'.
+	 */
+	type: 'ESM' | 'CommonJS';
+}
+
 let data: RootData | null = null;
+
+/**
+ * Returns the directory name of a given path by joining the current working directory (cwd) with the joinable path.
+ * @private
+ * @param cwd - The current working directory.
+ * @param joinablePath - The path to be joined with the cwd.
+ * @returns The directory name of the joined path.
+ */
+function dirnameWithPath(cwd: string, joinablePath: string) {
+	return dirname(join(cwd, joinablePath));
+}
+
+export function getRootData(): RootData {
+	return (data ??= parseRootData());
+}
 
 /**
  * Retrieves the root data of the project.
@@ -34,9 +74,7 @@ let data: RootData | null = null;
  *
  * @returns The root data object containing the root path and the type of the project.
  */
-export function getRootData(): RootData {
-	if (data !== null) return data;
-
+export function parseRootData(): RootData {
 	const cwd = process.cwd();
 
 	let file: PartialPackageJson | undefined;
@@ -44,7 +82,7 @@ export function getRootData(): RootData {
 	try {
 		file = JSON.parse(readFileSync(join(cwd, 'package.json'), 'utf8')) as PartialPackageJson;
 	} catch (error) {
-		return (data = { root: cwd, type: 'CommonJS' });
+		return { root: cwd, type: 'CommonJS' };
 	}
 
 	const { main: packageMain, module: packageModule, type: packageType } = file;
@@ -52,61 +90,19 @@ export function getRootData(): RootData {
 	const lowerCasedType = packageType?.toLowerCase() as PartialPackageJson['type'];
 
 	if (lowerCasedType === 'commonjs') {
-		if (packageMain) return (data = { root: dirnameWithPath(cwd, packageMain), type: 'CommonJS' });
-		if (packageModule) return (data = { root: dirnameWithPath(cwd, packageModule), type: 'CommonJS' });
-		return (data = { root: cwd, type: 'CommonJS' });
+		if (packageMain) return { root: dirnameWithPath(cwd, packageMain), type: 'CommonJS' };
+		if (packageModule) return { root: dirnameWithPath(cwd, packageModule), type: 'CommonJS' };
+		return { root: cwd, type: 'CommonJS' };
 	}
 
 	if (lowerCasedType === 'module') {
-		if (packageMain) return (data = { root: dirnameWithPath(cwd, packageMain), type: 'ESM' });
-		if (packageModule) return (data = { root: dirnameWithPath(cwd, packageModule), type: 'ESM' });
-		return (data = { root: cwd, type: 'ESM' });
+		if (packageMain) return { root: dirnameWithPath(cwd, packageMain), type: 'ESM' };
+		if (packageModule) return { root: dirnameWithPath(cwd, packageModule), type: 'ESM' };
+		return { root: cwd, type: 'ESM' };
 	}
 
-	if (packageMain) return (data = { root: dirnameWithPath(cwd, packageMain), type: 'CommonJS' });
-	if (packageModule) return (data = { root: dirnameWithPath(cwd, packageModule), type: 'ESM' });
+	if (packageMain) return { root: dirnameWithPath(cwd, packageMain), type: 'CommonJS' };
+	if (packageModule) return { root: dirnameWithPath(cwd, packageModule), type: 'ESM' };
 
-	return (data = { root: cwd, type: 'CommonJS' });
+	return { root: cwd, type: 'CommonJS' };
 }
-
-/**
- * Returns the directory name of a given path by joining the current working directory (cwd) with the joinable path.
- * @param cwd - The current working directory.
- * @param joinablePath - The path to be joined with the cwd.
- * @returns The directory name of the joined path.
- */
-function dirnameWithPath(cwd: string, joinablePath: string) {
-	return dirname(join(cwd, joinablePath));
-}
-
-/**
- * Resets the root data cache.
- */
-export function resetRootDataCache() {
-	data = null;
-}
-
-/**
- * Represents the root data.
- */
-export interface RootData {
-	/**
-	 * The root directory.
-	 */
-	root: string;
-
-	/**
-	 * The type of the module system used.
-	 * It can be either 'ESM' or 'CommonJS'.
-	 */
-	type: 'ESM' | 'CommonJS';
-}
-
-/**
- * Represents a partial package.json object.
- */
-type PartialPackageJson = Partial<{
-	main: string;
-	module: string;
-	type: 'commonjs' | 'module';
-}>;

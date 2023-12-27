@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import type { MockInstance } from 'vitest';
-import { getRootData, resetRootDataCache, type RootData } from '../../../src/lib/internal/RootScan';
+import { parseRootData, type RootData } from '../../../src/lib/internal/RootScan';
 
 let cwd: MockInstance<[], string>;
 
@@ -8,7 +8,6 @@ afterEach(() => {
 	expect(cwd).toHaveBeenCalled();
 
 	cwd.mockRestore();
-	resetRootDataCache();
 });
 
 describe('RootScan', () => {
@@ -16,17 +15,17 @@ describe('RootScan', () => {
 		const commonJsBasePath = 'commonjs';
 
 		test('GIVEN type=commonjs && main property THEN returns correct root', () => {
-			mockCwd(`${commonJsBasePath}/main`);
+			mockCwd(commonJsBasePath, 'main');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${commonJsBasePath}/main/dist/lib`, 'CommonJS');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'CommonJS', commonJsBasePath, 'main', 'dist', 'lib');
 		});
 
 		test('GIVEN type=commonjs && module property THEN returns correct root', () => {
-			mockCwd(`${commonJsBasePath}/module`);
+			mockCwd(commonJsBasePath, 'module');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${commonJsBasePath}/module/dist/lib`, 'CommonJS');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'CommonJS', commonJsBasePath, 'module', 'dist', 'lib');
 		});
 	});
 
@@ -34,17 +33,17 @@ describe('RootScan', () => {
 		const moduleBasePath = 'module';
 
 		test('GIVEN type=module && main property THEN returns correct root', () => {
-			mockCwd(`${moduleBasePath}/main`);
+			mockCwd(moduleBasePath, 'main');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${moduleBasePath}/main/dist/lib`, 'ESM');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'ESM', moduleBasePath, 'main', 'dist', 'lib');
 		});
 
 		test('GIVEN type=module && module property THEN returns correct root', () => {
-			mockCwd(`${moduleBasePath}/module`);
+			mockCwd(moduleBasePath, 'module');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${moduleBasePath}/module/dist/lib`, 'ESM');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'ESM', moduleBasePath, 'module', 'dist', 'lib');
 		});
 	});
 
@@ -52,12 +51,12 @@ describe('RootScan', () => {
 		const noPackageBasePath = 'no-package';
 
 		test('GIVEN no package.json THEN returns correct root', () => {
-			mockCwd(`${noPackageBasePath}/main`);
+			mockCwd(noPackageBasePath);
 
-			const rootData = getRootData();
+			const rootData = parseRootData();
 
 			expect(rootData).toStrictEqual<RootData>({
-				root: `tests/fixtures/${noPackageBasePath}/main`,
+				root: testsFixturesJoin(noPackageBasePath),
 				type: 'CommonJS'
 			});
 		});
@@ -67,28 +66,49 @@ describe('RootScan', () => {
 		const noTypeBasePath = 'no-type';
 
 		test('GIVEN type=undefined && main property THEN returns correct root', () => {
-			mockCwd(`${noTypeBasePath}/main`);
+			mockCwd(noTypeBasePath, 'main');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${noTypeBasePath}/main/dist/lib`, 'CommonJS');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'CommonJS', noTypeBasePath, 'main', 'dist', 'lib');
 		});
 
 		test('GIVEN type=undefined && module property THEN returns correct root', () => {
-			mockCwd(`${noTypeBasePath}/module`);
+			mockCwd(noTypeBasePath, 'module');
 
-			const rootData = getRootData();
-			expectRootDataToEqual(rootData, `${noTypeBasePath}/module/dist/lib`, 'ESM');
+			const rootData = parseRootData();
+			expectRootDataToEqual(rootData, 'ESM', noTypeBasePath, 'module', 'dist', 'lib');
 		});
 	});
 });
 
-function mockCwd(pathForCwd: string) {
-	cwd = vi.spyOn(process, 'cwd').mockReturnValue(`tests/fixtures/${pathForCwd}`);
+/**
+ * Mocks the current working directory by setting the return value of `process.cwd()` to the joined path of the provided arguments.
+ *
+ * @param pathForCwd - The path segments to join and set as the current working directory.
+ */
+function mockCwd(...pathForCwd: string[]) {
+	cwd = vi.spyOn(process, 'cwd').mockReturnValue(testsFixturesJoin(...pathForCwd));
 }
 
-function expectRootDataToEqual(actual: RootData, rootPath: string, type: 'ESM' | 'CommonJS') {
+/**
+ * Asserts that the actual RootData object is equal to the expected RootData object.
+ * @param actual - The actual RootData object.
+ * @param type - The type of the RootData object ('ESM' or 'CommonJS').
+ * @param rootPath - The root path of the RootData object.
+ */
+function expectRootDataToEqual(actual: RootData, type: 'ESM' | 'CommonJS', ...rootPath: string[]) {
 	expect(actual).toStrictEqual<RootData>({
-		root: join(`tests/fixtures/${rootPath}`),
+		root: testsFixturesJoin(...rootPath),
 		type
 	});
+}
+
+/**
+ * Joins the given path segments with 'tests/fixtures' and returns the resulting path.
+ *
+ * @param path - The path segments to join.
+ * @returns The joined path.
+ */
+function testsFixturesJoin(...path: string[]) {
+	return join('tests', 'fixtures', ...path);
 }
