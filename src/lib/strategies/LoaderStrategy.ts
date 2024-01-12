@@ -29,16 +29,24 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 
 	public constructor() {
 		/**
-		 * If either {@linkplain https://github.com/TypeStrong/ts-node ts-node} or {@linkplain https://bun.sh bun}
-		 * are being used we conditionally need to register files ending in the `.ts` file extension.
 		 *
-		 * For `ts-node` this is because it loads files into memory, so we have to scan the
-		 * source `.ts` files, rather than files emitted with any of the JavaScript
-		 * extensions.
+		 * Under various conditions we need to support loading TypeScript files. These conditions are:
 		 *
-		 * For `bun` this is because it natively supports TypeScript, so we also want to check TypeScript files.
+		 * - {@linkplain https://github.com/TypeStrong/ts-node `ts-node`} is being used.
+		 * - {@linkplain https://github.com/wclr/ts-node-dev `ts-node-dev`} is being used.
+		 * - {@linkplain https://deno.com `Deno`} is being used.
+		 * - {@linkplain https://bun.sh `bun`} is being used.
+		 *
+		 * Each of these packages and runtimes support loading TypeScript files directly and do not need to be compiled
+		 * to JavaScript first.
 		 */
-		if (Reflect.has(process, Symbol.for('ts-node.register.instance')) || !isNullish(process.env.TS_NODE_DEV) || 'bun' in process.versions) {
+		const shouldLoadTsFiles =
+			Reflect.has(process, Symbol.for('ts-node.register.instance')) || // ts-node support
+			Reflect.has(globalThis, 'Deno') || // Deno support
+			!isNullish(process.env.TS_NODE_DEV) || // ts-node-dev support
+			'bun' in process.versions; // bun support
+
+		if (shouldLoadTsFiles) {
 			this.supportedExtensions.push('.ts', '.cts', '.mts');
 			this.filterDtsFiles = true;
 		}
