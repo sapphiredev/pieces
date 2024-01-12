@@ -61,7 +61,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	/**
 	 * The queue of manually registered pieces to load.
 	 */
-	private readonly [ManuallyRegisteredPiecesSymbol]: StoreManuallyRegisteredPiece<StoreName>[] = [];
+	private readonly [ManuallyRegisteredPiecesSymbol] = new Map<string, StoreManuallyRegisteredPiece<StoreName>>();
 
 	/**
 	 * Whether or not the store has called `loadAll` at least once.
@@ -161,7 +161,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 			throw new LoaderError(LoaderErrorType.IncorrectType, `The piece ${entry.name} does not extend ${this.name}`);
 		}
 
-		this[ManuallyRegisteredPiecesSymbol].push(entry);
+		this[ManuallyRegisteredPiecesSymbol].set(entry.name, entry);
 		if (this.#calledLoadAll) {
 			const piece = this.construct(entry.piece as unknown as Constructor<T>, {
 				name: entry.name,
@@ -242,7 +242,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 		this.#calledLoadAll = true;
 
 		const pieces: T[] = [];
-		for (const entry of this[ManuallyRegisteredPiecesSymbol]) {
+		for (const entry of this[ManuallyRegisteredPiecesSymbol].values()) {
 			const piece = this.construct(entry.piece as unknown as Constructor<T>, {
 				name: entry.name,
 				root: VirtualPath,
