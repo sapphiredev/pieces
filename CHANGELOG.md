@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.2.1](https://github.com/sapphiredev/pieces/compare/v4.2.1...v4.2.1) - (2024-01-12)
+
+## 🐛 Bug Fixes
+
+- Add deno to the filters for loading TS files (#373) ([6ba9dc5](https://github.com/sapphiredev/pieces/commit/6ba9dc5431ad6e8788685d7d5c31752af34c7548))
+- **deps:** Update all non-major dependencies ([0c68396](https://github.com/sapphiredev/pieces/commit/0c68396fd5c8a9e03f0c6d14ab1f2ec8d235ed5c))
+
 # [4.2.0](https://github.com/sapphiredev/pieces/compare/v4.2.0...v4.2.0) - (2023-12-27)
 
 ## 🚀 Features
