@@ -108,7 +108,10 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 		// If there was a queue for this store, add it to the store and delete the queue:
 		const queue = this.#pendingManuallyRegisteredPieces.get(store.name);
 		if (queue) {
-			store[ManuallyRegisteredPiecesSymbol].push(...queue);
+			for (const entry of queue) {
+				store[ManuallyRegisteredPiecesSymbol].set(entry.name, entry);
+			}
+
 			this.#pendingManuallyRegisteredPieces.delete(store.name);
 		}
 
