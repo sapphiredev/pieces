@@ -26,7 +26,7 @@
 		"test": "vitest run",
 		"build": "tsup && concurrently \"yarn:postbuild:*\"",
 		"postbuild:internal": "node scripts/make-import.mjs",
-		"postbuild:types:cjs": "rollup-type-bundler -d dist/cjs -ot cts",
+		"postbuild:types:cjs": "rollup-type-bundler -d dist/cjs -ot .cts",
 		"postbuild:types:esm": "rollup-type-bundler -d dist/esm -t .mts",
 		"typecheck": "tsc -b src",
 		"bump": "cliff-jumper",
