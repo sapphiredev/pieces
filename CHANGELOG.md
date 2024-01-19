@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.2.2](https://github.com/sapphiredev/pieces/compare/v4.2.2...v4.2.2) - (2024-01-19)
+
+## 🐛 Bug Fixes
+
+- Update transitive sapphire dependencies ([78d8198](https://github.com/sapphiredev/pieces/commit/78d819896c96ea74ff81b92118dc0477c01de9dc))
+- Fixed commonjs typings export mapping (#377) ([b115413](https://github.com/sapphiredev/pieces/commit/b115413c972be54c7ed131d29a53587a5fc9c8a7))
+- Make virtual pieces respect name restrictions like normal pieces (#374) ([fcca114](https://github.com/sapphiredev/pieces/commit/fcca1149d09f3e1ca79feef37de4b57af2e1c3fe))
+
 # [4.2.1](https://github.com/sapphiredev/pieces/compare/v4.2.1...v4.2.1) - (2024-01-12)
 
 ## 🐛 Bug Fixes
