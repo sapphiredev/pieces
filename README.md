@@ -1,3 +1,5 @@
+# Dummy PR to test CF Worker
+
 <div align="center">
 
 ![Sapphire Logo](https://raw.githubusercontent.com/sapphiredev/assets/main/banners/SapphireCommunity.png)
