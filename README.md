@@ -1,6 +1,3 @@
-# Dummy PR to test CF Worker
-# AAAA
-
 <div align="center">
 
 ![Sapphire Logo](https://raw.githubusercontent.com/sapphiredev/assets/main/banners/SapphireCommunity.png)
@@ -44,4 +41,3 @@ Thank you to all the people who already contributed to Sapphire!
 
 [contributing]: https://github.com/sapphiredev/.github/blob/main/.github/CONTRIBUTING.md
 [sapphire framework]: https://github.com/sapphiredev/framework
-[klasa]: https://github.com/dirigeants/klasa
