@@ -47,9 +47,9 @@
 		"@sapphire/eslint-config": "^5.0.4",
 		"@sapphire/prettier-config": "^2.0.0",
 		"@sapphire/ts-config": "^5.0.1",
-		"@types/node": "^20.12.2",
-		"@typescript-eslint/eslint-plugin": "^7.4.0",
-		"@typescript-eslint/parser": "^7.4.0",
+		"@types/node": "^20.12.5",
+		"@typescript-eslint/eslint-plugin": "^7.5.0",
+		"@typescript-eslint/parser": "^7.5.0",
 		"concurrently": "^8.2.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"esbuild-plugin-file-path-extensions": "^2.0.0",
@@ -62,7 +62,7 @@
 		"tsup": "^8.0.2",
 		"typedoc": "^0.25.12",
 		"typedoc-json-parser": "^9.0.1",
-		"typescript": "^5.4.3",
+		"typescript": "^5.4.4",
 		"vitest": "^1.4.0"
 	},
 	"repository": {
