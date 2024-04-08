@@ -37,7 +37,7 @@ export interface Container {
  *
  * // In any piece, core, plugin, or custom:
  * export class UserCommand extends Command {
- *   public run(message, args) {
+ *   public messageRun(message, args) {
  *     // The injected version is available here:
  *     const { version } = this.container;
  *
