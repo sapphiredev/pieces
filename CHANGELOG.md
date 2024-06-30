@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.3.0](https://github.com/sapphiredev/pieces/compare/v4.2.2...v4.3.0) - (2024-06-30)
+
+## 🐛 Bug Fixes
+
+- **deps:** Update all non-major dependencies ([5dad3e5](https://github.com/sapphiredev/pieces/commit/5dad3e5629c1be0409e312d47088d6a8e641312e)) ([#407](https://github.com/sapphiredev/pieces/pull/407) by @renovate[bot])
+
+## 📝 Documentation
+
+- **container:** Fix incorrect function name in tsdoc ([d58e5d5](https://github.com/sapphiredev/pieces/commit/d58e5d55593d335c8adbd8ce7b41a6a5b7579198))
+
+## 🚀 Features
+
+- Check for more environments for TS support ([d8c7a6d](https://github.com/sapphiredev/pieces/commit/d8c7a6d4f9f90fabe6b8cdc68e0ed28f0b5de1e4)) ([#415](https://github.com/sapphiredev/pieces/pull/415) by @kyranet)
+
 # [4.2.2](https://github.com/sapphiredev/pieces/compare/v4.2.2...v4.2.2) - (2024-01-19)
 
 ## 🐛 Bug Fixes
