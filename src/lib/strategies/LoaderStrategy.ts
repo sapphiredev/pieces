@@ -1,4 +1,4 @@
-import { isNullish, type Awaitable } from '@sapphire/utilities';
+import { type Awaitable } from '@sapphire/utilities';
 import { opendir } from 'fs/promises';
 import { basename, extname, join } from 'path';
 import { pathToFileURL } from 'url';
@@ -17,6 +17,7 @@ import type {
 	ModuleData
 } from './ILoaderStrategy';
 import { classExtends, isClass } from './Shared';
+import { CanLoadTypeScriptFiles } from './env';
 
 /**
  * A multi-purpose feature-complete loader strategy supporting multi-piece modules as well as supporting both ECMAScript
@@ -28,25 +29,7 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	private readonly filterDtsFiles: boolean = false;
 
 	public constructor() {
-		/**
-		 *
-		 * Under various conditions we need to support loading TypeScript files. These conditions are:
-		 *
-		 * - {@linkplain https://github.com/TypeStrong/ts-node `ts-node`} is being used.
-		 * - {@linkplain https://github.com/wclr/ts-node-dev `ts-node-dev`} is being used.
-		 * - {@linkplain https://deno.com `Deno`} is being used.
-		 * - {@linkplain https://bun.sh `bun`} is being used.
-		 *
-		 * Each of these packages and runtimes support loading TypeScript files directly and do not need to be compiled
-		 * to JavaScript first.
-		 */
-		const shouldLoadTsFiles =
-			Reflect.has(process, Symbol.for('ts-node.register.instance')) || // ts-node support
-			Reflect.has(globalThis, 'Deno') || // Deno support
-			!isNullish(process.env.TS_NODE_DEV) || // ts-node-dev support
-			'bun' in process.versions; // bun support
-
-		if (shouldLoadTsFiles) {
+		if (CanLoadTypeScriptFiles) {
 			this.supportedExtensions.push('.ts', '.cts', '.mts');
 			this.filterDtsFiles = true;
 		}
