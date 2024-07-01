@@ -11,6 +11,10 @@ function checkPreloadModules(name: string) {
 	return '_preload_modules' in process && (process._preload_modules as string[]).includes(name);
 }
 
+function checkPreloadModulesSubstring(name: string) {
+	return '_preload_modules' in process && (process._preload_modules as string[]).some((module) => module.includes(name));
+}
+
 function checkEnvVariable(name: string, value?: string) {
 	return value ? process.env[name] === value : !isNullish(process.env[name]);
 }
@@ -70,4 +74,4 @@ export const CanLoadTypeScriptFiles: boolean =
 	checkPreloadModules('esbuild-register') ||
 	//
 	// tsx
-	checkPreloadModules('tsx');
+	checkPreloadModulesSubstring('tsx');
