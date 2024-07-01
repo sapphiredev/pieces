@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.3.1](https://github.com/sapphiredev/pieces/compare/v4.3.0...v4.3.1) - (2024-07-01)
+
+## 🐛 Bug Fixes
+
+- Fixed checking for tsx support ([3e3a404](https://github.com/sapphiredev/pieces/commit/3e3a4047b251c5a36c9219712ffe0034a2ab663d)) ([#416](https://github.com/sapphiredev/pieces/pull/416) by @AhsokaT)
+
 # [4.3.0](https://github.com/sapphiredev/pieces/compare/v4.2.2...v4.3.0) - (2024-06-30)
 
 ## 🐛 Bug Fixes

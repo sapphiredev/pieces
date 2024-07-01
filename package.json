@@ -1,6 +1,6 @@
 {
 	"name": "@sapphire/pieces",
-	"version": "4.3.0",
+	"version": "4.3.1",
 	"description": "Sapphire's piece loader.",
 	"main": "dist/cjs/index.cjs",
 	"module": "dist/esm/index.mjs",
