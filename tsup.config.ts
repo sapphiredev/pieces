@@ -3,7 +3,7 @@ import { defineConfig, type Options } from 'tsup';
 
 const baseOptions: Options = {
 	clean: true,
-	entry: ['src/**/*.ts', '!src/**/*.d.ts'],
+	entry: ['src/**'],
 	dts: true,
 	minify: false,
 	skipNodeModulesBundle: true,
