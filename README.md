@@ -7,7 +7,6 @@
 **Sapphire's piece loader.**
 
 [![GitHub](https://img.shields.io/github/license/sapphiredev/pieces)](https://github.com/sapphiredev/pieces/blob/main/LICENSE.md)
-[![codecov](https://codecov.io/gh/sapphiredev/pieces/branch/main/graph/badge.svg?token=D5P9QPKA9T)](https://codecov.io/gh/sapphiredev/pieces)
 [![npm](https://img.shields.io/npm/v/@sapphire/pieces?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@sapphire/pieces)
 
 </div>
