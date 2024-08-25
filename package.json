@@ -36,18 +36,18 @@
 	"dependencies": {
 		"@discordjs/collection": "^1.5.3",
 		"@sapphire/utilities": "^3.17.0",
-		"tslib": "^2.6.3"
+		"tslib": "^2.7.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.4.0",
 		"@commitlint/config-conventional": "^19.2.2",
-		"@favware/cliff-jumper": "^4.0.3",
+		"@favware/cliff-jumper": "^4.1.0",
 		"@favware/npm-deprecate": "^1.0.7",
 		"@favware/rollup-type-bundler": "^3.3.0",
 		"@sapphire/eslint-config": "^5.0.5",
 		"@sapphire/prettier-config": "^2.0.0",
 		"@sapphire/ts-config": "^5.0.1",
-		"@types/node": "^20.16.0",
+		"@types/node": "^20.16.1",
 		"@typescript-eslint/eslint-plugin": "^7.13.1",
 		"@typescript-eslint/parser": "^7.13.1",
 		"@vitest/coverage-v8": "^2.0.5",
@@ -113,5 +113,5 @@
 		"minimist": "^1.2.8"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@4.4.0"
+	"packageManager": "yarn@4.4.1"
 }
