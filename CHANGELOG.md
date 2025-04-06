@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.3.2](https://github.com/sapphiredev/pieces/compare/v4.3.1...v4.3.2) - (2025-04-06)
+
+## 🐛 Bug Fixes
+
+- **RootScan:** Check for runtime config files when checking for CJS vs ESM ([304aa72](https://github.com/sapphiredev/pieces/commit/304aa72727bd0d1e69960b4cc0c76b95fbcfbfa6)) ([#476](https://github.com/sapphiredev/pieces/pull/476) by @favna)
+- **deps:** Update all non-major dependencies ([6bd70d4](https://github.com/sapphiredev/pieces/commit/6bd70d4d8bf8bbaa61ed4ffa56c8faa86e50f27d)) ([#463](https://github.com/sapphiredev/pieces/pull/463) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([27504b7](https://github.com/sapphiredev/pieces/commit/27504b7893d61c33b4903018dc6f633b5f3490d7)) ([#445](https://github.com/sapphiredev/pieces/pull/445) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([3a9d08d](https://github.com/sapphiredev/pieces/commit/3a9d08d5c30d14b2fe3df3d04110faa6564c30d8)) ([#442](https://github.com/sapphiredev/pieces/pull/442) by @renovate[bot])
+
 # [4.3.1](https://github.com/sapphiredev/pieces/compare/v4.3.0...v4.3.1) - (2024-07-01)
 
 ## 🐛 Bug Fixes
