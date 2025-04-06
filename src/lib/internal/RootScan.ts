@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { dirname, join } from 'path';
 
 /**
@@ -82,7 +82,8 @@ export function parseRootData(): RootData {
 	try {
 		file = JSON.parse(readFileSync(join(cwd, 'package.json'), 'utf8')) as PartialPackageJson;
 	} catch (error) {
-		return { root: cwd, type: 'CommonJS' };
+		const hasDenoConfigFile = existsSync(join(cwd, 'deno.json'));
+		return hasDenoConfigFile ? { root: cwd, type: 'ESM' } : { root: cwd, type: 'CommonJS' };
 	}
 
 	const { main: packageMain, module: packageModule, type: packageType } = file;
