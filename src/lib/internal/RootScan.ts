@@ -83,7 +83,8 @@ export function parseRootData(): RootData {
 		file = JSON.parse(readFileSync(join(cwd, 'package.json'), 'utf8')) as PartialPackageJson;
 	} catch (error) {
 		const hasDenoConfigFile = existsSync(join(cwd, 'deno.json'));
-		return hasDenoConfigFile ? { root: cwd, type: 'ESM' } : { root: cwd, type: 'CommonJS' };
+		const hasBunConfigFile = existsSync(join(cwd, 'bunfig.toml'));
+		return hasDenoConfigFile || hasBunConfigFile ? { root: cwd, type: 'ESM' } : { root: cwd, type: 'CommonJS' };
 	}
 
 	const { main: packageMain, module: packageModule, type: packageType } = file;
