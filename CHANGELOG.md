@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.4.0](https://github.com/sapphiredev/pieces/compare/v4.3.2...v4.4.0) - (2025-05-12)
+
+## 🚀 Features
+
+- Update @discordjs/collection to v2 ([b5ccdf7](https://github.com/sapphiredev/pieces/commit/b5ccdf7be2f15c4c7c63361cecb5a534cce652ad))
+
 # [4.3.2](https://github.com/sapphiredev/pieces/compare/v4.3.1...v4.3.2) - (2025-04-06)
 
 ## 🐛 Bug Fixes
