@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [4.4.1](https://github.com/sapphiredev/pieces/compare/v4.4.0...v4.4.1) - (2025-06-06)
+
+## 🐛 Bug Fixes
+
+- **loader:** Check if Bun is used by checking `globalThis.Bun` ([386a910](https://github.com/sapphiredev/pieces/commit/386a910da1a901648d6c963ef6f477bcaff8a7b3))
+
 # [4.4.0](https://github.com/sapphiredev/pieces/compare/v4.3.2...v4.4.0) - (2025-05-12)
 
 ## 🚀 Features
