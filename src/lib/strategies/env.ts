@@ -38,6 +38,7 @@ export const CanLoadTypeScriptFiles: boolean =
 	Reflect.has(globalThis, 'Deno') ||
 	//
 	// Bun
+	Reflect.has(globalThis, 'Bun') ||
 	'bun' in process.versions ||
 	//
 	// ts-node
