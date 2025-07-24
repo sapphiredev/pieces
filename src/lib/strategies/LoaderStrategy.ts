@@ -57,6 +57,14 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 			url.searchParams.append('d', Date.now().toString());
 			url.searchParams.append('name', file.name);
 			url.searchParams.append('extension', file.extension);
+
+			// Bun workaround: Strips URI scheme for dynamic imports to force re-evaluation due to caching bug.
+			if (Reflect.has(globalThis, 'Bun')) {
+				const isWindows = process.platform === 'win32';
+				const scheme = isWindows ? 'file:///' : 'file://';
+				return mjsImport(url.href.slice(scheme.length));
+			}
+
 			return mjsImport(url);
 		}
 

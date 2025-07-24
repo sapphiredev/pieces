@@ -298,9 +298,6 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	public async insert(piece: T): Promise<T> {
 		if (!piece.enabled) return piece;
 
-		// Clear import cache of the piece file if using Bun
-		if (Reflect.has(globalThis, 'Bun') && !piece.location.virtual) delete require.cache[piece.location.full];
-
 		// Load piece:
 		this.strategy.onLoad(this, piece);
 		await piece.onLoad();
