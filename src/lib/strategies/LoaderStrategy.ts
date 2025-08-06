@@ -57,6 +57,10 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 			url.searchParams.append('d', Date.now().toString());
 			url.searchParams.append('name', file.name);
 			url.searchParams.append('extension', file.extension);
+
+			// Bun workaround: Import a file path with search params instead of an file URL to force re-evaluation due to caching bug.
+			if (Reflect.has(globalThis, 'Bun')) return mjsImport(file.path + url.search);
+
 			return mjsImport(url);
 		}
 
