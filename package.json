@@ -47,10 +47,10 @@
 		"@sapphire/eslint-config": "^5.0.6",
 		"@sapphire/prettier-config": "^2.0.0",
 		"@sapphire/ts-config": "^5.0.1",
-		"@types/node": "^22.19.0",
+		"@types/node": "^22.19.1",
 		"@typescript-eslint/eslint-plugin": "^7.18.0",
 		"@typescript-eslint/parser": "^7.18.0",
-		"@vitest/coverage-v8": "^4.0.8",
+		"@vitest/coverage-v8": "^4.0.9",
 		"concurrently": "^9.2.1",
 		"cz-conventional-changelog": "^3.3.0",
 		"esbuild-plugin-file-path-extensions": "^2.1.4",
@@ -60,11 +60,11 @@
 		"lint-staged": "^16.2.6",
 		"prettier": "^3.6.2",
 		"rimraf": "^6.1.0",
-		"tsup": "^8.5.0",
+		"tsup": "^8.5.1",
 		"typedoc": "^0.26.11",
 		"typedoc-json-parser": "^10.2.0",
 		"typescript": "^5.8.3",
-		"vitest": "^4.0.8"
+		"vitest": "^4.0.9"
 	},
 	"repository": {
 		"type": "git",
