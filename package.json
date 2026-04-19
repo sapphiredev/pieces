@@ -41,7 +41,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^20.5.0",
 		"@commitlint/config-conventional": "^20.5.0",
-		"@favware/cliff-jumper": "^6.0.0",
+		"@favware/cliff-jumper": "^6.1.0",
 		"@favware/npm-deprecate": "^2.0.0",
 		"@favware/rollup-type-bundler": "^4.0.0",
 		"@sapphire/eslint-config": "^5.0.6",
@@ -58,7 +58,7 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-prettier": "^5.5.5",
 		"lint-staged": "^16.4.0",
-		"prettier": "^3.8.2",
+		"prettier": "^3.8.3",
 		"rimraf": "^6.1.3",
 		"tsup": "^8.5.1",
 		"typedoc": "^0.26.11",
@@ -113,5 +113,5 @@
 		"minimist": "^1.2.8"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@4.13.0"
+	"packageManager": "yarn@4.14.1"
 }
