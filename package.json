@@ -50,8 +50,8 @@
 		"@types/node": "^24.13.2",
 		"@typescript-eslint/eslint-plugin": "^7.18.0",
 		"@typescript-eslint/parser": "^7.18.0",
-		"@vitest/coverage-v8": "^4.1.8",
-		"concurrently": "^9.2.1",
+		"@vitest/coverage-v8": "^4.1.9",
+		"concurrently": "^9.2.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"esbuild-plugin-file-path-extensions": "^2.1.4",
 		"eslint": "^8.57.1",
@@ -64,7 +64,7 @@
 		"typedoc": "^0.26.11",
 		"typedoc-json-parser": "^10.2.0",
 		"typescript": "^5.8.3",
-		"vitest": "^4.1.8"
+		"vitest": "^4.1.9"
 	},
 	"repository": {
 		"type": "git",
@@ -113,5 +113,5 @@
 		"minimist": "^1.2.8"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@4.16.0"
+	"packageManager": "yarn@4.17.0"
 }
