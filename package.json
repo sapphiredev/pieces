@@ -108,10 +108,10 @@
 		"access": "public"
 	},
 	"resolutions": {
-		"acorn": "^8.17.0",
+		"acorn": "^8.18.0",
 		"ansi-regex": "^5.0.1",
 		"minimist": "^1.2.8"
 	},
 	"prettier": "@sapphire/prettier-config",
-	"packageManager": "yarn@4.17.1"
+	"packageManager": "yarn@4.18.0"
 }
