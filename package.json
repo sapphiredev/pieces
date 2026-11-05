@@ -60,7 +60,7 @@
 		"lint-staged": "^16.4.0",
 		"prettier": "^3.9.10",
 		"rimraf": "^6.1.3",
-		"tsup": "^8.5.1",
+		"tsup": "^9.0.0",
 		"typedoc": "^0.26.11",
 		"typedoc-json-parser": "^10.2.0",
 		"typescript": "^5.8.3",
