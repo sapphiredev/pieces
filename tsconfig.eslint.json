@@ -4,5 +4,5 @@
 		"types": ["node", "vitest/globals"],
 		"lib": ["DOM", "ESNext"]
 	},
-	"include": ["src", "tests", "vitest.config.ts", "tsdown.config.ts"]
+	"include": ["src", "tests", "vitest.config.ts", "tsdown.config.ts", "eslint.config.mjs"]
 }
