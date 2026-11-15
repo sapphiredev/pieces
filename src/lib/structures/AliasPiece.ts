@@ -47,7 +47,6 @@ export interface AliasPieceJSON extends Piece.JSON {
 }
 
 export namespace AliasPiece {
-	export const { location } = Piece;
 	export type Options = AliasPieceOptions;
 	/**
 	 * @deprecated Use {@link LoaderContext} instead.
