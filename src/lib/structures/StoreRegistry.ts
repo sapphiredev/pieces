@@ -1,6 +1,6 @@
 import { Collection } from '@discordjs/collection';
 import { isClass } from '@sapphire/utilities';
-import { join } from 'path';
+import { join } from 'node:path';
 import { LoaderError } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
 import { getRootData } from '../internal/RootScan';

@@ -1,6 +1,6 @@
 import { Collection } from '@discordjs/collection';
 import { classExtends, isClass, type AbstractConstructor, type Constructor } from '@sapphire/utilities';
-import { join } from 'path';
+import { join } from 'node:path';
 import { LoaderError, LoaderErrorType } from '../errors/LoaderError';
 import { resolvePath, type Path } from '../internal/Path';
 import { ManuallyRegisteredPiecesSymbol, VirtualPath } from '../internal/constants';
@@ -359,6 +359,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 				Store.logger?.(`[STORE => ${this.name}] [LOAD] Skipped piece '${child}' as 'LoaderStrategy#filter' returned 'null'.`);
 				continue;
 			}
+
 			try {
 				const finishedData = this.hydrateModuleData(root, data);
 				for await (const Ctor of this.strategy.load(this, finishedData)) {

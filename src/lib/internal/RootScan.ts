@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'fs';
-import { dirname, join } from 'path';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 
 /**
  * Represents a partial package.json object.

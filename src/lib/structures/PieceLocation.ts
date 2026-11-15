@@ -1,4 +1,4 @@
-import { basename, relative, sep } from 'path';
+import { basename, relative, sep } from 'node:path';
 import { VirtualPath } from '../internal/constants';
 
 /**
