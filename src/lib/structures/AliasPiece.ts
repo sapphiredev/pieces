@@ -4,6 +4,7 @@ import type { StoreRegistryKey } from './StoreRegistry';
 export interface AliasPieceOptions extends Piece.Options {
 	/**
 	 * The aliases for the piece.
+	 *
 	 * @default []
 	 */
 	readonly aliases?: readonly string[];
@@ -48,7 +49,9 @@ export interface AliasPieceJSON extends Piece.JSON {
 export namespace AliasPiece {
 	export const { Location } = Piece;
 	export type Options = AliasPieceOptions;
-	/** @deprecated Use {@linkcode LoaderContext} instead. */
+	/**
+	 * @deprecated Use {@linkcode LoaderContext} instead.
+	 */
 	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
 	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
 	export type JSON = AliasPieceJSON;

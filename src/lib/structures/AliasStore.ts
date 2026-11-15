@@ -14,6 +14,7 @@ export class AliasStore<T extends AliasPiece, StoreName extends StoreRegistryKey
 
 	/**
 	 * Looks up the name by the store, falling back to an alias lookup.
+	 *
 	 * @param key The key to look for.
 	 */
 	public override get(key: string): T | undefined {
@@ -22,6 +23,7 @@ export class AliasStore<T extends AliasPiece, StoreName extends StoreRegistryKey
 
 	/**
 	 * Checks whether a key is in the store, or is an alias
+	 *
 	 * @param key The key to check
 	 */
 	public override has(key: string): boolean {
@@ -30,10 +32,11 @@ export class AliasStore<T extends AliasPiece, StoreName extends StoreRegistryKey
 
 	/**
 	 * Unloads a piece given its instance or its name, and removes all the aliases.
+	 *
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public override unload(name: string | T): Promise<T> {
+	public override async unload(name: T | string): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload all aliases for the given piece:
@@ -48,6 +51,7 @@ export class AliasStore<T extends AliasPiece, StoreName extends StoreRegistryKey
 
 	/**
 	 * Inserts a piece into the store, and adds all the aliases.
+	 *
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */

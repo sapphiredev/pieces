@@ -10,9 +10,9 @@ import type { StoreOf, StoreRegistryKey } from './StoreRegistry';
  */
 export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> {
 	/**
-	 * The root directory the piece was loaded from.
+	 * The module's name extracted from the path.
 	 */
-	readonly root: string;
+	readonly name: string;
 
 	/**
 	 * The path the module was loaded from, relative to {@link LoaderPieceContext.root}.
@@ -20,9 +20,9 @@ export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRe
 	readonly path: string;
 
 	/**
-	 * The module's name extracted from the path.
+	 * The root directory the piece was loaded from.
 	 */
-	readonly name: string;
+	readonly root: string;
 
 	/**
 	 * The store that loaded the piece.
@@ -30,7 +30,9 @@ export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRe
 	readonly store: StoreOf<StoreName>;
 }
 
-/** @deprecated Use {@linkcode LoaderPieceContext} instead. */
+/**
+ * @deprecated Use {@linkcode LoaderPieceContext} instead.
+ */
 export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> extends LoaderPieceContext<StoreName> {}
 
 /**
@@ -38,16 +40,18 @@ export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistry
  */
 export interface PieceOptions {
 	/**
-	 * The name for the piece.
-	 * @default ''
-	 */
-	readonly name?: string;
-
-	/**
 	 * Whether or not the piece should be enabled. If set to false, the piece will be unloaded.
+	 *
 	 * @default true
 	 */
 	readonly enabled?: boolean;
+
+	/**
+	 * The name for the piece.
+	 *
+	 * @default ''
+	 */
+	readonly name?: string;
 }
 
 /**
@@ -89,6 +93,7 @@ export class Piece<Options extends PieceOptions = PieceOptions, StoreName extend
 
 	/**
 	 * A reference to the {@link Container} object for ease of use.
+	 *
 	 * @see container
 	 */
 	public get container(): Container {
@@ -143,18 +148,21 @@ export class Piece<Options extends PieceOptions = PieceOptions, StoreName extend
  * The return type of {@link Piece.toJSON}.
  */
 export interface PieceJSON {
+	enabled: boolean;
 	location: PieceLocationJSON;
 	name: string;
-	enabled: boolean;
 	options: PieceOptions;
 }
 
 export namespace Piece {
-	export const Location = PieceLocation;
 	export type Options = PieceOptions;
-	/** @deprecated Use {@linkcode LoaderContext} instead. */
+	/**
+	 * @deprecated Use {@linkcode LoaderContext} instead.
+	 */
 	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type JSON = PieceJSON;
 	export type LocationJSON = PieceLocationJSON;
 }
+
+export { PieceLocation as Location } from './PieceLocation';

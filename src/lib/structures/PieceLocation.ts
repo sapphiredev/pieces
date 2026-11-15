@@ -33,6 +33,7 @@ export class PieceLocation {
 
 	/**
 	 * The relative path between {@link PieceLocation.root} and {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(
@@ -50,6 +51,7 @@ export class PieceLocation {
 
 	/**
 	 * The names of the directories that separate {@link PieceLocation.root} and {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(
@@ -67,6 +69,7 @@ export class PieceLocation {
 
 	/**
 	 * The name and extension of the file that was loaded, extracted from {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(

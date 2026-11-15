@@ -23,13 +23,14 @@ export interface RootData {
 	 * The type of the module system used.
 	 * It can be either 'ESM' or 'CommonJS'.
 	 */
-	type: 'ESM' | 'CommonJS';
+	type: 'CommonJS' | 'ESM';
 }
 
 let data: RootData | null = null;
 
 /**
  * Returns the directory name of a given path by joining the current working directory (cwd) with the joinable path.
+ *
  * @private
  * @param cwd - The current working directory.
  * @param joinablePath - The path to be joined with the cwd.
@@ -81,7 +82,7 @@ export function parseRootData(): RootData {
 
 	try {
 		file = JSON.parse(readFileSync(join(cwd, 'package.json'), 'utf8')) as PartialPackageJson;
-	} catch (error) {
+	} catch {
 		const hasDenoConfigFile = existsSync(join(cwd, 'deno.json'));
 		const hasBunConfigFile = existsSync(join(cwd, 'bunfig.toml'));
 		return hasDenoConfigFile || hasBunConfigFile ? { root: cwd, type: 'ESM' } : { root: cwd, type: 'CommonJS' };

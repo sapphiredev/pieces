@@ -45,7 +45,6 @@ export interface Container {
  *   }
  * }
  * ```
- *
  * @example
  * ```typescript
  * // In a plugin's context, e.g. API:

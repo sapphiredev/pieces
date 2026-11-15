@@ -27,7 +27,9 @@ const require = createRequire(import.meta.url);
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public clientUsesESModules = getRootData().type === 'ESM';
+
 	public supportedExtensions = ['.js', '.cjs', '.mjs'];
+
 	private readonly filterDtsFiles: boolean = false;
 
 	public constructor() {

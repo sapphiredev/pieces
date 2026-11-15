@@ -10,6 +10,7 @@ import type { Store, StoreManuallyRegisteredPiece } from './Store';
 
 /**
  * A strict-typed store registry. This is available in {@link container}.
+ *
  * @since 2.1.0
  * @example
  * ```typescript
@@ -36,6 +37,7 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 
 	/**
 	 * Loads all the registered stores.
+	 *
 	 * @since 2.1.0
 	 */
 	public async load() {
@@ -68,6 +70,7 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 *
 	 * **Note**: this also registers directories for all other stores, even if they don't have a folder, this allows you
 	 * to create new pieces and hot-load them later anytime.
+	 *
 	 * @since 2.1.0
 	 * @param rootDirectory The root directory to register pieces at.
 	 */
@@ -98,7 +101,6 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 * will add them to the store and delete the queue. Note, however, that this method will not call the store's
 	 * {@linkcode Store.loadPiece() loadPiece()} method, and as such, the pieces will not be loaded until
 	 * {@linkcode Store.loadAll()} is called.
-	 *
 	 * @since 2.1.0
 	 * @param store The store to register.
 	 */
@@ -120,6 +122,7 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 
 	/**
 	 * Deregisters a store.
+	 *
 	 * @since 2.1.0
 	 * @param store The store to deregister.
 	 */
@@ -146,7 +149,6 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 * - If the store is registered, this method will always throw a {@linkcode LoaderError} if the piece does not
 	 *   extend the registered {@linkcode Store.Constructor store's piece constructor}.
 	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
-	 *
 	 * @seealso {@linkcode Store.loadPiece()}
 	 * @since 3.8.0
 	 * @param entry The entry to load.
@@ -189,24 +191,28 @@ export interface StoreRegistry {
 
 /**
  * A type utility to get the keys of {@linkcode StoreRegistryEntries}.
+ *
  * @since 3.10.0
  */
 export type StoreRegistryKey = keyof StoreRegistryEntries;
 
 /**
  * A type utility to get the values of {@linkcode StoreRegistryEntries}.
+ *
  * @since 3.10.0
  */
 export type StoreRegistryValue = StoreRegistryEntries[StoreRegistryKey];
 
 /**
  * The {@link StoreRegistry}'s registry, use module augmentation against this interface when adding new stores.
+ *
  * @since 2.1.0
  */
 export interface StoreRegistryEntries {}
 
 /**
  * An entry for a manually registered piece using {@linkcode StoreRegistry.loadPiece()}.
+ *
  * @seealso {@linkcode StoreRegistry.loadPiece()}
  * @since 3.8.0
  */
@@ -216,6 +222,7 @@ export interface StoreManagerManuallyRegisteredPiece<StoreName extends StoreRegi
 
 /**
  * Type utility to get the {@linkcode Store} given its name.
+ *
  * @since 3.10.0
  */
 export type StoreOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
@@ -224,6 +231,7 @@ export type StoreOf<StoreName extends StoreRegistryKey> = StoreRegistryKey exten
 
 /**
  * Type utility to get the {@linkcode Piece} given its {@linkcode Store}'s name.
+ *
  * @since 3.10.0
  */
 export type PieceOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never

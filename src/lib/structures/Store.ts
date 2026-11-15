@@ -8,7 +8,7 @@ import { container, type Container } from '../shared/Container';
 import type { HydratedModuleData, ILoaderResultEntry, ILoaderStrategy, ModuleData } from '../strategies/ILoaderStrategy';
 import { LoaderStrategy } from '../strategies/LoaderStrategy';
 import type { Piece } from './Piece';
-import { StoreRegistry, type StoreRegistryEntries, type StoreRegistryKey } from './StoreRegistry';
+import { type StoreRegistryEntries, type StoreRegistryKey } from './StoreRegistry';
 
 /**
  * The options for the store, this features both hooks (changes the behaviour) and handlers (similar to event listeners).
@@ -21,12 +21,14 @@ export interface StoreOptions<T extends Piece, StoreName extends StoreRegistryKe
 
 	/**
 	 * The paths to load pieces from, should be absolute.
+	 *
 	 * @default []
 	 */
 	readonly paths?: readonly string[];
 
 	/**
 	 * The strategy to be used for the loader.
+	 *
 	 * @default Store.defaultStrategy
 	 */
 	readonly strategy?: ILoaderStrategy<T>;
@@ -35,17 +37,15 @@ export interface StoreOptions<T extends Piece, StoreName extends StoreRegistryKe
 /**
  * An interface representing a logger function.
  */
-export interface StoreLogger {
-	/**
-	 * @param value The string to print. All strings will be formatted with the format `[STORE => ${name}] [${type}] ${content}`,
-	 * where the content may have identifiers (values or names of methods) surrounded by `'`. For example:
-	 *
-	 * - `[STORE => commands] [LOAD] Skipped piece '/home/user/bot/src/commands/foo.js' as 'LoaderStrategy#filter' returned 'null'.`
-	 * - `[STORE => commands] [INSERT] Unloaded new piece 'foo' due to 'enabled' being 'false'.`
-	 * - `[STORE => commands] [UNLOAD] Unloaded piece 'foo'.`
-	 */
-	(value: string): void;
-}
+/**
+ * @param value The string to print. All strings will be formatted with the format `[STORE => ${name}] [${type}] ${content}`,
+ * where the content may have identifiers (values or names of methods) surrounded by `'`. For example:
+ *
+ * - `[STORE => commands] [LOAD] Skipped piece '/home/user/bot/src/commands/foo.js' as 'LoaderStrategy#filter' returned 'null'.`
+ * - `[STORE => commands] [INSERT] Unloaded new piece 'foo' due to 'enabled' being 'false'.`
+ * - `[STORE => commands] [UNLOAD] Unloaded piece 'foo'.`
+ */
+export type StoreLogger = (value: string) => void;
 
 const defaultStrategy = new LoaderStrategy();
 
@@ -54,8 +54,11 @@ const defaultStrategy = new LoaderStrategy();
  */
 export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRegistryKey> extends Collection<string, T> {
 	public readonly Constructor: AbstractConstructor<T>;
+
 	public readonly name: StoreName;
+
 	public readonly paths: Set<string>;
+
 	public readonly strategy: ILoaderStrategy<T>;
 
 	/**
@@ -71,7 +74,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	/**
 	 * The walk function for the store.
 	 */
-	#walk: LoaderStrategy<T>['walk'];
+	readonly #walk: LoaderStrategy<T>['walk'];
 
 	/**
 	 * @param constructor The piece constructor this store loads.
@@ -92,6 +95,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * A reference to the {@link Container} object for ease of use.
+	 *
 	 * @see container
 	 */
 	public get container(): Container {
@@ -100,6 +104,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Registers a directory into the store.
+	 *
 	 * @param path The path to be added.
 	 * @example
 	 * ```typescript
@@ -133,7 +138,6 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	 * - This method will always throw a {@linkcode LoaderError} if the piece does not extend the
 	 *   {@linkcode Store#Constructor store's piece constructor}.
 	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
-	 *
 	 * @seealso {@linkcode StoreRegistry.loadPiece()}
 	 * @since 3.8.0
 	 * @param entry The entry to load.
@@ -175,6 +179,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Loads one or more pieces from a path.
+	 *
 	 * @param root The root directory the file is from.
 	 * @param path The path of the file to load, relative to the `root`.
 	 * @return All the loaded pieces.
@@ -202,10 +207,11 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Unloads a piece given its instance or its name.
+	 *
 	 * @param name The name of the file to load.
 	 * @return Returns the piece that was unloaded.
 	 */
-	public async unload(name: string | T): Promise<T> {
+	public async unload(name: T | string): Promise<T> {
 		const piece = this.resolve(name);
 
 		// Unload piece:
@@ -276,10 +282,11 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Resolves a piece by its name or its instance.
+	 *
 	 * @param name The name of the piece or the instance itself.
 	 * @return The resolved piece.
 	 */
-	public resolve(name: string | T): T {
+	public resolve(name: T | string): T {
 		if (typeof name === 'string') {
 			const result = this.get(name);
 			if (typeof result === 'undefined') throw new LoaderError(LoaderErrorType.UnloadedPiece, `The piece '${name}' does not exist.`);
@@ -292,6 +299,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Inserts a piece into the store.
+	 *
 	 * @param piece The piece to be inserted into the store.
 	 * @return The inserted piece.
 	 */
@@ -328,6 +336,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Constructs a {@link Piece} instance.
+	 *
 	 * @param Ctor The {@link Piece}'s constructor used to build the instance.
 	 * @param data The module's information
 	 * @return An instance of the constructed piece.
@@ -338,6 +347,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Adds the final module data properties.
+	 *
 	 * @param root The root directory to add.
 	 * @param data The module data returned from {@link ILoaderStrategy.filter}.
 	 * @returns The finished module data.
@@ -348,6 +358,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 	/**
 	 * Loads a directory into the store.
+	 *
 	 * @param root The directory to load the pieces from.
 	 * @return An async iterator that yields the pieces to be loaded into the store.
 	 */
@@ -385,6 +396,7 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 
 /**
  * An entry for a manually registered piece using {@linkcode Store.loadPiece()}.
+ *
  * @since 3.8.0
  */
 export interface StoreManuallyRegisteredPiece<StoreName extends StoreRegistryKey> {
@@ -393,8 +405,9 @@ export interface StoreManuallyRegisteredPiece<StoreName extends StoreRegistryKey
 }
 
 export namespace Store {
-	export const Registry = StoreRegistry;
 	export type Options<T extends Piece> = StoreOptions<T>;
 	export type Logger = StoreLogger;
 	export type RegistryEntries = StoreRegistryEntries;
 }
+
+export { StoreRegistry as Registry } from './StoreRegistry';

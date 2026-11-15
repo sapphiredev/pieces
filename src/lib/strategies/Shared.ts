@@ -2,6 +2,7 @@ import type { AbstractCtor } from '@sapphire/utilities';
 
 /**
  * Determines whether or not a value is a class.
+ *
  * @param value The piece to be checked.
  * @private
  */
@@ -11,6 +12,7 @@ export function isClass(value: unknown): value is AbstractCtor {
 
 /**
  * Checks whether or not the value class extends the base class.
+ *
  * @param value The constructor to be checked against.
  * @param base The base constructor.
  * @private
