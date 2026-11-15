@@ -31,7 +31,6 @@ let data: RootData | null = null;
 /**
  * Returns the directory name of a given path by joining the current working directory (cwd) with the joinable path.
  *
- * @private
  * @param cwd - The current working directory.
  * @param joinablePath - The path to be joined with the cwd.
  * @returns The directory name of the joined path.

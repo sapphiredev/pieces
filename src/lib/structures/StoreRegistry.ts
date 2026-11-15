@@ -9,9 +9,10 @@ import type { Piece } from './Piece';
 import type { Store, StoreManuallyRegisteredPiece } from './Store';
 
 /**
- * A strict-typed store registry. This is available in {@link container}.
+ * A strict-typed store registry. This is available in the `container`.
  *
- * @since 2.1.0
+ * Added in version 2.1.0.
+ *
  * @example
  * ```typescript
  * // Adding new stores
@@ -38,7 +39,8 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	/**
 	 * Loads all the registered stores.
 	 *
-	 * @since 2.1.0
+	 * Added in version 2.1.0.
+	 *
 	 */
 	public async load() {
 		const promises: Promise<unknown>[] = [];
@@ -71,8 +73,9 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 * **Note**: this also registers directories for all other stores, even if they don't have a folder, this allows you
 	 * to create new pieces and hot-load them later anytime.
 	 *
-	 * @since 2.1.0
-	 * @param rootDirectory The root directory to register pieces at.
+	 * Added in version 2.1.0.
+	 *
+	 * @param rootDirectory - The root directory to register pieces at.
 	 */
 	public registerPath(rootDirectory: Path = getRootData().root) {
 		const root = resolvePath(rootDirectory);
@@ -86,23 +89,24 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 *
 	 * @remarks
 	 *
-	 * - This method will allow {@linkcode StoreRegistry} to manage the store, meaning:
-	 *   - {@linkcode StoreRegistry.registerPath()} will call the store's
-	 *     {@linkcode Store.registerPath() registerPath()} method on call.
-	 *   - {@linkcode StoreRegistry.load()} will call the store's {@linkcode Store.load() load()} method on call.
-	 *   - {@linkcode StoreRegistry.loadPiece()} will call the store's {@linkcode Store.loadPiece() loadPiece()} method
+	 * - This method will allow {@link StoreRegistry} to manage the store, meaning:
+	 *   - {@link StoreRegistry.registerPath} will call the store's
+	 *     {@link Store.registerPath | registerPath} method on call.
+	 *   - {@link StoreRegistry.load} will call the store's {@link Store.load | load} method on call.
+	 *   - {@link StoreRegistry.loadPiece} will call the store's {@link Store.loadPiece | loadPiece} method
 	 *     on call.
-	 * - This will also add all the manually registered pieces by {@linkcode StoreRegistry.loadPiece()} in the store.
+	 * - This will also add all the manually registered pieces by {@link StoreRegistry.loadPiece} in the store.
 	 *
 	 * It is generally recommended to register a store as early as possible, before any of the aforementioned methods
 	 * are called, otherwise you will have to manually call the aforementioned methods for the store to work properly.
 	 *
-	 * If there were manually registered pieces for this store with {@linkcode StoreRegistry.loadPiece()}, this method
+	 * If there were manually registered pieces for this store with {@link StoreRegistry.loadPiece}, this method
 	 * will add them to the store and delete the queue. Note, however, that this method will not call the store's
-	 * {@linkcode Store.loadPiece() loadPiece()} method, and as such, the pieces will not be loaded until
-	 * {@linkcode Store.loadAll()} is called.
-	 * @since 2.1.0
-	 * @param store The store to register.
+	 * {@link Store.loadPiece | loadPiece} method, and as such, the pieces will not be loaded until
+	 * {@link Store.loadAll} is called.
+	 *
+	 * Added in version 2.1.0.
+	 * @param store - The store to register.
 	 */
 	public register<T extends Piece>(store: Store<T>): this {
 		this.set(store.name as StoreRegistryKey, store as unknown as StoreRegistryValue);
@@ -123,8 +127,9 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	/**
 	 * Deregisters a store.
 	 *
-	 * @since 2.1.0
-	 * @param store The store to deregister.
+	 * Added in version 2.1.0.
+	 *
+	 * @param store - The store to deregister.
 	 */
 	public deregister<T extends Piece>(store: Store<T>): this {
 		this.delete(store.name as StoreRegistryKey);
@@ -132,26 +137,27 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	}
 
 	/**
-	 * If the store was {@link StoreRegistry.register registered}, this method will call the store's
-	 * {@linkcode Store.loadPiece() loadPiece()} method.
+	 * If the store was {@link StoreRegistry.register | registered}, this method will call the store's
+	 * {@link Store.loadPiece | loadPiece} method.
 	 *
 	 * If it was called, the entry will be loaded immediately without queueing.
 	 *
 	 * @remarks
 	 *
-	 * - Pieces loaded this way will have their {@linkcode Piece.Context.root root} and
-	 *   {@linkcode Piece.Context.path path} set to {@linkcode VirtualPath}, and as such, cannot be reloaded.
+	 * - Pieces loaded this way will have their {@link Piece.Context.root | root} and
+	 *   {@link Piece.Context.path | path} set to {@link VirtualPath}, and as such, cannot be reloaded.
 	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
-	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing Serverless Computing}.
+	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing | Serverless Computing}.
 	 * - This method will not throw an error if a store with the given name does not exist, it will simply be queued
 	 *   until it's registered.
 	 * - This method will always throw a {@link TypeError} if `entry.piece` is not a class.
-	 * - If the store is registered, this method will always throw a {@linkcode LoaderError} if the piece does not
-	 *   extend the registered {@linkcode Store.Constructor store's piece constructor}.
+	 * - If the store is registered, this method will always throw a {@link LoaderError} if the piece does not
+	 *   extend the registered {@link Store.Constructor | store's piece constructor}.
 	 * - This operation is atomic, if any of the above errors are thrown, the piece will not be loaded.
-	 * @seealso {@linkcode Store.loadPiece()}
-	 * @since 3.8.0
-	 * @param entry The entry to load.
+	 * @see {@link Store.loadPiece}
+	 *
+	 * Added in version 3.8.0.
+	 * @param entry - The entry to load.
 	 * @example
 	 * ```typescript
 	 * import { container } from '@sapphire/pieces';
@@ -190,49 +196,49 @@ export interface StoreRegistry {
 }
 
 /**
- * A type utility to get the keys of {@linkcode StoreRegistryEntries}.
+ * A type utility to get the keys of {@link StoreRegistryEntries}.
  *
- * @since 3.10.0
+ * Added in version 3.10.0.
  */
 export type StoreRegistryKey = keyof StoreRegistryEntries;
 
 /**
- * A type utility to get the values of {@linkcode StoreRegistryEntries}.
+ * A type utility to get the values of {@link StoreRegistryEntries}.
  *
- * @since 3.10.0
+ * Added in version 3.10.0.
  */
 export type StoreRegistryValue = StoreRegistryEntries[StoreRegistryKey];
 
 /**
  * The {@link StoreRegistry}'s registry, use module augmentation against this interface when adding new stores.
  *
- * @since 2.1.0
+ * Added in version 2.1.0.
  */
 export interface StoreRegistryEntries {}
 
 /**
- * An entry for a manually registered piece using {@linkcode StoreRegistry.loadPiece()}.
+ * An entry for a manually registered piece using {@link StoreRegistry.loadPiece}.
  *
- * @seealso {@linkcode StoreRegistry.loadPiece()}
- * @since 3.8.0
+ * @see {@link StoreRegistry.loadPiece}
+ * Added in version 3.8.0.
  */
 export interface StoreManagerManuallyRegisteredPiece<StoreName extends StoreRegistryKey> extends StoreManuallyRegisteredPiece<StoreName> {
 	store: StoreName;
 }
 
 /**
- * Type utility to get the {@linkcode Store} given its name.
+ * Type utility to get the {@link Store} given its name.
  *
- * @since 3.10.0
+ * Added in version 3.10.0.
  */
 export type StoreOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
 	? Store<Piece<Piece.Options, StoreName>>
 	: StoreRegistryEntries[StoreName];
 
 /**
- * Type utility to get the {@linkcode Piece} given its {@linkcode Store}'s name.
+ * Type utility to get the {@link Piece} given its {@link Store}'s name.
  *
- * @since 3.10.0
+ * Added in version 3.10.0.
  */
 export type PieceOf<StoreName extends StoreRegistryKey> = StoreRegistryKey extends never
 	? Piece<Piece.Options, StoreName>

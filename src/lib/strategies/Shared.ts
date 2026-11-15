@@ -3,8 +3,7 @@ import type { AbstractCtor } from '@sapphire/utilities';
 /**
  * Determines whether or not a value is a class.
  *
- * @param value The piece to be checked.
- * @private
+ * @param value - The piece to be checked.
  */
 export function isClass(value: unknown): value is AbstractCtor {
 	return typeof value === 'function' && typeof value.prototype === 'object';
@@ -13,9 +12,8 @@ export function isClass(value: unknown): value is AbstractCtor {
 /**
  * Checks whether or not the value class extends the base class.
  *
- * @param value The constructor to be checked against.
- * @param base The base constructor.
- * @private
+ * @param value - The constructor to be checked against.
+ * @param base - The base constructor.
  */
 export function classExtends<T extends AbstractCtor>(value: AbstractCtor, base: T): value is T {
 	let ctor: AbstractCtor | null = value;

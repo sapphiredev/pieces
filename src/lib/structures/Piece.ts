@@ -31,7 +31,7 @@ export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRe
 }
 
 /**
- * @deprecated Use {@linkcode LoaderPieceContext} instead.
+ * @deprecated Use {@link LoaderPieceContext} instead.
  */
 export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> extends LoaderPieceContext<StoreName> {}
 
@@ -42,14 +42,14 @@ export interface PieceOptions {
 	/**
 	 * Whether or not the piece should be enabled. If set to false, the piece will be unloaded.
 	 *
-	 * @default true
+	 * @defaultValue true
 	 */
 	readonly enabled?: boolean;
 
 	/**
 	 * The name for the piece.
 	 *
-	 * @default ''
+	 * @defaultValue ''
 	 */
 	readonly name?: string;
 }
@@ -157,7 +157,7 @@ export interface PieceJSON {
 export namespace Piece {
 	export type Options = PieceOptions;
 	/**
-	 * @deprecated Use {@linkcode LoaderContext} instead.
+	 * @deprecated Use {@link LoaderContext} instead.
 	 */
 	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;

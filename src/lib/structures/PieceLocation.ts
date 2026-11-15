@@ -2,7 +2,7 @@ import { basename, relative, sep } from 'node:path';
 import { VirtualPath } from '../internal/constants';
 
 /**
- * The metadata class used for {@link Piece}s.
+ * The metadata class used for `Piece` instances.
  */
 export class PieceLocation {
 	/**
@@ -16,8 +16,8 @@ export class PieceLocation {
 	public readonly root: string;
 
 	/**
-	 * @param full The full path to the file.
-	 * @param root The root directory the file was found from.
+	 * @param full - The full path to the file.
+	 * @param root - The root directory the file was found from.
 	 */
 	public constructor(full: string, root: string) {
 		this.full = full;
