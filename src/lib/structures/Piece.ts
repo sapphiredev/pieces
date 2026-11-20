@@ -31,11 +31,6 @@ export interface LoaderPieceContext<StoreName extends StoreRegistryKey = StoreRe
 }
 
 /**
- * @deprecated Use {@link LoaderPieceContext} instead.
- */
-export interface PieceContext<StoreName extends StoreRegistryKey = StoreRegistryKey> extends LoaderPieceContext<StoreName> {}
-
-/**
  * The options for the {@link Piece}.
  */
 export interface PieceOptions {
@@ -156,10 +151,6 @@ export interface PieceJSON {
 
 export namespace Piece {
 	export type Options = PieceOptions;
-	/**
-	 * @deprecated Use {@link LoaderContext} instead.
-	 */
-	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = LoaderPieceContext<StoreName>;
 	export type JSON = PieceJSON;
 	export type LocationJSON = PieceLocationJSON;

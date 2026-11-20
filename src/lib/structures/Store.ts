@@ -130,8 +130,8 @@ export class Store<T extends Piece, StoreName extends StoreRegistryKey = StoreRe
 	 *
 	 * @remarks
 	 *
-	 * - Pieces loaded this way will have their {@link Piece.Context.root | root} and
-	 *   {@link Piece.Context.path | path} set to {@link VirtualPath}, and as such, cannot be reloaded.
+	 * - Pieces loaded this way will have their {@link Piece.LoaderContext.root | root} and
+	 *   {@link Piece.LoaderContext.path | path} set to {@link VirtualPath}, and as such, cannot be reloaded.
 	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
 	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing | Serverless Computing}.
 	 * - This method will always throw a {@link TypeError} if `entry.piece` is not a class.

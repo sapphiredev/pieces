@@ -48,10 +48,6 @@ export interface AliasPieceJSON extends Piece.JSON {
 
 export namespace AliasPiece {
 	export type Options = AliasPieceOptions;
-	/**
-	 * @deprecated Use {@link LoaderContext} instead.
-	 */
-	export type Context<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
 	export type LoaderContext<StoreName extends StoreRegistryKey = StoreRegistryKey> = Piece.LoaderContext<StoreName>;
 	export type JSON = AliasPieceJSON;
 	export type LocationJSON = Piece.LocationJSON;

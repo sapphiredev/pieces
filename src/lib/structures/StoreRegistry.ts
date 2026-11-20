@@ -144,8 +144,8 @@ export class StoreRegistry extends Collection<StoreRegistryKey, StoreRegistryVal
 	 *
 	 * @remarks
 	 *
-	 * - Pieces loaded this way will have their {@link Piece.Context.root | root} and
-	 *   {@link Piece.Context.path | path} set to {@link VirtualPath}, and as such, cannot be reloaded.
+	 * - Pieces loaded this way will have their {@link Piece.LoaderContext.root | root} and
+	 *   {@link Piece.LoaderContext.path | path} set to {@link VirtualPath}, and as such, cannot be reloaded.
 	 * - This method is useful in environments where file system access is limited or unavailable, such as when using
 	 *   {@link https://en.wikipedia.org/wiki/Serverless_computing | Serverless Computing}.
 	 * - This method will not throw an error if a store with the given name does not exist, it will simply be queued
