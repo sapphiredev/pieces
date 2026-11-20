@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+# [5.0.0](https://github.com/sapphiredev/pieces/compare/v4.4.1...v5.0.0) - (2026-11-20)
+
+## 🐛 Bug Fixes
+
+- **deps:** Update dependency tslib to ^2.9.1 ([91ef5dd](https://github.com/sapphiredev/pieces/commit/91ef5ddeb6d02b2ad2ad63316b53f8a64f20da51)) ([#558](https://github.com/sapphiredev/pieces/pull/558) by @renovate[bot])
+- Clear import cache for pieces when using Bun ([49884f1](https://github.com/sapphiredev/pieces/commit/49884f1530f2a519fa519508296e4448e7c8d4ae)) ([#492](https://github.com/sapphiredev/pieces/pull/492) by @AngelCMHxD)
+
+## 🚀 Features
+
+- **env:** Allow overriding TypeScript extension detection ([27c16cc](https://github.com/sapphiredev/pieces/commit/27c16cc68bd47c4880eb87422c109c63fc300b1e)) ([#567](https://github.com/sapphiredev/pieces/pull/567) by @favna)
+- Publish an ESM-only package ([e0ec96c](https://github.com/sapphiredev/pieces/commit/e0ec96c6d80410014a7c826242ab2f15b6eb0da5)) ([#562](https://github.com/sapphiredev/pieces/pull/562) by @favna)
+  - 💥 **BREAKING CHANGE:** CommonJS entry points and declarations have been removed.
+
 # [4.4.1](https://github.com/sapphiredev/pieces/compare/v4.4.0...v4.4.1) - (2025-06-06)
 
 ## 🐛 Bug Fixes
