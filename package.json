@@ -35,7 +35,7 @@
 		"@favware/npm-deprecate": "^2.0.0",
 		"@sapphire/eslint-config": "^6.0.0",
 		"@sapphire/prettier-config": "^3.0.0",
-		"@sapphire/ts-config": "^5.0.3",
+		"@sapphire/ts-config": "^6.0.0",
 		"@types/node": "^24.19.2",
 		"@typescript-eslint/eslint-plugin": "^8.72.2",
 		"@typescript-eslint/parser": "^8.72.2",
