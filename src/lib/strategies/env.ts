@@ -20,6 +20,10 @@ function checkEnvVariable(name: string, value?: string) {
  * conditions are based on the most common tools and runtimes that support
  * loading TypeScript files directly.
  *
+ * - `PIECES_LOAD_TS_EXTENSIONS=true` to load TypeScript files regardless of
+ *   runtime detection. This is intended for Node.js's native TypeScript
+ *   support. As of November 20, 2026, Node.js's native TypeScript support
+ *   does not support decorators in TypeScript files.
  * - [`ts-node`](https://www.npmjs.com/package/ts-node)
  * - [`ts-node-dev`](https://www.npmjs.com/package/ts-node-dev)
  * - [`\@babel/node`](https://www.npmjs.com/package/%40babel/node)
@@ -33,6 +37,7 @@ function checkEnvVariable(name: string, value?: string) {
  * - [`Bun`](https://bun.sh)
  */
 export const CanLoadTypeScriptFiles: boolean =
+	checkEnvVariable('PIECES_LOAD_TS_EXTENSIONS', 'true') ||
 	//
 	// Deno
 	Reflect.has(globalThis, 'Deno') ||
