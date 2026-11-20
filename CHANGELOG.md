@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [5.0.1](https://github.com/sapphiredev/pieces/compare/v5.0.0...v5.0.1) - (2026-11-20)
+
+## 🏠 Refactor
+
+- **types:** Replace deprecated Context types with LoaderContext ([5cfd1ff](https://github.com/sapphiredev/pieces/commit/5cfd1ffc89596da7c26ca0904ffd9de7d6444725))
+
 # [5.0.0](https://github.com/sapphiredev/pieces/compare/v4.4.1...v5.0.0) - (2026-11-20)
 
 ## 🐛 Bug Fixes
