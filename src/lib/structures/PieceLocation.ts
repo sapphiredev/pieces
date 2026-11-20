@@ -1,8 +1,8 @@
-import { basename, relative, sep } from 'path';
+import { basename, relative, sep } from 'node:path';
 import { VirtualPath } from '../internal/constants';
 
 /**
- * The metadata class used for {@link Piece}s.
+ * The metadata class used for `Piece` instances.
  */
 export class PieceLocation {
 	/**
@@ -16,8 +16,8 @@ export class PieceLocation {
 	public readonly root: string;
 
 	/**
-	 * @param full The full path to the file.
-	 * @param root The root directory the file was found from.
+	 * @param full - The full path to the file.
+	 * @param root - The root directory the file was found from.
 	 */
 	public constructor(full: string, root: string) {
 		this.full = full;
@@ -33,6 +33,7 @@ export class PieceLocation {
 
 	/**
 	 * The relative path between {@link PieceLocation.root} and {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(
@@ -50,6 +51,7 @@ export class PieceLocation {
 
 	/**
 	 * The names of the directories that separate {@link PieceLocation.root} and {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(
@@ -67,6 +69,7 @@ export class PieceLocation {
 
 	/**
 	 * The name and extension of the file that was loaded, extracted from {@link PieceLocation.full}.
+	 *
 	 * @example
 	 * ```typescript
 	 * const location = new PieceLocation(

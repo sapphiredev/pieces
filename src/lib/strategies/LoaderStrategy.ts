@@ -1,10 +1,10 @@
 import { type Awaitable } from '@sapphire/utilities';
-import { opendir } from 'fs/promises';
-import { basename, extname, join } from 'path';
-import { pathToFileURL } from 'url';
+import { opendir } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { basename, extname, join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { MissingExportsError } from '../errors/MissingExportsError';
 import { getRootData } from '../internal/RootScan';
-import { mjsImport } from '../internal/internal';
 import type { Piece } from '../structures/Piece';
 import type { Store, StoreLogger } from '../structures/Store';
 import type {
@@ -19,13 +19,17 @@ import type {
 import { classExtends, isClass } from './Shared';
 import { CanLoadTypeScriptFiles } from './env';
 
+const require = createRequire(import.meta.url);
+
 /**
  * A multi-purpose feature-complete loader strategy supporting multi-piece modules as well as supporting both ECMAScript
  * Modules and CommonJS with reloading support.
  */
 export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 	public clientUsesESModules = getRootData().type === 'ESM';
+
 	public supportedExtensions = ['.js', '.cjs', '.mjs'];
+
 	private readonly filterDtsFiles: boolean = false;
 
 	public constructor() {
@@ -59,12 +63,11 @@ export class LoaderStrategy<T extends Piece> implements ILoaderStrategy<T> {
 			url.searchParams.append('extension', file.extension);
 
 			// Bun workaround: Import a file path with search params instead of an file URL to force re-evaluation due to caching bug.
-			if (Reflect.has(globalThis, 'Bun')) return mjsImport(file.path + url.search);
+			if (Reflect.has(globalThis, 'Bun')) return import(file.path + url.search);
 
-			return mjsImport(url);
+			return import(url.href);
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		const mod = require(file.path);
 		delete require.cache[require.resolve(file.path)];
 		return mod;

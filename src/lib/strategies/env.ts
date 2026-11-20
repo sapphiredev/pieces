@@ -20,17 +20,17 @@ function checkEnvVariable(name: string, value?: string) {
  * conditions are based on the most common tools and runtimes that support
  * loading TypeScript files directly.
  *
- * - {@linkplain https://www.npmjs.com/package/ts-node | `ts-node`}
- * - {@linkplain https://www.npmjs.com/package/ts-node-dev | `ts-node-dev`}
- * - {@linkplain https://www.npmjs.com/package/@babel/node | `@babel/node`}
- * - {@linkplain https://www.npmjs.com/package/vitest | `vitest`}
- * - {@linkplain https://www.npmjs.com/package/jest | `jest`}
- * - {@linkplain https://www.npmjs.com/package/@swc/cli | `swc`}
- * - {@linkplain https://www.npmjs.com/package/tsm | `tsm`}
- * - {@linkplain https://www.npmjs.com/package/esbuild | `esbuild`}
- * - {@linkplain https://www.npmjs.com/package/tsx | `tsx`}
- * - {@linkplain https://deno.com | `Deno`}
- * - {@linkplain https://bun.sh | `Bun`}
+ * - [`ts-node`](https://www.npmjs.com/package/ts-node)
+ * - [`ts-node-dev`](https://www.npmjs.com/package/ts-node-dev)
+ * - [`\@babel/node`](https://www.npmjs.com/package/%40babel/node)
+ * - [`vitest`](https://www.npmjs.com/package/vitest)
+ * - [`jest`](https://www.npmjs.com/package/jest)
+ * - [`swc`](https://www.npmjs.com/package/\@swc/cli)
+ * - [`tsm`](https://www.npmjs.com/package/tsm)
+ * - [`esbuild`](https://www.npmjs.com/package/esbuild)
+ * - [`tsx`](https://www.npmjs.com/package/tsx)
+ * - [`Deno`](https://deno.com)
+ * - [`Bun`](https://bun.sh)
  */
 export const CanLoadTypeScriptFiles: boolean =
 	//

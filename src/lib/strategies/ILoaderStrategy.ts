@@ -7,6 +7,11 @@ import type { Store, StoreLogger } from '../structures/Store';
  */
 export interface ModuleData {
 	/**
+	 * The extension of the module.
+	 */
+	extension: string;
+
+	/**
 	 * The name of the module.
 	 */
 	name: string;
@@ -15,11 +20,6 @@ export interface ModuleData {
 	 * The absolute path to the module.
 	 */
 	path: string;
-
-	/**
-	 * The extension of the module.
-	 */
-	extension: string;
 }
 
 /**
@@ -63,8 +63,9 @@ export type ILoaderResult<T extends Piece> = AsyncIterableIterator<ILoaderResult
 export interface ILoaderStrategy<T extends Piece> {
 	/**
 	 * Retrieves the name and the extension of the specified file path.
-	 * @param path The path of the file to be processed.
-	 * @return A {@link ModuleData} on success, otherwise `null` to stop the store from processing the path.
+	 *
+	 * @param path - The path of the file to be processed.
+	 * @returns A {@link ModuleData} on success, otherwise `null` to stop the store from processing the path.
 	 * @example
 	 * ```typescript
 	 * // ts-node support
@@ -81,7 +82,58 @@ export interface ILoaderStrategy<T extends Piece> {
 	filter(path: string): FilterResult;
 
 	/**
+	 * The load hook, use this to override the loader.
+	 *
+	 * @example
+	 * ```typescript
+	 * class MyStrategy extends LoaderStrategy {
+	 *   load(store, file) {
+	 *     // ...
+	 *   }
+	 * }
+	 * ```
+	 */
+	load(store: Store<T>, file: HydratedModuleData): ILoaderResult<T>;
+
+	/**
+	 * @param error - The error that was thrown.
+	 * @param path - The path of the file that caused the error to be thrown.
+	 */
+	onError(error: Error, path: string): void;
+
+	/**
+	 * Called after a piece has been loaded, but before {@link Piece.onLoad} and {@link Store.set}.
+	 *
+	 * @param store - The store that holds the piece.
+	 * @param piece - The piece that was loaded.
+	 */
+	onLoad(store: Store<T>, piece: T): Awaitable<unknown>;
+
+	/**
+	 * Called after all pieces have been loaded.
+	 *
+	 * @param store - The store that loaded all pieces.
+	 */
+	onLoadAll(store: Store<T>): Awaitable<unknown>;
+
+	/**
+	 * Called after a piece has been unloaded or overwritten by a newly loaded piece.
+	 *
+	 * @param store - The store that held the piece.
+	 * @param piece - The piece that was unloaded.
+	 */
+	onUnload(store: Store<T>, piece: T): Awaitable<unknown>;
+
+	/**
+	 * Called after all pieces have been unloaded.
+	 *
+	 * @param store - The store that unloaded all pieces.
+	 */
+	onUnloadAll(store: Store<T>): Awaitable<unknown>;
+
+	/**
 	 * The pre-load hook, use this to override the loader.
+	 *
 	 * @example
 	 * ```typescript
 	 * // CommonJS support:
@@ -104,55 +156,11 @@ export interface ILoaderStrategy<T extends Piece> {
 	preload(file: ModuleData): PreloadResult<T>;
 
 	/**
-	 * The load hook, use this to override the loader.
-	 * @example
-	 * ```typescript
-	 * class MyStrategy extends LoaderStrategy {
-	 *   load(store, file) {
-	 *     // ...
-	 *   }
-	 * }
-	 * ```
-	 */
-	load(store: Store<T>, file: HydratedModuleData): ILoaderResult<T>;
-
-	/**
-	 * Called after a piece has been loaded, but before {@link Piece.onLoad} and {@link Store.set}.
-	 * @param store The store that holds the piece.
-	 * @param piece The piece that was loaded.
-	 */
-	onLoad(store: Store<T>, piece: T): Awaitable<unknown>;
-
-	/**
-	 * Called after all pieces have been loaded.
-	 * @param store The store that loaded all pieces.
-	 */
-	onLoadAll(store: Store<T>): Awaitable<unknown>;
-
-	/**
-	 * Called after a piece has been unloaded or overwritten by a newly loaded piece.
-	 * @param store The store that held the piece.
-	 * @param piece The piece that was unloaded.
-	 */
-	onUnload(store: Store<T>, piece: T): Awaitable<unknown>;
-
-	/**
-	 * Called after all pieces have been unloaded.
-	 * @param store The store that unloaded all pieces.
-	 */
-	onUnloadAll(store: Store<T>): Awaitable<unknown>;
-
-	/**
-	 * @param error The error that was thrown.
-	 * @param path The path of the file that caused the error to be thrown.
-	 */
-	onError(error: Error, path: string): void;
-
-	/**
 	 * Walks the specified path and returns an async iterator of all the files' paths.
-	 * @param store The store that is walking the path.
-	 * @param path The path to recursively walk.
-	 * @param logger The logger to use when walking the path, if any.
+	 *
+	 * @param store - The store that is walking the path.
+	 * @param path - The path to recursively walk.
+	 * @param logger - The logger to use when walking the path, if any.
 	 */
 	walk?(store: Store<T>, path: string, logger?: StoreLogger | null): AsyncIterableIterator<string>;
 }
