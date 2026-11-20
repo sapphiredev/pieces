@@ -36,7 +36,7 @@
 		"@sapphire/eslint-config": "^6.0.0",
 		"@sapphire/prettier-config": "^3.0.0",
 		"@sapphire/ts-config": "^6.0.0",
-		"@types/node": "^24.19.2",
+		"@types/node": "^26.6.6",
 		"@typescript-eslint/eslint-plugin": "^8.72.2",
 		"@typescript-eslint/parser": "^8.72.2",
 		"@vitest/coverage-v8": "^5.1.0",
