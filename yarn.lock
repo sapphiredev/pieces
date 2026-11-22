@@ -1471,7 +1471,7 @@ __metadata:
     "@sapphire/eslint-config": "npm:^6.0.0"
     "@sapphire/prettier-config": "npm:^3.0.0"
     "@sapphire/ts-config": "npm:^6.0.0"
-    "@sapphire/utilities": "npm:^3.18.3"
+    "@sapphire/utilities": "npm:^4.0.0"
     "@types/node": "npm:^26.6.6"
     "@typescript-eslint/eslint-plugin": "npm:^8.72.2"
     "@typescript-eslint/parser": "npm:^8.72.2"
@@ -1521,10 +1521,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:^3.17.0, @sapphire/utilities@npm:^3.18.3":
+"@sapphire/utilities@npm:^3.17.0":
   version: 3.18.3
   resolution: "@sapphire/utilities@npm:3.18.3"
   checksum: 10/28dc02411965acb5dc8423c0d86326f04f988e837c1ab8f87389c86ca149fa5d847526d33ccc60330685bb1882494c234113c3c0767d703c4dbd6fbb16cef759
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@sapphire/utilities@npm:4.0.0"
+  checksum: 10/07e958dfdd17c5b165eeef942a036f7d512dd991045ecb49d3072bfd11a0a5464caaa47c053b8353e8cc21729f8b1adb799b66d40d3fff1546c30fd5aabcec16
   languageName: node
   linkType: hard
 
